@@ -1,7 +1,7 @@
 # Skoolit: Um sistema para um novo modelo de escola
 Trabalho prático da disciplina de Engenharia de Software @ UFMG
 Integrantes:
-- Arthur Souto
+- Arthur Souto Lima
 - Caio Guedes
 - Gabriel Victor Carvalho
 - Guilherme Bezerra
@@ -20,6 +20,10 @@ A branch master contém apenas versões com funcionalidades finalizadas e implem
 O desenvolvimento de novas funcionalidades são feitos em branches paraleleas (feature), que assim que terminadas, são integradas com o develop. 
 
 Os commits podem ser verificados em cada uma dessas branches.
+
+---
+## Arquitetura
+![Diagrama de pacotes UML](https://drive.google.com/uc?export=view&id=1E-reJF9m6pdjns7_yjXq4wlQuw3BQtFv)
 
 ---
 ## Sprint Planning
@@ -54,3 +58,4 @@ Os commits podem ser verificados em cada uma dessas branches.
 - Aulas
 
 Link para o quadro scrum [aqui](https://www.notion.so/c8d063d8b5d14acc9a9753b623f2b15e?v=227ee1429a3b48ab828c705b3d6c29e4 "Quadro SCRUM")
+
