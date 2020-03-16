@@ -22,10 +22,6 @@ O desenvolvimento de novas funcionalidades são feitos em branches paraleleas (f
 Os commits podem ser verificados em cada uma dessas branches.
 
 ---
-## Arquitetura
-![Diagrama de pacotes UML](https://drive.google.com/uc?export=view&id=1E-reJF9m6pdjns7_yjXq4wlQuw3BQtFv)
-
----
 ## Sprint Planning
 ### Estórias
 ##### 1. Banco de Dados (1 Tulio)
@@ -58,4 +54,7 @@ Os commits podem ser verificados em cada uma dessas branches.
 - Aulas
 
 Link para o quadro scrum [aqui](https://www.notion.so/c8d063d8b5d14acc9a9753b623f2b15e?v=227ee1429a3b48ab828c705b3d6c29e4 "Quadro SCRUM")
+
+## Arquitetura
+![Diagrama de pacotes UML](https://drive.google.com/uc?export=view&id=1E-reJF9m6pdjns7_yjXq4wlQuw3BQtFv)
 
