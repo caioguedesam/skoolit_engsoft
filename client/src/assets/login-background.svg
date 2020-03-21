@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <filter id="Caminho_32" x="-190.316" y="-397.157" width="1718.209" height="1258.736" filterUnits="userSpaceOnUse">
+      <feOffset dx="8" dy="8" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-tela_inicial_1">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="tela_inicial_1" data-name="tela_inicial – 1" clip-path="url(#clip-tela_inicial_1)">
+    <rect width="1920" height="1080" fill="rgba(239,238,238,0)"/>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Caminho_32)">
+      <path id="Caminho_32-2" data-name="Caminho 32" d="M-30,837.578c10.783-3.9,20.8-338.925,225.789-432.631,160.782-73.5,473.692-97.7,601.579-127.053S1042.1,220.21,1215.789,149.158c48.718-23.03,113.562-55.774,113.562-55.774s46.086-28.921,69.9-45.932c12.07-11.365,18.676-14.317,30.583-34.73,1.768-2.989,8.562-15.161,11.19-20.494C1463.614-53.622,1500-160.316,1500-160.316L1507.893-304l-224.21-56.842L391.578-386.1-4.737-397.157-82.105-280.315-165.789-.842-186.316,228.1V524.947s33.158,183.158,20.526,192.631S-30,837.578-30,837.578Z" transform="translate(0 4)" fill="#575a89"/>
+    </g>
+  </g>
+</svg>
