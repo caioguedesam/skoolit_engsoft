@@ -19,6 +19,34 @@
         </v-btn>
       </v-app-bar>
 
+      <v-content class="pa-12" fluid>
+        <v-row class="ml-12 pb-12" style="height:100%" dense align-content="end">
+          <v-col cols=12>
+            <v-text class="row-h-text" style="font-size: 40px">Skoolit.</v-text>
+          </v-col>
+
+          <v-col cols=12>
+            <v-text class="row-h-text" style="font-size: 20px">
+              A reformulacao de ser escola
+            </v-text><br>
+          </v-col>
+
+          <v-col cols=12>
+            <v-text class="row-text">
+              Uma nova forma de aprender, uma nova maneira de educar
+            </v-text>
+          </v-col>
+
+          <v-col cols=12>
+            <v-btn color="#575A89" dark>Matricule-se</v-btn>
+            <v-text class="ml-4 row-text">ou</v-text>
+            <v-btn color="transparent" depressed>
+                <v-text class="row-btn-text">entrar</v-text>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-content>
+
     </v-app>
   </div>
 </template>
@@ -41,9 +69,6 @@ export default {
   .background {
     background-image: url('./assets/login-background.svg');
     background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
   }
 
   .tb-text {
@@ -57,6 +82,22 @@ export default {
     font-weight: bold;
     font-size: 12px;
     color:gray
+  }
+
+  .row-h-text {
+    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+    font-weight: bold;
+    color: gray;
+  }
+
+  .row-text {
+    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+    color:gray;
+  }
+
+  .row-btn-text {
+    font-size: 12px;
+    color: #575A89;
   }
 
   /*esvazia o background de v-app pra poder mostrar a imagem de fundo*/
