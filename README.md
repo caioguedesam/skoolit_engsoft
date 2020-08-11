@@ -23,7 +23,7 @@ Os commits podem ser verificados em cada uma dessas branches.
 
 ---
 ## Sprint Planning
-### Estórias
+### Histórias
 ##### 1. Banco de Dados (1 Tulio)
 
 - Modelagem UML
