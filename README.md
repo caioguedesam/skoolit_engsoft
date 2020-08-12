@@ -6,6 +6,7 @@ Integrantes:
 - Gabriel Victor Carvalho
 - Guilherme Bezerra
 - Lucas Brant
+- Luiz Felipe Mascarenhas Dalle Nery
 ---
 ## Especificações
 ### Descrição:
