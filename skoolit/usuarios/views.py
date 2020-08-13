@@ -13,7 +13,7 @@ def criar():
 	form = forms.CriarUsuarioForm()
 
 	if form.validate_on_submit():
-		novo_usuario = models.Usuario(form.email.data)
+		novo_usuario = models.Usuario(form.email.data, form.papel.data)
 		db.session.add(novo_usuario)
 		db.session.commit()
 
@@ -38,11 +38,13 @@ def atualizar(id):
 
 	if form.validate_on_submit():
 		usuario.email = form.email.data
+		usuario.papel = form.papel.data
 		db.session.commit()
 
 		return redirect(url_for('usuarios.listar'))
 	elif request.method == 'GET':
 		form.email.data = usuario.email
+		form.papel.data = usuario.papel
 
 	return render_template('atualizar.html', form=form)
 
