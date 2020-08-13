@@ -17,3 +17,5 @@ Migrate(app, db)
 
 
 from skoolit import views
+from skoolit.usuarios.views import usuarios
+app.register_blueprint(usuarios,url_prefix='/usuarios')
