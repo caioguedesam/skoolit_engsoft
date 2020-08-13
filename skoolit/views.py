@@ -25,3 +25,13 @@ def listar():
 	usuarios = models.Usuario.query.all()
 
 	return render_template('listar.html', usuarios=usuarios)
+
+@app.route('/excluir/<id>', methods=['GET'])
+def excluir(id):
+
+	usuario = models.Usuario.query.filter_by(id=id).first_or_404()
+
+	db.session.delete(usuario)
+	db.session.commit()
+
+	return redirect(url_for('listar'))
