@@ -6,3 +6,8 @@ class CriarUsuarioForm(FlaskForm):
 
     email = StringField("E-mail do usuário: ", validators=[DataRequired()])
     submit = SubmitField("Criar")
+
+class AtualizarUsuarioForm(FlaskForm):
+
+    email = StringField("E-mail do usuário: ", validators=[DataRequired()])
+    submit = SubmitField("Atualizar")
