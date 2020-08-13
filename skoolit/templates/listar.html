@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Listar usuários{% endblock %}
+
+{% block content %}
+
+<h1>Listar usuários</h1>
+
+<ul>
+	{% for usuario in usuarios %}
+		<li>{{usuario.email}} | <a href="#">Editar</a> | <a href="#">Excluir</a> |</li>
+	{% endfor %}
+</ul>
+
+{% if usuarios|length == 0  %}
+<p>Não existem tarefas criadas.</p>
+{% endif %}
+
+{% endblock %}
