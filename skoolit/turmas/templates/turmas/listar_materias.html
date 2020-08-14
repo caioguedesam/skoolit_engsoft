@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Listar matérias{% endblock %}
+
+{% block content %}
+
+<h1>Listar matérias</h1>
+
+<a href="{{url_for('turmas.criar_materia')}}">Criar nova matéria</a>
+
+<ul>
+	{% for materia in materias %}
+		<li>{{materia.nome}} | <a href="{{url_for('turmas.atualizar_materia', id=materia.id)}}">Editar</a> | <a href="{{url_for('turmas.excluir_materia', id=materia.id)}}">Excluir</a> |</li>
+	{% endfor %}
+</ul>
+
+{% if materias|length == 0  %}
+<p>Não existem matérias criadas.</p>
+{% endif %}
+
+{% endblock %}

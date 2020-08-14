@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Página inicial{% endblock %}
+
+{% block content %}
+
+<h1>Skoolit</h1>
+
+<ul>
+	<li><a href="{{url_for('usuarios.listar')}}">Listagem de usuários</a></li>
+	<li><a href="{{url_for('turmas.listar_materias')}}">Listagem de matérias</a></li>
+</ul>
+
+{% endblock %}
