@@ -16,12 +16,15 @@ db = SQLAlchemy(app)
 Migrate(app, db)
 
 
-from skoolit.login import auth
-app.register_blueprint(auth.bp)
-
 from skoolit import views
 from skoolit.usuarios.views import usuarios
 from skoolit.turmas.views import turmas
 
 app.register_blueprint(usuarios, url_prefix='/usuarios')
 app.register_blueprint(turmas, url_prefix='/turmas')
+
+from skoolit.login import auth
+app.register_blueprint(auth.bp)
+
+from skoolit.login.views import loginbp
+app.register_blueprint(loginbp)

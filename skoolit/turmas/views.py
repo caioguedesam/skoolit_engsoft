@@ -1,15 +1,14 @@
 from flask import render_template, redirect, url_for, request, Blueprint, g
 from skoolit import app, db
 from skoolit.turmas import models, forms
+from skoolit.login.views import exigirUsuarioLogado
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
 
 @turmas.before_request
-def restrict_bp_to_logged():
-	if g.user is None:
-		return redirect(404)
-	return redirect(url_for('turmas.listar_materias'))
+def exigirLogin():
+	exigirUsuarioLogado()
 
 # @turmas.route('/')
 # def home():
