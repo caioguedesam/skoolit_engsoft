@@ -16,6 +16,9 @@ db = SQLAlchemy(app)
 Migrate(app, db)
 
 
+from skoolit.login import auth
+app.register_blueprint(auth.bp)
+
 from skoolit import views
 from skoolit.usuarios.views import usuarios
 from skoolit.turmas.views import turmas
