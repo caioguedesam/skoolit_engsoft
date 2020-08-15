@@ -1,6 +1,9 @@
-from flask import render_template, redirect, url_for, request, Blueprint, g
+from flask import (
+	render_template, redirect, url_for, request, Blueprint, g,
+	session, flash)
 from skoolit.login.forms import LoginForm
 from skoolit.usuarios import models
+from skoolit.usuarios.models import Usuario
 from skoolit import app, db
 
 loginbp = Blueprint('login',__name__, template_folder='templates')
@@ -14,25 +17,22 @@ loginbp = Blueprint('login',__name__, template_folder='templates')
 @loginbp.route('/login/<alert>', methods=['GET', 'POST'])
 def login(alert=""):
 	form = LoginForm(request.form)
-	# indent
+
 	if (form.validate_on_submit()):
-		print('Indent')
 		usuario = models.Usuario.query.filter_by(nome=form.nome.data).first_or_404()
-		if user is None or not checkPassword(form.nome.data, form.password.data):
+		if usuario is None or not usuario.validarSenha(form.senha.data):
 			flash('Nome ou senha inválido(s)')
-			return redirect(url_for('login'))
+			return redirect(url_for('login.login'))
 		else:
 			session.clear()
-			session['user_id'] = user.id
+			session['id_usuario'] = usuario.id
 			flash('Login requisitado pelo usuário {}'.format(form.nome.data))
-			return redirect(url_for('search'))
-	print(alert)
+			return redirect(url_for('home'))
 
-	if alert=="success": 
-		msg = "User created successfully! Please log in now."
-	else:
-		msg = ""
-	
+	# if alert=="success": 
+	# 	msg = "User created successfully! Please log in now."
+	# else:
+	# 	msg = ""
 	return render_template('login.html', title='Login', form=form, alert=msg)
 
 

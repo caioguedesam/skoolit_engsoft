@@ -17,5 +17,5 @@ class Usuario(db.Model):
 		self.nome = nome
 		self.hashSenha = generate_password_hash(senha)
 	
-	def checkPassword(self, password):
-		return check_password_hash(self.hashSenha, password)
+	def validarSenha(self, senha):
+		return check_password_hash(self.hashSenha, senha)

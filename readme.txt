@@ -4,8 +4,14 @@ Iniciar aplicação:
 2. Instale os requisitos: pip3 install -r requirements.txt
 3. Ative o modo 'debug/development' do Flask: export FLASK_ENV=development
     Obs.: no windows use 'set' ao invés de 'export'
-4. Suba de diretório e execute o programa: 'flask run'
+4. Execute o programa: 'flask run'
 
 Encerrar aplicação:
 1. Feche o servidor Flask com CTRL+C
 2. Encerre o virtual environment: deactivate
+
+Importar dados via csv:
+Vide exemplo em imports.py
+
+Modificar o BD:
+via terminal sqlite: sqlite3 skoolit/data.sqlite

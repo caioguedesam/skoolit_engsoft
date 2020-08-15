@@ -4,6 +4,8 @@ from skoolit.usuarios import models, forms
 import os
 import csv
 
+
+
 def importBooks():
     reader = csv.reader(open('randomusers.csv'))
     for nome,senha,email,papel in reader:
@@ -11,7 +13,5 @@ def importBooks():
         db.session.add(novo_usuario)
         db.session.commit()
         print(f"Usuario:{nome} ({papel}), com email {email}")
-
-
 
 importBooks()
