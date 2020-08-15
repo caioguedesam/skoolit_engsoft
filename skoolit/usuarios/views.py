@@ -18,7 +18,10 @@ def criar():
 	form = forms.CriarUsuarioForm()
 
 	if form.validate_on_submit():
-		novo_usuario = models.Usuario(form.email.data, form.papel.data)
+		novo_usuario = models.Usuario(email=form.email.data,
+									  papel=form.papel.data,
+									  senha=form.senha.data,
+									  nome=form.nome.data)
 		db.session.add(novo_usuario)
 		db.session.commit()
 
