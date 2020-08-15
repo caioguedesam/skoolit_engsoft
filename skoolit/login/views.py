@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for, request, Blueprint, g
 from skoolit.login.forms import LoginForm
+from skoolit.usuarios import models
 from skoolit import app, db
 
 loginbp = Blueprint('login',__name__, template_folder='templates')
@@ -16,14 +17,14 @@ def login(alert=""):
 	# indent
 	if (form.validate_on_submit()):
 		print('Indent')
-		usuario = models.Usuario.query.filter_by(login=form.username.data).first_or_404()
-		if user is None or not checkPassword(form.username.data, form.password.data):
-			flash('Invalid username or password')
+		usuario = models.Usuario.query.filter_by(nome=form.nome.data).first_or_404()
+		if user is None or not checkPassword(form.nome.data, form.password.data):
+			flash('Nome ou senha inválido(s)')
 			return redirect(url_for('login'))
 		else:
 			session.clear()
 			session['user_id'] = user.id
-			flash('Login requested for user {}'.format(form.username.data))
+			flash('Login requisitado pelo usuário {}'.format(form.nome.data))
 			return redirect(url_for('search'))
 	print(alert)
 

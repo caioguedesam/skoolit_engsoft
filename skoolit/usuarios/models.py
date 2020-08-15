@@ -8,14 +8,14 @@ class Usuario(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	email = db.Column(db.String, nullable=False)
 	papel = db.Column(db.String)
-	nomeUsuario = db.Column(db.String, nullable=False)
+	nome = db.Column(db.String, nullable=False)
 	hashSenha = db.Column(db.String, nullable=False)
 
 
-	def __init__(self, email, papel, nomeUsuario, senha):
+	def __init__(self, email, papel, nome, senha):
 		self.email = email
 		self.papel = papel
-		self.nomeUsuario = nomeUsuario
+		self.nome = nome
 		self.hashSenha = generate_password_hash(senha)
 	
 	def checkPassword(self, password):
