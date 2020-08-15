@@ -9,10 +9,10 @@ loginbp = Blueprint('login',__name__, template_folder='templates')
 # 	g.user = 'admin'
 
 @loginbp.route('/login', methods=['POST', 'GET'])
-def form():
+def login():
 	return render_template('login.html')
 
 
 def exigirUsuarioLogado():
 	if g.user is None:
-		return redirect(url_for('login.form'))
+		return redirect(url_for('login.login'))

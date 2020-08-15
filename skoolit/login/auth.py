@@ -17,12 +17,13 @@ def load_logged_in_user():
                         {"id": user_id}).fetchone()
         db.close() 
 
-
+# Usar quando precisar de que uma view precise de login
+# Atualmente não é necessário, já que cada módulo exige login por padrão
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for('login'))
+            return redirect(url_for('login.login'))
 
         return view(**kwargs)
     return wrapped_view
