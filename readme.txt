@@ -11,7 +11,8 @@ Encerrar aplicação:
 2. Encerre o virtual environment: deactivate
 
 Importar dados via csv:
-Vide exemplo em imports.py
+1. (Setup) Vide exemplo em imports.py
+2. Execute o script imports.py
 
 Modificar o BD:
 via terminal sqlite: sqlite3 skoolit/data.sqlite
