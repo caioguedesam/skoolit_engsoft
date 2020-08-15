@@ -10,6 +10,11 @@
 
 <ul>
 	<li><a href="{{url_for('home')}}">Página inicial</a></li>
+	{% if g.user == None %}
+		<li><a href="{{url_for('login.login')}}">Fazer login</a></li>
+	{% elif g.user != None %}
+		<li><a href="{{url_for('login.logout')}}">Sair</a></li>
+	{% endif %}
 </ul>
 
 {% block content %}

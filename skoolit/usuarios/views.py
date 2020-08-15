@@ -27,7 +27,7 @@ def criar():
 
 		return redirect(url_for('usuarios.listar'))
 
-	return render_template('criar.html', form=form)
+	return render_template('criar.html', form=form, acao='criar')
 
 
 @usuarios.route('/listar', methods=['POST', 'GET'])

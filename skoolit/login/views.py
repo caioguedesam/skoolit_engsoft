@@ -29,12 +29,16 @@ def login(alert=""):
 			flash('Login requisitado pelo usuário {}'.format(form.nome.data))
 			return redirect(url_for('home'))
 
-	# if alert=="success": 
-	# 	msg = "User created successfully! Please log in now."
-	# else:
-	# 	msg = ""
+	if alert=="success": 
+		msg = "User created successfully! Please log in now."
+	else:
+		msg = ""
 	return render_template('login.html', title='Login', form=form, alert=msg)
 
+@loginbp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login.login'))
 
 def exigirUsuarioLogado():
 	if g.user is None:
