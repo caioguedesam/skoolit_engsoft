@@ -5,21 +5,34 @@ from wtforms import StringField, SubmitField, SelectField, PasswordField
 from skoolit.validadores import CampoObrigatorio, ValidarEmail, IgualA
 
 class CriarUsuarioForm(FlaskForm):
+    email = EmailField("E-mail do usuário: ",
+                        validators=[CampoObrigatorio(),ValidarEmail()])
 
-    email = EmailField("E-mail do usuário: ", validators=[CampoObrigatorio(),ValidarEmail()])
     papel = SelectField("Papel do usuário: ",
                         choices=[('adm', 'Administrador'), 
                                  ('al', 'Aluno'),
                                  ('prof', 'Professor')],
                         validators=[CampoObrigatorio()])
+
     nome = StringField("Nome de usuário: ", validators=[CampoObrigatorio()])
     senha = PasswordField('Senha', validators=[CampoObrigatorio()])
-    senha2 = PasswordField('Confirme a senha', validators=[CampoObrigatorio(), 
-                                                 IgualA('senha')])
+
+    senha2 = PasswordField('Confirme a senha', 
+                            validators=[CampoObrigatorio(), IgualA('senha')])
                                 
     submit = SubmitField("Criar")
 
 class AtualizarUsuarioForm(FlaskForm):
-    email = StringField("E-mail do usuário: ", validators=[CampoObrigatorio()])
-    papel = SelectField("Papel do usuário: ", choices=[('adm', 'Administrador'), ('al', 'Aluno'), ('prof', 'Professor')], validators=[CampoObrigatorio()])
+    email = EmailField("E-mail do usuário: ",
+                        validators=[CampoObrigatorio(),ValidarEmail()])
+
+    papel = SelectField("Papel do usuário: ",
+                        choices=[('adm', 'Administrador'), 
+                                 ('al', 'Aluno'),
+                                 ('prof', 'Professor')],
+                        validators=[CampoObrigatorio()])
+
+    nome = StringField("Nome de usuário: ", validators=[CampoObrigatorio()])
+    senha = PasswordField('Senha', validators=[])
+    
     submit = SubmitField("Atualizar")

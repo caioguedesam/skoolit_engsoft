@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Criar usuário{% endblock %}
+{% block title %}
+	{% if acao == 'criar' %}
+		Criar usuário
+	{% elif acao == 'atualizar' %}
+		Atualizar usuário
+	{% endif %}
+
+{% endblock %}
 
 {% block content %}
+	{% if acao == 'criar' %}
+		<h1>Criar usuário</h1>
+	{% elif acao == 'atualizar' %}
+		<h1>Atualizar usuário</h1>
+	{% endif %}
 
-<h1>Criar usuário</h1>
 <form method="POST" novalidate>
 	{{form.hidden_tag()}}
 	{{form.nome.label}} {{form.nome}} 

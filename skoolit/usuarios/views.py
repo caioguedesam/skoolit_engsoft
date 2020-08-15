@@ -40,19 +40,22 @@ def listar():
 
 @usuarios.route('/atualizar/<id>', methods=['POST', 'GET'])
 def atualizar(id):
-	form = forms.AtualizarUsuarioForm()
-
 	usuario = models.Usuario.query.filter_by(id=id).first_or_404()
+
+	form = forms.AtualizarUsuarioForm()
 
 	if form.validate_on_submit():
 		usuario.email = form.email.data
 		usuario.papel = form.papel.data
+		usuario.senha = form.senha.data
+		usuario.nome = form.nome.data
 		db.session.commit()
 
 		return redirect(url_for('usuarios.listar'))
 	elif request.method == 'GET':
 		form.email.data = usuario.email
 		form.papel.data = usuario.papel
+		form.nome.data = usuario.nome
 
 	return render_template('atualizar.html', form=form)
 
