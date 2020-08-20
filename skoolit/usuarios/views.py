@@ -19,7 +19,7 @@ def criar():
 
 		return redirect(url_for('usuarios.listar'))
 
-	return render_template('criar.html', form=form)
+	return render_template('criar_usuario.html', form=form)
 
 
 @usuarios.route('/listar', methods=['POST', 'GET'])
@@ -27,7 +27,7 @@ def listar():
 
 	usuarios = models.Usuario.query.all()
 
-	return render_template('listar.html', usuarios=usuarios)
+	return render_template('listar_usuarios.html', usuarios=usuarios)
 
 
 @usuarios.route('/atualizar/<id>', methods=['POST', 'GET'])
@@ -46,7 +46,7 @@ def atualizar(id):
 		form.email.data = usuario.email
 		form.papel.data = usuario.papel
 
-	return render_template('atualizar.html', form=form)
+	return render_template('atualizar_usuario.html', form=form)
 
 
 @usuarios.route('/excluir/<id>', methods=['GET'])

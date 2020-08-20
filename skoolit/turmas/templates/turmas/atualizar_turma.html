@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Atualizar turma{% endblock %}
+
+{% block content %}
+
+<h1>Atualizar turma</h1>
+<form method="POST">
+	{{form.hidden_tag()}}
+	{{form.titulo.label}} {{form.titulo}} 
+	{{form.materia.label}} {{form.materia}} 
+	{{form.professor.label}} {{form.professor}} 
+	{{form.submit}}
+</form>
+
+{% endblock %}
