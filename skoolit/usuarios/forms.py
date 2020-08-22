@@ -34,14 +34,21 @@ class CriarUsuarioForm(FlaskForm):
 class AtualizarUsuarioForm(FlaskForm):
     email = EmailField("E-mail do usuário: ",
                         validators=[CampoObrigatorio(),ValidarEmail()])
-
     papel = SelectField("Papel do usuário: ",
                         choices=[('adm', 'Administrador'), 
                                  ('al', 'Aluno'),
                                  ('prof', 'Professor')],
                         validators=[CampoObrigatorio()])
-
     nome = StringField("Nome de usuário: ", validators=[CampoObrigatorio()])
     senha = PasswordField('Senha', validators=[])
-    
     submit = SubmitField("Atualizar")
+
+    def validate_nome(self, nome):
+        usuario = Usuario.query.filter_by(nome=nome.data).first()
+        if usuario is not None:
+            raise ValidationError('Nome de usuário já cadastrado')
+
+    def validate_email(self, email):
+        usuario = Usuario.query.filter_by(email=email.data).first()
+        if usuario is not None:
+            raise ValidationError('Email já cadastrado')
