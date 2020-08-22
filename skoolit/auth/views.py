@@ -6,7 +6,7 @@ from skoolit import loginManager
 from skoolit.auth.forms import LoginForm
 from skoolit.usuarios.models import Usuario
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, template_folder='templates/auth')
 
 @loginManager.user_loader
 def load_user(id):
