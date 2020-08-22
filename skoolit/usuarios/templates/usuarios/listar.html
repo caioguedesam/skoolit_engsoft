@@ -10,7 +10,12 @@
 
 <ul>
 	{% for usuario in usuarios %}
-		<li>{{usuario.nome}}, email: {{usuario.email}} ({{usuario.papel}}) | <a href="{{url_for('usuarios.atualizar', id=usuario.id)}}">Editar</a> | <a href="{{url_for('usuarios.excluir', id=usuario.id)}}">Excluir</a> |</li>
+		<li>{{usuario.nome}}, email: {{usuario.email}} ({{usuario.papel}}) | 
+			<a href="{{url_for('usuarios.atualizar', id=usuario.id)}}">Editar</a> |
+			{% if g.user.id != usuario.id %}
+			<a href="{{url_for('usuarios.excluir', id=usuario.id)}}">Excluir</a> |</li>
+			{% endif %} 
+			
 	{% endfor %}
 </ul>
 
