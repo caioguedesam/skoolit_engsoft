@@ -33,17 +33,23 @@
                 <!-- <span class='formLabel float-left'>{{ form.nome.label }}</span><br> -->
                 <span class='formLabel float-left'>Usuário ou e-mail</span><br>
                 {{ form.nome(class="form-control",size=40) }}
+                <div class="container col-md-8">
                 {% for error in form.nome.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+                    <div class="alert alert-danger" role="alert" style="color: red;">{{ error }}</div>
                 {% endfor %}
+                </div>
             </p>
             <p>
                 <!-- <span class='formLabel float-left'>{{ form.senha.label }}</span><br> -->
                 <span class='formLabel float-left'>Senha</span><br>
                 {{ form.senha(class="form-control",size=20) }}
+                
+                <div class="container col-md-8">
                 {% for error in form.senha.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+                    <div class="alert alert-danger" role="alert" style="color: red;">{{ error }}</div>
                 {% endfor %}
+                </div>
+                
             </p>
             <div class="d-flex flex-nowrap">
                 <div class="ml-3 flex-grow-1 bd-highlight">
@@ -58,6 +64,13 @@
                     </div>
                 </div>
             </div>
+            <div class="container col-md-8">
+                {% for message in get_flashed_messages() %}
+                    {% if message %}
+                    <div class="alert alert-danger" role="alert" style="color: red;">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
             
             
             <br>
@@ -71,12 +84,7 @@
                 </div>
             </div>
             
-            {% with message = get_flashed_messages() %}
-                {% if message %}
-                    <p style="color: red; padding-bottom: 5px;">{{ message }}</p>
-                {% endif %}
-            {% endwith %}
-            
+
         </form>
     </div>
 

@@ -30,7 +30,7 @@ def login():
 		usuario = Usuario.query.filter_by(nome=form.nome.data).first()
 		if usuario is None or not usuario.validarSenha(form.senha.data):
 			flash('Nome ou senha inválido(s)')
-			return redirect(url_for('login'))
+			return redirect(url_for('auth.login'))
 		else:
 			login_user(usuario, remember=form.rememberme.data)
 			# Suporte ao redirecionamento 
@@ -38,7 +38,7 @@ def login():
 			if not next_page or url_parse(next_page).netloc != '':
 				next_page = url_for('home')
 			return redirect(next_page)
-			flash('Login requisitado pelo usuário {}'.format(form.nome.data))
+			print('Login requisitado pelo usuário {}'.format(form.nome.data))
 			return redirect(url_for('home'))
 
 	return render_template('login.html', title='Login', form=form, alert=None)
