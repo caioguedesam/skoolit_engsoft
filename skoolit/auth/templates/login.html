@@ -23,32 +23,54 @@
 
 <div id="login_box" class="border border-dark rounded">
     <div class="d-flex text-center flex-wrap align-items-center justify-content-center">
-        <h2>Login</h1>
+        <h2>Login</h2>
     </div>
     
-    <div class="d-flex text-center flex-wrap align-items-center justify-content-center">
-        
+    <div class="d-flex flex-nowrap text-center align-items-center justify-content-center">
         <form id='login_form' action="" method="post" novalidate>
             {{ form.hidden_tag() }}
             <p>
-                {{ form.nome.label }}<br>
-                {{ form.nome(class="form-control",size=32) }}<br>
+                <!-- <span class='formLabel float-left'>{{ form.nome.label }}</span><br> -->
+                <span class='formLabel float-left'>Usuário ou e-mail</span><br>
+                {{ form.nome(class="form-control",size=40) }}
                 {% for error in form.nome.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
             <p>
-                {{ form.senha.label }}<br>
-                {{ form.senha(class="form-control",size=32) }}<br>
+                <!-- <span class='formLabel float-left'>{{ form.senha.label }}</span><br> -->
+                <span class='formLabel float-left'>Senha</span><br>
+                {{ form.senha(class="form-control",size=20) }}
                 {% for error in form.senha.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <p>
-                {{ form.rememberme.label }}   {{ form.rememberme }}
-            </p>
-            <p>{{ form.submit(class="btn btn-primary") }}</p>
-
+            <div class="d-flex flex-nowrap">
+                <div class="ml-3 flex-grow-1 bd-highlight">
+                    <p id="lembrese" class="float-left">
+                        {{ form.rememberme (id="lembrebox",class="form-check-input") }}
+                        <label class="form-check-label" for="lembrebox">Lembrar login</label>  
+                    </p>
+                </div>
+                <div class="mr-2 bd-highlight">
+                    <div id="esqueceu" class="">
+                        <a href="" class="float-right">Esqueceu a senha?</a>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <br>
+            <div id="lowerLoginBox" class="container">
+                <div class="row">
+                    {{ form.submit(class="btn btn-primary btn-lg") }}
+                </div>
+                <br>
+                <div class="row">
+                    <span class="float-left">Ainda não está matriculado? <a href="">Matricule-se</a></span>
+                </div>
+            </div>
+            
             {% with message = get_flashed_messages() %}
                 {% if message %}
                     <p style="color: red; padding-bottom: 5px;">{{ message }}</p>
@@ -58,7 +80,11 @@
         </form>
     </div>
 
-    {# <p class="text-center">Not an user yet? <a href="{{url_for('register')}}">Register</a></p> #}
+    <div class="d-flex text-center flex-wrap">
+        
+    </div>
+
+    
 </div>
 
 
