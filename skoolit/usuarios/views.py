@@ -2,7 +2,7 @@ from flask import (render_template, redirect, url_for, request, Blueprint,
 flash, sessions, session)
 from skoolit import app, db
 from skoolit.usuarios import models, forms
-from skoolit.auth.views import exigirUsuarioLogado
+from flask_login import login_required
 
 usuarios = Blueprint('usuarios',__name__, template_folder='templates/usuarios')
 
@@ -11,8 +11,9 @@ usuarios = Blueprint('usuarios',__name__, template_folder='templates/usuarios')
 # 	return render_template('home.html')
 
 @usuarios.before_request
+@login_required
 def exigirLogin():
-	return exigirUsuarioLogado()
+	pass
 
 @usuarios.route('/criar', methods=['POST', 'GET'])
 def criar():

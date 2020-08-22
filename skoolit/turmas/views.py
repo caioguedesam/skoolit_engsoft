@@ -1,14 +1,15 @@
 from flask import render_template, redirect, url_for, request, Blueprint, g
+from flask_login import login_required
 from skoolit import app, db
 from skoolit.turmas import models, forms
 from skoolit.auth.views import exigirUsuarioLogado
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
-
 @turmas.before_request
+@login_required
 def exigirLogin():
-	exigirUsuarioLogado()
+	pass
 
 # @turmas.route('/')
 # def home():

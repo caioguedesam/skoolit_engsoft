@@ -1,7 +1,7 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, 
     session, url_for)
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from skoolit import loginManager
 from skoolit.auth.forms import LoginForm
 from skoolit.usuarios.models import Usuario
@@ -13,6 +13,7 @@ def load_user(id):
 	# Usuario.query.filter_by(id=user_id)()
     return Usuario.query.get(int(id))
 
+@login_required
 def exigirUsuarioLogado():
     pass
 
