@@ -1,6 +1,10 @@
 {% extends "base.html" %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('auth.static', filename='login.css') }}">
+{% endblock %}
 
 {% block title %}Login{% endblock %}
+
 
 {% block content %}
 {% if alert %}
