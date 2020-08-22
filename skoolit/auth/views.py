@@ -2,6 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, 
     session, url_for)
 from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.urls import url_parse
 from skoolit import loginManager
 from skoolit.auth.forms import LoginForm
 from skoolit.usuarios.models import Usuario

@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 Migrate(app, db)
 loginManager = LoginManager(app)
 loginManager.login_view = 'auth.login'
-login_manager.login_message = "Login necessário para acessar esse conteúdo"
+loginManager.login_message = "Login necessário para acessar esse conteúdo"
 
 # Registro de Blueprints/Views
 from skoolit import views

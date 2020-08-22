@@ -7,3 +7,4 @@ flask_login
 wtforms
 email_validator
 requests
+Werkzeug
