@@ -10,19 +10,10 @@
 </head>
 
 <body>
+{% block navbar %}{% endblock %}
 
-<ul>
-	<li><a href="{{url_for('home')}}">Página inicial</a></li>
-	{% if current_user.is_anonymous %}
-		<li><a href="{{url_for('auth.login')}}">Fazer login</a></li>
-	{% else %}
-		<li><a href="{{url_for('auth.logout')}}">Sair</a></li>
-	{% endif %}
-</ul>
+{% block content %}{% endblock %}
 
-{% block content %}
-
-{% endblock %}
-
+{% block footer %}{% endblock %}
 </body>
 </html>

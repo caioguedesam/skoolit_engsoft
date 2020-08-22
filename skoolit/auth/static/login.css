@@ -1,3 +1,6 @@
+body {
+  background-color: #EFEEEE; }
+
 #page_title {
   background-color: blanchedalmond;
   padding: 10px;
@@ -11,7 +14,9 @@
   font-size: medium; }
 
 h2 {
-  font-weight: 300; }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-weight: 700; }
 
 #login_form {
   margin-top: 10px;
@@ -21,11 +26,11 @@ h2 {
   max-width: 400px;
   margin: auto;
   margin-top: 30px;
-  border-width: 3px !important;
-  border-radius: 30px !important;
-  border-color: burlywood !important;
+  border-width: 0px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
-  background-color: #fff7eb;
+  background-color: #EFEEEE;
   padding: 5px; }
 
 .btn {
