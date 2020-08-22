@@ -11,9 +11,9 @@
 <ul>
 	<li><a href="{{url_for('home')}}">Página inicial</a></li>
 	{% if current_user.is_anonymous %}
-		<li><a href="{{url_for('login')}}">Fazer login</a></li>
+		<li><a href="{{url_for('auth.login')}}">Fazer login</a></li>
 	{% else %}
-		<li><a href="{{url_for('logout')}}">Sair</a></li>
+		<li><a href="{{url_for('auth.logout')}}">Sair</a></li>
 	{% endif %}
 </ul>
 

@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, Blueprint, g
 from skoolit import app, db
 from skoolit.turmas import models, forms
-from skoolit.login.views import exigirUsuarioLogado
+from skoolit.auth.views import exigirUsuarioLogado
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 

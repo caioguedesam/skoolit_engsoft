@@ -16,17 +16,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 Migrate(app, db)
 loginManager = LoginManager(app)
-
+loginManager.login_view = 'auth.login'
 
 # Registro de Blueprints/Views
 from skoolit import views
 from skoolit.usuarios.views import usuarios
 from skoolit.turmas.views import turmas
-from skoolit.login import auth
-from skoolit.login.views import loginbp
+from skoolit.auth.views import auth
 
-login.login_view = 'login'
-app.register_blueprint(auth.bp)
-# app.register_blueprint(loginbp)
+app.register_blueprint(auth)
 app.register_blueprint(usuarios, url_prefix='/usuarios')
 app.register_blueprint(turmas, url_prefix='/turmas')
+
