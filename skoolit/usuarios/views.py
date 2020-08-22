@@ -2,6 +2,9 @@ from flask import render_template, redirect, url_for, request, Blueprint
 from skoolit import app, db
 from skoolit.usuarios import models, forms
 from skoolit.login.views import exigirUsuarioLogado
+from skoolit.login.forms import LoginForm
+from skoolit import loginManager
+from flask_login import current_user, login_user, logout_user
 
 usuarios = Blueprint('usuarios',__name__, template_folder='templates/usuarios')
 
@@ -12,6 +15,47 @@ usuarios = Blueprint('usuarios',__name__, template_folder='templates/usuarios')
 @usuarios.before_request
 def exigirLogin():
 	return exigirUsuarioLogado()
+
+@loginManager.user_loader
+def load_user(id):
+	# Usuario.query.filter_by(id=user_id)()
+    return Usuario.query.get(int(id))
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+	if current_user.is_authenticated:
+		return redirect(url_for('index'))
+	
+	form = LoginForm(request.form)
+
+	if (form.validate_on_submit()):
+		usuario = models.Usuario.query.filter_by(nome=form.nome.data).first()
+		if usuario is None or not usuario.validarSenha(form.senha.data):
+			flash('Nome ou senha inválido(s)')
+			return redirect(url_for('login.login'))
+		else:
+			session.clear()
+			session['id_usuario'] = usuario.id
+			login_user(usuario, remember=False)
+			# Suporte ao redirecionamento 
+			next_page = request.args.get('next')
+			if not next_page or url_parse(next_page).netloc != '':
+				next_page = url_for('index')
+			return redirect(next_page)
+			flash('Login requisitado pelo usuário {}'.format(form.nome.data))
+			return redirect(url_for('home'))
+
+	
+	# if alert=="success": 
+	# 	msg = "User created successfully! Please log in now."
+	# else:
+	# 	msg = ""
+	return render_template('login.html', title='Login', form=form, alert=None)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 @usuarios.route('/criar', methods=['POST', 'GET'])
 def criar():

@@ -7,14 +7,14 @@ from skoolit.usuarios import models
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('id_usuario')
+# @bp.before_app_request
+# def load_logged_in_user():
+#     user_id = session.get('id_usuario')
 
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = models.Usuario.query.filter_by(id=user_id).first_or_404()
+#     if user_id is None:
+#         g.user = None
+#     else:
+#         g.user = models.Usuario.query.filter_by(id=user_id).first_or_404()
 
 # Usar quando precisar de que uma view precise de login
 # Atualmente não é necessário, já que cada módulo exige login por padrão

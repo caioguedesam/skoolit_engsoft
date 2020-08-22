@@ -2,6 +2,7 @@ import os
 from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'da
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 Migrate(app, db)
+loginManager = LoginManager(app)
 
 
 # Registro de Blueprints/Views
@@ -23,7 +25,8 @@ from skoolit.turmas.views import turmas
 from skoolit.login import auth
 from skoolit.login.views import loginbp
 
+login.login_view = 'login'
 app.register_blueprint(auth.bp)
-app.register_blueprint(loginbp)
+# app.register_blueprint(loginbp)
 app.register_blueprint(usuarios, url_prefix='/usuarios')
 app.register_blueprint(turmas, url_prefix='/turmas')

@@ -10,10 +10,10 @@
 
 <ul>
 	<li><a href="{{url_for('home')}}">Página inicial</a></li>
-	{% if g.user == None %}
-		<li><a href="{{url_for('login.login')}}">Fazer login</a></li>
-	{% elif g.user != None %}
-		<li><a href="{{url_for('login.logout')}}">Sair</a></li>
+	{% if current_user.is_anonymous %}
+		<li><a href="{{url_for('login')}}">Fazer login</a></li>
+	{% else %}
+		<li><a href="{{url_for('logout')}}">Sair</a></li>
 	{% endif %}
 </ul>
 

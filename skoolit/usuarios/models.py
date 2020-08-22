@@ -1,7 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 from skoolit import db
 
-class Usuario(db.Model):
+class Usuario(UserMixin,db.Model):
 
 	__tablename__ = 'usuarios'
 	id = db.Column(db.Integer, primary_key=True)
