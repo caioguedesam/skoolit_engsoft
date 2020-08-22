@@ -1,6 +1,8 @@
-from flask import render_template, redirect, url_for, request, Blueprint
+from flask import (render_template, redirect, url_for, request, Blueprint, 
+flash, sessions, session)
 from skoolit import app, db
 from skoolit.usuarios import models, forms
+from skoolit.usuarios.models import Usuario
 from skoolit.login.views import exigirUsuarioLogado
 from skoolit.login.forms import LoginForm
 from skoolit import loginManager
@@ -32,7 +34,7 @@ def login():
 		usuario = models.Usuario.query.filter_by(nome=form.nome.data).first()
 		if usuario is None or not usuario.validarSenha(form.senha.data):
 			flash('Nome ou senha inválido(s)')
-			return redirect(url_for('login.login'))
+			return redirect(url_for('login'))
 		else:
 			session.clear()
 			session['id_usuario'] = usuario.id
@@ -40,7 +42,7 @@ def login():
 			# Suporte ao redirecionamento 
 			next_page = request.args.get('next')
 			if not next_page or url_parse(next_page).netloc != '':
-				next_page = url_for('index')
+				next_page = url_for('home')
 			return redirect(next_page)
 			flash('Login requisitado pelo usuário {}'.format(form.nome.data))
 			return redirect(url_for('home'))
