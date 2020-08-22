@@ -1,6 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, 
-    session, url_for)
+    Blueprint, flash, g, redirect, render_template, request, url_for)
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from skoolit import loginManager
@@ -31,9 +30,7 @@ def login():
 			flash('Nome ou senha inválido(s)')
 			return redirect(url_for('login'))
 		else:
-			session.clear()
-			session['id_usuario'] = usuario.id
-			login_user(usuario, remember=False)
+			login_user(usuario, remember=form.rememberme.data)
 			# Suporte ao redirecionamento 
 			next_page = request.args.get('next')
 			if not next_page or url_parse(next_page).netloc != '':

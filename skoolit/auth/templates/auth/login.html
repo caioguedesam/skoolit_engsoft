@@ -40,6 +40,9 @@
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
+            <p>
+                {{ form.rememberme.label }}   {{ form.rememberme }}
+            </p>
             <p>{{ form.submit(class="btn btn-primary") }}</p>
 
             {% with message = get_flashed_messages() %}

@@ -1,5 +1,5 @@
 from flask import (render_template, redirect, url_for, request, Blueprint, 
-flash, sessions, session)
+flash)
 from skoolit import app, db
 from skoolit.usuarios import models, forms
 from flask_login import login_required

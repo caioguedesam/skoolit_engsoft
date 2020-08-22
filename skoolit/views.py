@@ -1,12 +1,10 @@
 from flask import render_template, redirect, url_for, g
+from flask_login import login_required
 from skoolit import app
 
 @app.route('/')
 @app.route('/index')
+@login_required
 def home():
-	# Variável debug definida no app.py
-	if app.debug:
-		return render_template('home.html')
-	else:
-		return redirect(url_for('login.login'))
+	return render_template('home.html')
 
