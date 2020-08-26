@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Bootstrap CSS -->
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	{% block style %}{% endblock %}
+	<title>{% block title %}{% endblock %} - Skoolit</title>
+	
+</head>
+
+<body>
+{% block navbar %}{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}{% endblock %}
+</body>
+</html>

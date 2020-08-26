@@ -1,7 +1,7 @@
 # Skoolit: Um sistema para um novo modelo de escola
 Trabalho prático da disciplina de Engenharia de Software @ UFMG
 Integrantes:
-- Arthur Souto
+- Arthur Souto Lima
 - Caio Guedes
 - Gabriel Victor Carvalho
 - Guilherme Bezerra
@@ -23,7 +23,7 @@ Os commits podem ser verificados em cada uma dessas branches.
 
 ---
 ## Sprint Planning
-### Estórias
+### Histórias
 ##### 1. Banco de Dados (1 Tulio)
 
 - Modelagem UML
@@ -54,3 +54,7 @@ Os commits podem ser verificados em cada uma dessas branches.
 - Aulas
 
 Link para o quadro scrum [aqui](https://www.notion.so/c8d063d8b5d14acc9a9753b623f2b15e?v=227ee1429a3b48ab828c705b3d6c29e4 "Quadro SCRUM")
+
+## Arquitetura
+![Diagrama de pacotes UML](https://drive.google.com/uc?export=view&id=1E-reJF9m6pdjns7_yjXq4wlQuw3BQtFv)
+
