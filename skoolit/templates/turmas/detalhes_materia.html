@@ -1,0 +1,33 @@
+{% extends "navfoot.html" %}
+
+{% block title %}{{materia.nome}}{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin-top: 200px">
+		<h1>{{materia.nome}}</h1>
+		<div class="d-flex flex-row-reverse mb-4">
+			<a href="{{url_for('turmas.excluir_materia', id=materia.id)}}"
+				class="btn btn-primary" role="button">
+				Excluir
+			</a>
+			<a href="{{url_for('turmas.atualizar_materia', id=materia.id)}}"
+				class="btn btn-primary mr-2" role="button">
+				Editar
+		</a>
+		</div>
+		
+
+	<div class="row align-items-center">
+			<div class="card" style="margin: 0px 10px 30px 10px; width: 100%">
+				<div class="card-body">
+					<h5 class="card-title"> Descrição da materia</h5>
+					<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.
+						Si num tem leite então bota uma pinga aí cumpadi! Mauris nec dolor in eros commodo tempor. Aenean aliquam molestie leo, vitae iaculis nisl. Detraxit consequat et quo num tendi nada. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.</p>
+					<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.</p>
+				</div>
+			</div>
+	</div>
+</div>
+
+{% endblock %}

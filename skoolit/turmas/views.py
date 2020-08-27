@@ -85,6 +85,13 @@ def listar_materias():
 
 	return render_template('turmas/listar_materias.html', materias=materias)
 
+@turmas.route('/listar-materia/<id>', methods=['POST', 'GET'])
+def listar_materia(id):
+
+	materia = models.Materia.query.filter_by(id=id).first_or_404();
+
+	return render_template('turmas/detalhes_materia.html', materia=materia)
+
 
 @turmas.route('/atualizar-materia/<id>', methods=['POST', 'GET'])
 def atualizar_materia(id):
