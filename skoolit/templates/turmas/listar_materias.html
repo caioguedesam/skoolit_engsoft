@@ -4,18 +4,34 @@
 
 {% block content %}
 
-<h1>Listar matérias</h1>
+<div class="container" style="margin-top: 200px">
+		<h1>Matérias</h1>
+		
+		<div class="d-flex flex-row-reverse mb-4">
+			<a href="{{url_for('turmas.criar_materia')}}"
+				class="btn btn-primary" role="button">
+				Criar nova matéria
+			</a>
+		</div>
 
-<a href="{{url_for('turmas.criar_materia')}}">Criar nova matéria</a>
-
-<ul>
-	{% for materia in materias %}
-		<li>{{materia.nome}} | <a href="{{url_for('turmas.atualizar_materia', id=materia.id)}}">Editar</a> | <a href="{{url_for('turmas.excluir_materia', id=materia.id)}}">Excluir</a> |</li>
-	{% endfor %}
-</ul>
-
-{% if materias|length == 0  %}
-<p>Não existem matérias criadas.</p>
-{% endif %}
+	<div class="row align-items-center">
+		{% for materia in materias %}
+			<div class="card" style="margin-right: 10px; margin-left: 10px; margin-bottom: 30px; width: 265px;">
+				<div class="card-body">
+					<h5 class="card-title text-center"> 
+						<a href="{{url_for('turmas.listar_materia', id=materia.id)}}" style="text-decoration: none; color: inherit;">{{materia.nome}}</a>
+					</h5>
+					<div class="text-center">
+						<a href="{{url_for('turmas.atualizar_materia', id=materia.id)}}" class="card-link">Editar</a>
+						<a href="{{url_for('turmas.excluir_materia', id=materia.id)}}" class="card-link">Excluir</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	{% if materias|length == 0  %}
+		<p>Não existem matérias criadas.</p>
+	{% endif %}
+</div>
 
 {% endblock %}
