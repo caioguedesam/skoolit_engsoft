@@ -41,7 +41,7 @@ def login():
 			print('Login requisitado pelo usuário {}'.format(form.nome.data))
 			return redirect(url_for('home'))
 
-	return render_template('login.html', title='Login', form=form, alert=None)
+	return render_template('auth/login.html', title='Login', form=form, alert=None)
 
 @auth.route('/logout')
 def logout():

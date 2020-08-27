@@ -21,7 +21,7 @@ def criar():
 
 		return redirect(url_for('turmas.listar'))
 
-	return render_template('criar_turma.html', form=form)
+	return render_template('turmas/criar_turma.html', form=form)
 
 
 @turmas.route('/listar', methods=['POST', 'GET'])
@@ -29,7 +29,7 @@ def listar():
 
 	turmas = models.Turma.query.all()
 
-	return render_template('listar_turmas.html', turmas=turmas)
+	return render_template('turmas/listar_turmas.html', turmas=turmas)
 
 
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
@@ -50,7 +50,7 @@ def atualizar(id):
 		form.materia.data = turma.materia
 		form.professor.data = turma.professor
 
-	return render_template('atualizar_turma.html', form=form)
+	return render_template('turmas/atualizar_turma.html', form=form)
 
 
 @turmas.route('/excluir/<id>', methods=['GET'])
@@ -75,7 +75,7 @@ def criar_materia():
 
 		return redirect(url_for('turmas.listar_materias'))
 
-	return render_template('criar_materia.html', form=form)
+	return render_template('turmas/criar_materia.html', form=form)
 
 
 @turmas.route('/listar-materias', methods=['POST', 'GET'])
@@ -83,7 +83,7 @@ def listar_materias():
 
 	materias = models.Materia.query.all()
 
-	return render_template('listar_materias.html', materias=materias)
+	return render_template('turmas/listar_materias.html', materias=materias)
 
 
 @turmas.route('/atualizar-materia/<id>', methods=['POST', 'GET'])
@@ -100,7 +100,7 @@ def atualizar_materia(id):
 	elif request.method == 'GET':
 		form.nome.data = materia.nome
 
-	return render_template('atualizar_materia.html', form=form)
+	return render_template('turmas/atualizar_materia.html', form=form)
 
 
 @turmas.route('/excluir-materia/<id>', methods=['GET'])

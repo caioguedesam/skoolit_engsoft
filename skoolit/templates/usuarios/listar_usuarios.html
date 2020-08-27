@@ -1,0 +1,26 @@
+{% extends "navfoot.html" %}
+
+{% block title %}Listar usuários{% endblock %}
+
+{% block content %}
+
+<h1>Listar usuários</h1>
+
+<a href="{{url_for('usuarios.criar')}}">Criar novo usuário</a>
+
+<ul>
+	{% for usuario in usuarios %}
+		<li>{{usuario.nome}}, email: {{usuario.email}} ({{usuario.papel}}) | 
+			<a href="{{url_for('usuarios.atualizar', id=usuario.id)}}">Editar</a> |
+			{% if current_user.id != usuario.id %}
+			<a href="{{url_for('usuarios.excluir', id=usuario.id)}}">Excluir</a> |</li>
+			{% endif %} 
+			
+	{% endfor %}
+</ul>
+
+{% if usuarios|length == 0  %}
+<p>Não existem tarefas criadas.</p>
+{% endif %}
+
+{% endblock %}
