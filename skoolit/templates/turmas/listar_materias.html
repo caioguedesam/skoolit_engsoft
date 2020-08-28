@@ -1,9 +1,8 @@
 {% extends "navfoot.html" %}
 
-{% block style %}
+<!-- {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='materias/listar_materias.css') }}">
-{% endblock %}
-
+{% endblock %} -->
 
 {% block title %}Listar matérias{% endblock %}
 
@@ -13,7 +12,7 @@
 
 	<div class="d-flex mb-5">
 		<div class="mr-auto">
-			<h1>Matérias</h1>
+			<h1 id="titulo">Matérias</h1>
 		</div>
 
 		<div class="mt-2">		
@@ -30,7 +29,7 @@
 			<div class="card materia">
 				<div class="card-body">
 					<h5 class="card-title text-center"> 
-						<a href="{{url_for('turmas.listar_materia', id=materia.id)}}">{{materia.nome}}</a>
+						<a id="materia-nome" href="{{url_for('turmas.listar_materia', id=materia.id)}}">{{materia.nome}}</a>
 					</h5>
 					<div class="text-center">
 						<a href="{{url_for('turmas.atualizar_materia', id=materia.id)}}" class="card-link">Editar</a>

@@ -13,9 +13,10 @@ body {
   background-color: var(--background);
 }
 
-* {
-  color: var(--font);
+#titulo-materia, #titulo-descricao {
+  font-weight: bold;
 }
+
 
 .container {
   margin-top: 240px;

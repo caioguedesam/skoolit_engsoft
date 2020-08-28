@@ -13,8 +13,8 @@ body {
   background-color: var(--background);
 }
 
-* {
-  color: var(--font);
+#titulo, #materia-nome {
+  font-weight: bold;
 }
 
 .container {
