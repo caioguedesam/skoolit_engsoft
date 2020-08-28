@@ -1,14 +1,3 @@
-html {
-  --background: #EFEEEE;
-  --background-card: #A2A2A2;
-  --white: #F8F8F8;
-
-  --accent: #6B6B6B;
-  --accent-hover: #585858;
-
-  --font: #6B6B6B;
-}
-
 body {
   background-color: var(--background);
 }

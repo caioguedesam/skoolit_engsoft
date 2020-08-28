@@ -1,20 +1,13 @@
-html {
-  --background: #EFEEEE;
-  --background-card: #A2A2A2;
-  --white: #F8F8F8;
-
-  --accent: #6B6B6B;
-  --accent-hover: #585858;
-
-  --font: #6B6B6B;
-}
-
 body {
   background-color: var(--background);
 }
 
 #titulo, #materia-nome {
   font-weight: bold;
+}
+
+#materia-nome {
+  font-size: 18px;
 }
 
 .container {
@@ -38,6 +31,7 @@ body {
   margin-right: 10px; 
   margin-left: 10px; 
   margin-bottom: 30px; 
+  height: 100px;
   width: 265px;
   border-radius: 5px;
   background-color: var(--background-card);
