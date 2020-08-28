@@ -1,0 +1,45 @@
+body {
+  background-color: var(--background);
+}
+
+#titulo, #materia-nome {
+  font-weight: bold;
+}
+
+#materia-nome {
+  font-size: 18px;
+}
+
+.container {
+  margin-top: 240px;
+}
+
+.btn {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  border-radius: 8px;
+  padding: 10px 15px;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, .2)
+}
+
+.btn:hover {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+}
+
+.card.materia{
+  background-color: var(--background-card);
+  border-color: var(--background-card);
+  border-radius: 5px;
+  margin: 0px 10px 30px 10px; 
+  height: 100px;
+  width: 265px;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.16);
+}
+
+.card.materia a {
+  /* color: inherit; */
+  color: var(--white);
+  text-decoration: none;
+}
+
