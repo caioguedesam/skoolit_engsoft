@@ -1,0 +1,46 @@
+html {
+  --background: #EFEEEE;
+  --background-card: #A2A2A2;
+  --white: #F8F8F8;
+
+  --accent: #6B6B6B;
+  --accent-hover: #585858;
+
+  --font: #6B6B6B;
+}
+
+body {
+  background-color: var(--background);
+}
+
+* {
+  color: var(--font);
+}
+
+.container {
+  margin-top: 240px;
+}
+
+.btn {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  border-radius: 8px;
+  padding: 10px 15px;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, .2)
+}
+
+.btn:hover {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+}
+
+.card.descricao-materia {
+  background-color: var(--white);
+  border-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, .16);
+  padding: 20px 10px;
+
+  margin: 0px 10px 30px 10px; 
+  width: 100%;
+}
