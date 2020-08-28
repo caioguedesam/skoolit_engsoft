@@ -28,14 +28,12 @@ body {
 }
 
 .card.materia{
-  margin-right: 10px; 
-  margin-left: 10px; 
-  margin-bottom: 30px; 
-  height: 100px;
-  width: 265px;
-  border-radius: 5px;
   background-color: var(--background-card);
   border-color: var(--background-card);
+  border-radius: 5px;
+  margin: 0px 10px 30px 10px; 
+  height: 100px;
+  width: 265px;
   box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.16);
 }
 
