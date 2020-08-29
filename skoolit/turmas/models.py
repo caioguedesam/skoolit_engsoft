@@ -25,7 +25,7 @@ class Turma(db.Model):
 	def __init__(self, titulo, materia, professor):
 		self.titulo = titulo
 		self.materia = materia
-		print(professor)
-		self.professor_id = professor
+		self.professor_id = professor.id
+		self.professor = professor
 
 

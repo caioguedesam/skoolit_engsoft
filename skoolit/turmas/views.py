@@ -1,7 +1,7 @@
-from flask import render_template, redirect, url_for, request, Blueprint
+from flask import render_template, redirect, url_for, request, Blueprint, flash
 from skoolit import app, db
 from skoolit.turmas import models, forms
-from skoolit.usuarios import models as usuariosModels
+from skoolit.usuarios.models import Usuario
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -14,18 +14,25 @@ def criar():
 	form = forms.CriarTurmaForm()
 
 	if form.validate_on_submit():
-		# Para colocar na relação, precisamos passar o objeto 'Usuario' e não 
-		# apenas seu id
-		prof = usuariosModels.Usuario.query.filter_by(id=form.professor_id.data).first()
-		nova_turma = models.Turma(titulo=form.titulo.data,
-									materia=form.materia.data,
-									  professor=form.professor_id.data)
-		print(nova_turma)
-		db.session.add(nova_turma)
-		db.session.commit()
+		# Se não garantirmos que o usuário 'prof' seja professor, o construtor
+		# de turma levantará um erro!
+		prof = Usuario.query \
+				.filter(Usuario.id == form.professor_id.data) \
+				.filter(Usuario.papel =='prof') \
+				.first()
+		if prof == None:
+			flash('Usuario não é professor!')
+		else:
+			nova_turma = models.Turma(titulo=form.titulo.data,
+										materia=form.materia.data,
+											professor=prof)
+			print(nova_turma)
+			db.session.add(nova_turma)
+			db.session.commit()
+			return redirect(url_for('turmas.listar'))
 
-		return redirect(url_for('turmas.listar'))
 
+		
 	return render_template('turmas/criar_turma.html', form=form)
 
 
@@ -44,12 +51,18 @@ def atualizar(id):
 	form = forms.AtualizarTurmaForm()
 
 	if form.validate_on_submit():
-		turma.titulo = form.titulo.data
-		turma.materia = form.materia.data
-		turma.professor_id = form.professor_id.data
-		db.session.commit()
-
-		return redirect(url_for('turmas.listar'))
+		prof = Usuario.query \
+			.filter(Usuario.id == form.professor_id.data) \
+			.filter(Usuario.papel =='prof') \
+			.first()
+		if prof == None:
+			flash('Usuario não é professor!')
+		else:
+			turma.titulo = form.titulo.data
+			turma.materia = form.materia.data
+			turma.professor_id = form.professor_id.data
+			db.session.commit()
+			return redirect(url_for('turmas.listar'))
 	elif request.method == 'GET':
 		form.titulo.data = turma.titulo
 		form.materia.data = turma.materia
