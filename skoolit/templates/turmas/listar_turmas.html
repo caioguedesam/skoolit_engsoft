@@ -10,7 +10,7 @@
 
 <ul>
 	{% for turma in turmas %}
-		<li>{{turma.titulo}} | {{turma.materia}} | {{turma.professor}} <a href="{{url_for('turmas.atualizar', id=turma.id)}}">Editar</a> | <a href="{{url_for('turmas.excluir', id=turma.id)}}">Excluir</a> |</li>
+		<li>{{turma.titulo}} | {{turma.materia}} | {{turma.professor_id}} <a href="{{url_for('turmas.atualizar', id=turma.id)}}">Editar</a> | <a href="{{url_for('turmas.excluir', id=turma.id)}}">Excluir</a> |</li>
 	{% endfor %}
 </ul>
 

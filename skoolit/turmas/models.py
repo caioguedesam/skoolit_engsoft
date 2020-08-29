@@ -1,10 +1,5 @@
 from skoolit import db
 
-turmas_professor = db.Table('turmas_professor', db.Model.metadata,
-    db.Column('prof_id', db.Integer, db.ForeignKey('usuarios.id')),
-    db.Column('turma_id', db.Integer,db.ForeignKey('turmas.id'))
-)
-
 class Materia(db.Model):
 
 	__tablename__ = 'materias'
@@ -23,12 +18,14 @@ class Turma(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	titulo = db.Column(db.String, nullable=False)
 	materia = db.Column(db.Integer, db.ForeignKey('materias.id'), nullable=False)
-	professor = db.relationship("Usuario", secondary=turmas_professor, backref='usuarios')
+
+	professor_id = db.Column(db.Integer, db.ForeignKey('professor.id'))
+	professor = db.relationship("Professor", back_populates="turmas")
 
 	def __init__(self, titulo, materia, professor):
 		self.titulo = titulo
 		self.materia = materia
 		print(professor)
-		self.professor = professor
+		self.professor_id = professor
 
 
