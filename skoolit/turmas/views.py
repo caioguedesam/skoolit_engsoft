@@ -14,10 +14,12 @@ def criar():
 	form = forms.CriarTurmaForm()
 
 	if form.validate_on_submit():
+		# Para colocar na relação, precisamos passar o objeto 'Usuario' e não 
+		# apenas seu id
 		prof = usuariosModels.Usuario.query.filter_by(id=form.professor_id.data).first()
 		nova_turma = models.Turma(titulo=form.titulo.data,
 									materia=form.materia.data,
-									  professor=[prof])
+									  professor=form.professor_id.data)
 		print(nova_turma)
 		db.session.add(nova_turma)
 		db.session.commit()
@@ -44,7 +46,7 @@ def atualizar(id):
 	if form.validate_on_submit():
 		turma.titulo = form.titulo.data
 		turma.materia = form.materia.data
-		turma.professor_id = form.professor.data
+		turma.professor_id = form.professor_id.data
 		db.session.commit()
 
 		return redirect(url_for('turmas.listar'))
