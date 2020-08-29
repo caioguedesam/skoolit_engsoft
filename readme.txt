@@ -14,5 +14,9 @@ Importar dados via csv:
 1. (Setup) Vide exemplo em imports.py
 2. Execute o script imports.py
 
-Modificar o BD:
+Modificar o BD (dados):
 via terminal sqlite: sqlite3 skoolit/data.sqlite
+
+Modificar o BD (schema):
+use o Flask-Migrate, via comandos 'flask db migrate -m "[nome]"' seguido de 
+'flask db upgrade'

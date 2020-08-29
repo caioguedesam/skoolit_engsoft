@@ -41,8 +41,8 @@ h2 {
   padding: 5px; }
 
 .btn {
-  background-color: #6B6B6B;
-  border-color: #6B6B6B;
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 12px;
@@ -76,5 +76,9 @@ h2 {
 
 #logo {
   margin-top: 20px; }
+
+.btn:hover {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important; }
 
 /*# sourceMappingURL=login.css.map */
