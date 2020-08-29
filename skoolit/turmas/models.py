@@ -19,7 +19,7 @@ class Turma(db.Model):
 	titulo = db.Column(db.String, nullable=False)
 	materia = db.Column(db.Integer, db.ForeignKey('materias.id'), nullable=False)
 
-	professor_id = db.Column(db.Integer, db.ForeignKey('professor.id'))
+	professor_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
 	professor = db.relationship("Professor", back_populates="turmas")
 
 	def __init__(self, titulo, materia, professor):

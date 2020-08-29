@@ -11,10 +11,9 @@ class Usuario(UserMixin,db.Model):
 	nome = db.Column(db.String, nullable=False)
 	hashSenha = db.Column(db.String, nullable=False)
 
-	type = db.Column(db.String(50))
 	__mapper_args__ = {
-		'polymorphic_identity':'Usuario',
-		'polymorphic_on':type
+		'polymorphic_identity':'usuario',
+		'polymorphic_on':papel
     }
 
 	def __init__(self, email, papel, nome, senha):
@@ -27,10 +26,20 @@ class Usuario(UserMixin,db.Model):
 		return check_password_hash(self.hashSenha, senha)
 
 class Professor(Usuario):
-	__tablename__ = 'professor'
-	id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), primary_key=True)
+	professor_info = db.Column(db.String)
 	turmas = db.relationship("Turma", back_populates="professor")
-	
 	__mapper_args__ = {
-        'polymorphic_identity':'professor',
+        'polymorphic_identity':'prof',
+    }
+
+class Aluno(Usuario):
+	aluno_info = db.Column(db.String)
+	__mapper_args__ = {
+        'polymorphic_identity':'al',
+    }
+
+class Administrador(Usuario):
+	adm_info = db.Column(db.String)
+	__mapper_args__ = {
+        'polymorphic_identity':'adm',
     }
