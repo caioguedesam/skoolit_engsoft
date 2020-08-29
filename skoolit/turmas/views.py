@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, request, Blueprint
 from skoolit import app, db
 from skoolit.turmas import models, forms
+from skoolit.usuarios import models as usuariosModels
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -13,9 +14,11 @@ def criar():
 	form = forms.CriarTurmaForm()
 
 	if form.validate_on_submit():
+		prof = usuariosModels.Usuario.query.filter_by(id=form.professor_id.data).first()
 		nova_turma = models.Turma(titulo=form.titulo.data,
 									materia=form.materia.data,
-									  professor=form.professor.data)
+									  professor=[prof])
+		print(nova_turma)
 		db.session.add(nova_turma)
 		db.session.commit()
 
@@ -41,14 +44,14 @@ def atualizar(id):
 	if form.validate_on_submit():
 		turma.titulo = form.titulo.data
 		turma.materia = form.materia.data
-		turma.professor = form.professor.data
+		turma.professor_id = form.professor.data
 		db.session.commit()
 
 		return redirect(url_for('turmas.listar'))
 	elif request.method == 'GET':
 		form.titulo.data = turma.titulo
 		form.materia.data = turma.materia
-		form.professor.data = turma.professor
+		form.professor_id.data = turma.professor_id
 
 	return render_template('turmas/atualizar_turma.html', form=form)
 
@@ -88,7 +91,7 @@ def listar_materias():
 @turmas.route('/listar-materia/<id>', methods=['POST', 'GET'])
 def listar_materia(id):
 
-	materia = models.Materia.query.filter_by(id=id).first_or_404();
+	materia = models.Materia.query.filter_by(id=id).first_or_404()
 
 	return render_template('turmas/detalhes_materia.html', materia=materia)
 

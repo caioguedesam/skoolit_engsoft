@@ -14,4 +14,7 @@ def importBooks():
         db.session.commit()
         print(f"Usuario:{nome} ({papel}), com email {email}")
 
-importBooks()
+
+if __name__ == "__main__":
+    importBooks()
+
