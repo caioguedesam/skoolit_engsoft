@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth/login.css') }}">
 {% endblock %}
 
 {% block title %}Login{% endblock %}
@@ -20,7 +20,7 @@
 </div>
 {% endif %}
 <div class="container">
-    <img id="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo Skoolit">
+    <img id="logo" src="{{ url_for('static', filename='auth/logo.png') }}" alt="Logo Skoolit">
 </div>
 
 
@@ -35,7 +35,7 @@
             <p>
                 <!-- <span class='formLabel float-left'>{{ form.nome.label }}</span><br> -->
                 <span class='formLabel float-left'>Usuário ou e-mail</span><br>
-                {{ form.nome(class="form-control",size=40) }}
+                {{ form.nome(class="form-control",size=35) }}
                 <div class="container col-md-8">
                 {% for error in form.nome.errors %}
                     <div class="alert alert-danger" role="alert" style="color: red;">{{ error }}</div>
