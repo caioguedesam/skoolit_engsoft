@@ -59,21 +59,29 @@ def atualizar(id):
 
 	if form.validate_on_submit():
 		prof = Usuario.query \
-			.filter(Usuario.id == form.professor_id.data) \
+			.filter(Usuario.id == form.professor.data) \
 			.filter(Usuario.papel =='prof') \
 			.first()
+		materia = models.Materia.query \
+			.filter(models.Materia.id == form.materia.data) \
+			.first()
+		
 		if prof == None:
 			flash('Usuario não é professor!')
+			print('Usuario não é professor!')
+		elif materia == None:
+			flash('Matéria não encontrada!')
+			print('Matéria não encontrada!')
 		else:
 			turma.titulo = form.titulo.data
-			turma.materia = form.materia.data
-			turma.professor_id = form.professor_id.data
+			turma.materia_id = form.materia.data
+			turma.professor_id = form.professor.data
 			db.session.commit()
 			return redirect(url_for('turmas.listar'))
 	elif request.method == 'GET':
 		form.titulo.data = turma.titulo
-		form.materia.data = turma.materia
-		form.professor_id.data = turma.professor_id
+		form.materia.data = turma.materia_id
+		form.professor.data = turma.professor_id
 
 	return render_template('turmas/atualizar_turma.html', form=form)
 
