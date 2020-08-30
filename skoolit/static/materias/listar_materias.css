@@ -27,6 +27,14 @@ body {
   border-color: var(--accent-hover) !important;
 }
 
+.badge {
+  background-color: var(--white);
+  color: var(--font);
+  position: absolute; 
+  right: 0; 
+  margin: 8px 8px; 
+}
+
 .card.materia{
   background-color: var(--background-card);
   border-color: var(--background-card);

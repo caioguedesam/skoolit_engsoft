@@ -9,24 +9,20 @@
 {% block content %}
 
 <div class="container">
-	<div class="d-flex mb-5">
-		<div class="mr-auto">
-			<h1 id="titulo">Atualizar matéria</h1>
-		</div>
+	<div class="d-flex justify-content-between mb-5">
+		<h1 id="titulo">Atualizar matéria</h1>
 	</div>
 
-		<div class="column justify-content-center">
-			<div class="card form-materia">
-				<div class="card-body">
-					<form method="POST">
-						{{form.hidden_tag()}}
-						{{form.nome.label(class="form-label")}} <br>
-						{{form.nome(class="form-control w-50")}} <br>
-						{{form.submit(class="btn btn-primary")}}
-					</form>
-				</div>
-			</div>
+	<div class="card form-materia">
+		<div class="card-body">
+			<form method="POST">
+				{{form.hidden_tag()}}
+				{{form.nome.label(class="form-label")}} <br>
+				{{form.nome(class="form-control w-50")}} <br>
+				{{form.submit(class="btn btn-primary")}}
+			</form>
 		</div>
+	</div>
 </div>
 
 {% endblock %}
