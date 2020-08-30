@@ -1,8 +1,8 @@
 """Initial
 
-Revision ID: 0b84f23e8b3b
+Revision ID: 2c74de044c0a
 Revises: 
-Create Date: 2020-08-29 14:13:17.746841
+Create Date: 2020-08-30 13:23:53.593157
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0b84f23e8b3b'
+revision = '2c74de044c0a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('materias',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('nome', sa.String(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id', name=op.f('pk_materias'))
     )
     op.create_table('usuarios',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -29,20 +29,19 @@ def upgrade():
     sa.Column('papel', sa.String(), nullable=True),
     sa.Column('nome', sa.String(), nullable=False),
     sa.Column('hashSenha', sa.String(), nullable=False),
-    sa.Column('type', sa.String(), nullable=True),
     sa.Column('professor_info', sa.String(), nullable=True),
     sa.Column('aluno_info', sa.String(), nullable=True),
     sa.Column('adm_info', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id', name=op.f('pk_usuarios'))
     )
     op.create_table('turmas',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('titulo', sa.String(), nullable=False),
-    sa.Column('materia', sa.Integer(), nullable=False),
+    sa.Column('materia_id', sa.Integer(), nullable=False),
     sa.Column('professor_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['materia'], ['materias.id'], ),
-    sa.ForeignKeyConstraint(['professor_id'], ['usuarios.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.ForeignKeyConstraint(['materia_id'], ['materias.id'], name=op.f('fk_turmas_materia_id_materias')),
+    sa.ForeignKeyConstraint(['professor_id'], ['usuarios.id'], name=op.f('fk_turmas_professor_id_usuarios')),
+    sa.PrimaryKeyConstraint('id', name=op.f('pk_turmas'))
     )
     # ### end Alembic commands ###
 
