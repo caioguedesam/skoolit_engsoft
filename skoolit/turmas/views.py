@@ -20,11 +20,18 @@ def criar():
 				.filter(Usuario.id == form.professor_id.data) \
 				.filter(Usuario.papel =='prof') \
 				.first()
+		materia = models.Materia.query \
+				.filter(models.Materia.id == form.materia.data) \
+				.first()
 		if prof == None:
 			flash('Usuario não é professor!')
+			print('Usuario não é professor!')
+		elif materia == None:
+			flash('Matéria não encontrada!')
+			print('Matéria não encontrada!')
 		else:
 			nova_turma = models.Turma(titulo=form.titulo.data,
-										materia=form.materia.data,
+										materia=materia,
 											professor=prof)
 			print(nova_turma)
 			db.session.add(nova_turma)
@@ -40,9 +47,9 @@ def criar():
 def listar():
 
 	turmas = models.Turma.query.all()
-	turmasjoin = models.Turma.query.join(Usuario).all()
-	print(turmasjoin)
-	print(turmasjoin[0].professor)
+	# turmasjoin = models.Turma.query.join(Usuario).all()
+	# print(turmasjoin)
+	# print(turmasjoin[0].professor)
 	return render_template('turmas/listar_turmas.html', turmas=turmas)
 
 

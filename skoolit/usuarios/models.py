@@ -27,7 +27,7 @@ class Usuario(UserMixin,db.Model):
 
 class Professor(Usuario):
 	professor_info = db.Column(db.String)
-	turmas = db.relationship("Turma", back_populates="professor")
+	turmas = db.relationship('Turma', back_populates='professor')
 	__mapper_args__ = {
         'polymorphic_identity':'prof',
     }
