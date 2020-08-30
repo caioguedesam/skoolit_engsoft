@@ -61,6 +61,14 @@ def listar():
 	return render_template('turmas/listar_turmas.html', turmas=turmasjoin)
 
 
+@turmas.route('/listar-turma/<id>', methods=['POST', 'GET'])
+def listar_turma(id):
+
+	turma = models.Turma.query.filter_by(id=id).first_or_404()
+
+	return render_template('turmas/detalhes_turma.html', turma=turma)
+
+
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
 def atualizar(id):
 	turma = models.Turma.query.filter_by(id=id).first_or_404()
