@@ -9,6 +9,21 @@ turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 def home():
 	return render_template('home.html')
 
+
+def encontraProfMateria(idProf, idMateria):
+	prof = Usuario.query \
+		.filter(Usuario.id == idProf) \
+		.filter(Usuario.papel =='prof') \
+		.first()
+	materia = models.Materia.query \
+		.filter(models.Materia.id == idMateria) \
+		.first()
+	return prof, materia
+
+
+
+
+
 @turmas.route('/criar', methods=['POST', 'GET'])
 def criar():
 	form = forms.CriarTurmaForm()
@@ -16,13 +31,8 @@ def criar():
 	if form.validate_on_submit():
 		# Se não garantirmos que o usuário 'prof' seja professor, o construtor
 		# de turma levantará um erro!
-		prof = Usuario.query \
-				.filter(Usuario.id == form.professor_id.data) \
-				.filter(Usuario.papel =='prof') \
-				.first()
-		materia = models.Materia.query \
-				.filter(models.Materia.id == form.materia.data) \
-				.first()
+		prof, materia = encontraProfMateria(form.professor_id.data, 
+											form.materia.data)
 		if prof == None:
 			flash('Usuario não é professor!')
 			print('Usuario não é professor!')
@@ -58,13 +68,8 @@ def atualizar(id):
 	form = forms.AtualizarTurmaForm()
 
 	if form.validate_on_submit():
-		prof = Usuario.query \
-			.filter(Usuario.id == form.professor.data) \
-			.filter(Usuario.papel =='prof') \
-			.first()
-		materia = models.Materia.query \
-			.filter(models.Materia.id == form.materia.data) \
-			.first()
+		prof, materia = encontraProfMateria(form.professor_id.data, 
+											form.materia.data)
 		
 		if prof == None:
 			flash('Usuario não é professor!')
@@ -74,8 +79,8 @@ def atualizar(id):
 			print('Matéria não encontrada!')
 		else:
 			turma.titulo = form.titulo.data
-			turma.materia_id = form.materia.data
-			turma.professor_id = form.professor.data
+			turma.materia = materia
+			turma.professor = prof
 			db.session.commit()
 			return redirect(url_for('turmas.listar'))
 	elif request.method == 'GET':
