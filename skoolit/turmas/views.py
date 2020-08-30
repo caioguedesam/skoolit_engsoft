@@ -40,7 +40,9 @@ def criar():
 def listar():
 
 	turmas = models.Turma.query.all()
-
+	turmasjoin = models.Turma.query.join(Usuario).all()
+	print(turmasjoin)
+	print(turmasjoin[0].professor)
 	return render_template('turmas/listar_turmas.html', turmas=turmas)
 
 

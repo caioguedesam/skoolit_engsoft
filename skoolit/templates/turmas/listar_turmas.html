@@ -1,5 +1,9 @@
 {% extends "navfoot.html" %}
 
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='turmas/listar_turmas.css') }}">
+{% endblock %}
+
 {% block title %}Listar turmas{% endblock %}
 
 {% block content %}
@@ -17,5 +21,41 @@
 {% if turmas|length == 0  %}
 <p>Não existem turmas criadas.</p>
 {% endif %}
+
+<div class="container">
+
+	<div class="d-flex mb-5">
+		<div class="mr-auto">
+			<h1 id="titulo">Turmas</h1>
+		</div>
+
+		<div class="mt-2">		
+			<a href="{{url_for('turmas.criar')}}"
+				class="btn btn-primary" role="button">
+				Nova turma
+			</a>
+		</div>
+	</div>
+		
+
+	<div class="row align-items-center">
+		{% for turma in turmas %}
+			<div class="card turma">
+				<div class="card-body">
+					<h5 class="card-title text-center"> 
+						<a id="turma-nome" href="{{url_for('turmas.listar', id=turma.id)}}">{{turma.titulo}}</a>
+					</h5>
+					<div class="text-center">
+						<a href="{{url_for('turmas.atualizar', id=turma.id)}}" class="card-link">Editar</a>
+						<a href="{{url_for('turmas.excluir', id=turma.id)}}" class="card-link">Excluir</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	{% if turmas|length == 0  %}
+		<p>Não existem matérias criadas.</p>
+	{% endif %}
+</div>
 
 {% endblock %}
