@@ -1,0 +1,43 @@
+body {
+  background-color: var(--background);
+}
+
+.container {
+  margin-top: 240px;
+}
+
+#titulo {
+  font-weight: bold;
+}
+
+
+form .form-label {
+  font-size: 18px;
+  font-weight: bold;
+
+}
+
+.btn {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  border-radius: 8px;
+  padding: 10px 15px;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, .2)
+}
+
+.btn:hover {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+}
+
+.form-turma {
+  background-color: var(--white);
+  border-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, .16);
+
+  padding: 20px 10px;
+  margin-bottom: 30px; 
+  
+  width: 100%;
+}
