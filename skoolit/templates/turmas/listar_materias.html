@@ -1,8 +1,8 @@
 {% extends "navfoot.html" %}
 
-<!-- {% block style %}
+{% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='materias/listar_materias.css') }}">
-{% endblock %} -->
+{% endblock %}
 
 {% block title %}Listar matérias{% endblock %}
 
@@ -10,10 +10,8 @@
 
 <div class="container">
 
-	<div class="d-flex mb-5">
-		<div class="mr-auto">
-			<h1 id="titulo">Matérias</h1>
-		</div>
+	<div class="d-flex justify-content-between mb-5">
+		<h1 id="titulo">Matérias</h1>
 
 		<div class="mt-2">		
 			<a href="{{url_for('turmas.criar_materia')}}"
@@ -23,10 +21,12 @@
 		</div>
 	</div>
 		
-
-	<div class="row align-items-center">
+	<div class="row">
 		{% for materia in materias %}
 			<div class="card materia">
+				<div class="badge">
+					{{materia.nome[:3]|upper}}
+				</div>
 				<div class="card-body">
 					<h5 class="card-title text-center"> 
 						<a id="materia-nome" href="{{url_for('turmas.listar_materia', id=materia.id)}}">{{materia.nome}}</a>
