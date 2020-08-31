@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, Blueprint, flash
 from skoolit import app, db
 from skoolit.turmas import models, forms
-from skoolit.usuarios.models import Usuario
+from skoolit.usuarios.models import Usuario, Professor
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -80,6 +80,8 @@ def atualizar(id):
 					.all()
 
 	if form.validate_on_submit():
+		# Não precisamos validar essa busca, pois os dados do SelectField eram
+		# válidos
 		prof, materia = encontraProfMateria(form.professor_id.data, 
 											form.materia_id.data)
 		turma.titulo = form.titulo.data
