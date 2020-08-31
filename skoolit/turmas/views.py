@@ -48,8 +48,6 @@ def criar():
 		db.session.commit()
 		return redirect(url_for('turmas.listar'))
 
-
-		
 	return render_template('turmas/criar_turma.html', form=form)
 
 
@@ -72,29 +70,27 @@ def listar_turma(id):
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
 def atualizar(id):
 	turma = models.Turma.query.filter_by(id=id).first_or_404()
-
 	form = forms.AtualizarTurmaForm()
+	form.professor_id.choices = Usuario.query \
+					.with_entities(Usuario.id,Usuario.nome) \
+					.filter(Usuario.papel =='prof') \
+					.all()
+	form.materia_id.choices = models.Materia.query \
+					.with_entities(models.Materia.id,models.Materia.nome) \
+					.all()
 
 	if form.validate_on_submit():
 		prof, materia = encontraProfMateria(form.professor_id.data, 
-											form.materia.data)
-		
-		if prof == None:
-			flash('Usuario não é professor!')
-			print('Usuario não é professor!')
-		elif materia == None:
-			flash('Matéria não encontrada!')
-			print('Matéria não encontrada!')
-		else:
-			turma.titulo = form.titulo.data
-			turma.materia = materia
-			turma.professor = prof
-			db.session.commit()
-			return redirect(url_for('turmas.listar'))
+											form.materia_id.data)
+		turma.titulo = form.titulo.data
+		turma.materia = materia
+		turma.professor = prof
+		db.session.commit()
+		return redirect(url_for('turmas.listar'))
 	elif request.method == 'GET':
 		form.titulo.data = turma.titulo
-		form.materia.data = turma.materia_id
-		form.professor.data = turma.professor_id
+		form.materia_id.data = turma.materia_id
+		form.professor_id.data = turma.professor_id
 
 	return render_template('turmas/atualizar_turma.html', form=form)
 
