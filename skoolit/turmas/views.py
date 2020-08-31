@@ -31,27 +31,22 @@ def criar():
 					.with_entities(Usuario.id,Usuario.nome) \
 					.filter(Usuario.papel =='prof') \
 					.all()
+	form.materia_id.choices = models.Materia.query \
+					.with_entities(models.Materia.id,models.Materia.nome) \
+					.all()
 
 	if form.validate_on_submit():
-		# Se não garantirmos que o usuário 'prof' seja professor, o construtor
-		# de turma levantará um erro!
+		# Não precisamos validar essa busca, pois os dados do SelectField eram
+		# válidos
 		prof, materia = encontraProfMateria(form.professor_id.data, 
-											form.materia.data)
-		print(form.professor_id.data)
-		if prof == None:
-			flash('Usuario não é professor!')
-			print('Usuario não é professor!')
-		elif materia == None:
-			flash('Matéria não encontrada!')
-			print('Matéria não encontrada!')
-		else:
-			nova_turma = models.Turma(titulo=form.titulo.data,
-										materia=materia,
-											professor=prof)
-			print(nova_turma)
-			db.session.add(nova_turma)
-			db.session.commit()
-			return redirect(url_for('turmas.listar'))
+											form.materia_id.data)
+		nova_turma = models.Turma(titulo=form.titulo.data,
+									materia=materia,
+										professor=prof)
+		print(nova_turma)
+		db.session.add(nova_turma)
+		db.session.commit()
+		return redirect(url_for('turmas.listar'))
 
 
 		
