@@ -13,9 +13,9 @@ class AtualizarMateriaForm(FlaskForm):
 
 class CriarTurmaForm(FlaskForm):
     titulo = StringField("Título da turma: ", validators=[CampoObrigatorio()])
-    materia = IntegerField("ID da matéria: ", validators=[CampoObrigatorio()])
-    professor = IntegerField("ID do professor: ", validators=[])
-    professor_id = SelectField("Professor: ", validators=[])
+    # materia = IntegerField("ID da matéria: ", validators=[CampoObrigatorio()])
+    professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
+    materia_id = SelectField("Matéria: ", validators=[])
     submit = SubmitField("Criar")
 
 
