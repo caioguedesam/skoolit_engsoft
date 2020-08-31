@@ -27,12 +27,17 @@ def encontraProfMateria(idProf, idMateria):
 @turmas.route('/criar', methods=['POST', 'GET'])
 def criar():
 	form = forms.CriarTurmaForm()
+	form.professor_id.choices = Usuario.query \
+					.with_entities(Usuario.id,Usuario.nome) \
+					.filter(Usuario.papel =='prof') \
+					.all()
 
 	if form.validate_on_submit():
 		# Se não garantirmos que o usuário 'prof' seja professor, o construtor
 		# de turma levantará um erro!
 		prof, materia = encontraProfMateria(form.professor_id.data, 
 											form.materia.data)
+		print(form.professor_id.data)
 		if prof == None:
 			flash('Usuario não é professor!')
 			print('Usuario não é professor!')
