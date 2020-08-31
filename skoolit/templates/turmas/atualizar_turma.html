@@ -1,16 +1,53 @@
 {% extends "navfoot.html" %}
 
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='turmas/criar_turma.css') }}">
+{% endblock %}
+
 {% block title %}Atualizar turma{% endblock %}
 
 {% block content %}
 
 <h1>Atualizar turma</h1>
-<form method="POST">
-	{{form.hidden_tag()}}
-	{{form.titulo.label}} {{form.titulo}} 
-	{{form.materia_id.label}} {{form.materia_id}} 
-	{{form.professor_id.label}} {{form.professor_id}} 
-	{{form.submit}}
-</form>
+
+<div class="container">
+	<div class="d-flex mb-5">
+		<div class="mr-auto">
+			<h1 id="titulo">Atualizar turma</h1>
+		</div>
+	</div>
+
+	<form class="form-turma" method="POST">
+		<div class="d-flex">
+			<div class="col-5 mr-auto">
+				{{form.hidden_tag()}}
+				{{form.titulo.label(class="form-label")}}
+				{{form.titulo(class="form-control", size=40)}}
+				<br>
+			</div>
+		</div>
+
+		<div class="d-flex flex-wrap justify-content-start align-items-start">
+			<div class="col-5">
+				{{form.materia_id.label(class="form-label")}} 
+				{{form.materia_id(class="form-control")}}	
+				
+			</div>
+
+			<div class="col-5 ml-2">
+				{{form.professor_id.label(class="form-label")}} 
+				{{form.professor_id(class="form-control")}}
+			</div>
+		</div>
+		<br>
+		<div class="d-flex">
+			<div class="col-5 mr-auto">
+				{{form.submit(class="btn btn-primary")}}
+			</div>
+		</div>
+	
+	</form>
+
+</div>
 
 {% endblock %}
