@@ -7,21 +7,6 @@
 {% block title %}Listar turmas{% endblock %}
 
 {% block content %}
-
-<h1>Listar turmas</h1>
-
-<a href="{{url_for('turmas.criar')}}">Criar nova turma</a>
-
-<ul>
-	{% for turma in turmas %}
-		<li>{{turma.titulo}} | {{turma.materia_id}} | {{turma.professor_id}} <a href="{{url_for('turmas.atualizar', id=turma.id)}}">Editar</a> | <a href="{{url_for('turmas.excluir', id=turma.id)}}">Excluir</a> |</li>
-	{% endfor %}
-</ul>
-
-{% if turmas|length == 0  %}
-<p>Não existem turmas criadas.</p>
-{% endif %}
-
 <div class="container">
 
 	<div class="d-flex mb-5">
@@ -56,5 +41,4 @@
 		<p>Não existem turmas criadas.</p>
 	{% endif %}
 </div>
-
 {% endblock %}
