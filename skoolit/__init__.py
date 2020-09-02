@@ -31,12 +31,9 @@ loginManager.login_view = 'auth.login'
 loginManager.login_message = 'Login necessário para acessar esse conteúdo'
 
 # Registro de Blueprints/Views
-from skoolit import views
-from skoolit.usuarios.views import usuarios
-from skoolit.turmas.views import turmas
-from skoolit.auth.views import auth
+from skoolit.views import dashboard, auth, home, usuarios, turmas
 
+app.register_blueprint(dashboard, url_prefix='/dashboard')
 app.register_blueprint(auth, url_prefix='/auth')
 app.register_blueprint(usuarios, url_prefix='/usuarios')
 app.register_blueprint(turmas, url_prefix='/turmas')
-
