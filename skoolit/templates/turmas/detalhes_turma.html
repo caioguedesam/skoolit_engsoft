@@ -4,53 +4,124 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='turmas/detalhes_turma.css') }}">
 {% endblock %}
 
-{% block title %}{{turma.nome}}{% endblock %}
+{% block title %}{{turma.materia.nome}}{% endblock %}
 
 {% block content %}
 
 <div class="container">
 
-		<div class="d-flex mb-5">
-			<div class="mr-auto">
-				<h1 id="titulo-turma">{{turma.materia.nome}} - {{turma.titulo}}</h1>
+	<div class="d-flex justify-content-between mb-5">
+		<h1 id="titulo-turma">{{turma.materia.nome}} - {{turma.titulo}} 
+			<p style="font-size: 14px; font-weight: normal; display: inline">({{turma.professor.nome}})
+		</h1>
+
+		<div class="mt-2">
+			<a href="#"
+			class="btn btn-primary mr-2" role="button">
+				Membros
+			</a>
+			<a href="{{url_for('turmas.atualizar', id=turma.id)}}"
+			class="btn btn-primary mr-2" role="button">
+				Editar
+			</a>
+			<a href="{{url_for('turmas.excluir', id=turma.id)}}"
+			class="btn btn-primary" role="button">
+				Excluir
+			</a>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="column col-5">
+			<div class="card modulos-turma">
+				<div class="card-body">
+					<h5 id="titulo-descricao" class="card-title"> Modulo 1 - Limites</h5>
+					<p class="card-text">Vídeo Aula 1</p>
+					<p class="card-text">Leitura 1</p>
+					<p class="card-text">Exercícios 1</p>
+					
+					<p class="card-text">Vídeo Aula 2</p>
+					<p class="card-text">Leitura 2</p>
+					<p class="card-text">Exercícios 2</p>
+				</div>
 			</div>
 
-			<div class="mt-2 mr-1">
-				<a href="{{url_for('turmas.atualizar', id=turma.id)}}"
-					class="btn btn-primary mr-2" role="button">
-					Editar
-				</a>
+			<div class="card modulos-turma">
+				<div class="card-body">
+					<h5 id="titulo-descricao" class="card-title"> Modulo 2 - Derivadas </h5>
+					<p class="card-text">Vídeo Aula 1</p>
+					<p class="card-text">Leitura 1</p>
+					<p class="card-text">Exercícios 1</p>
+					
+					<p class="card-text">Vídeo Aula 2</p>
+					<p class="card-text">Leitura 2</p>
+					<p class="card-text">Exercícios 2</p>
+				</div>
 			</div>
 
-			<div class="mt-2">
-				<a href="{{url_for('turmas.excluir', id=turma.id)}}"
-					class="btn btn-primary" role="button">
-					Excluir
-				</a>
-			</div>
+			<div class="card modulos-turma">
+				<div class="card-body">
+					<h5 id="titulo-descricao" class="card-title"> Modulo 3 - Integrais </h5>
+					<p class="card-text">Vídeo Aula 1</p>
+					<p class="card-text">Leitura 1</p>
+					<p class="card-text">Exercícios 1</p>
+					
+					<p class="card-text">Vídeo Aula 2</p>
+					<p class="card-text">Leitura 2</p>
+					<p class="card-text">Exercícios 2</p>
+
+					<p class="card-text">Vídeo Aula 3</p>
+					<p class="card-text">Leitura 3</p>
+					<p class="card-text">Exercícios 3</p>
+				</div>
+			</div>	
 		</div>
 
-		<div class="column justify-content-center">
-			<div class="card descricao-turma">
-				<div class="card-body">
-					<h5 id="titulo-descricao" class="card-title"> Informações Básicas</h5>
-					<p class="card-text"><b>Professor:</b> {{turma.professor.nome}} ({{turma.professor.email}})</p>
-					<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.
-						Si num tem leite então bota uma pinga aí cumpadi! Mauris nec dolor in eros commodo tempor. Aenean aliquam molestie leo, vitae iaculis nisl. Detraxit consequat et quo num tendi nada. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.</p>
-					<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.</p>
-				</div>
-			</div>
+		<div class="column card card-postagens col-6 offset-1">
+			<div class="card-body">
+				<h5 id="titulo-descricao" class="card-title mb-4"> Postagens</h5>
 
-			<div class="card descricao-turma">
-				<div class="card-body">
-					<h5 id="titulo-descricao" class="card-title"> Descrição da turma</h5>
-					<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.
-						Si num tem leite então bota uma pinga aí cumpadi! Mauris nec dolor in eros commodo tempor. Aenean aliquam molestie leo, vitae iaculis nisl. Detraxit consequat et quo num tendi nada. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.</p>
-					<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.</p>
+				<div class="card card-postagem mx-auto">
+					<div class="card-body">
+
+						<div class="data float-right">
+							<p >01/09/2020</p>
+						</div>
+						
+						<div class="perfil-postagem mb-3">
+							<div class="perfil-circulo rounded-circle text-center">
+								<b>AC</b>
+							</div>
+							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome}}</b></p>
+						</div>
+							
+						<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.</p>
+					</div>
 				</div>
+
+				<div class="card card-postagem mx-auto">
+					<div class="card-body">
+
+						<div class="data float-right">
+							<p >01/09/2020</p>
+						</div>
+						
+						<div class="perfil-postagem mb-3">
+							<div class="perfil-circulo rounded-circle text-center">
+								<b>AC</b>
+							</div>
+							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome}}</b></p>
+						</div>
+
+						<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris.</p>
+					</div>
+				</div>
+
+
 			</div>
 		</div>
 	</div>
+
 </div>
 
 {% endblock %}
