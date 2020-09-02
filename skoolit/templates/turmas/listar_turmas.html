@@ -9,10 +9,8 @@
 {% block content %}
 <div class="container">
 
-	<div class="d-flex mb-5">
-		<div class="mr-auto">
-			<h1 id="titulo">Turmas</h1>
-		</div>
+	<div class="d-flex justify-content-between mb-5">
+		<h1 id="titulo">Turmas</h1>
 
 		<div class="mt-2">		
 			<a href="{{url_for('turmas.criar')}}"
@@ -22,7 +20,7 @@
 		</div>
 	</div>
 
-	<div class="row align-items-center">
+	<div class="row">
 		{% for turma in turmas %}
 			<div class="card turma">
 				<div class="card-body">
