@@ -1,7 +1,7 @@
 html {
   --background: #EFEEEE;
   --background-card: #A2A2A2;
-  --white: #F8F8F8;
+  --white: #F8F8F8 !important;
 
   --accent: #6B6B6B;
   --accent-hover: #585858;
