@@ -11,9 +11,7 @@
 <div class="container">
 
 	<div class="d-flex justify-content-between mb-5">
-		<h1 id="titulo-turma">{{turma.materia.nome}} - {{turma.titulo}} 
-			<p style="font-size: 14px; font-weight: normal; display: inline">({{turma.professor.nome}})
-		</h1>
+		<h1 id="titulo-turma">{{turma.materia.nome}} - {{turma.titulo}} </h1>
 
 		<div class="mt-2">
 			<a href="#"
@@ -39,7 +37,6 @@
 					<p class="card-text">Vídeo Aula 1</p>
 					<p class="card-text">Leitura 1</p>
 					<p class="card-text">Exercícios 1</p>
-					
 					<p class="card-text">Vídeo Aula 2</p>
 					<p class="card-text">Leitura 2</p>
 					<p class="card-text">Exercícios 2</p>
@@ -52,7 +49,6 @@
 					<p class="card-text">Vídeo Aula 1</p>
 					<p class="card-text">Leitura 1</p>
 					<p class="card-text">Exercícios 1</p>
-					
 					<p class="card-text">Vídeo Aula 2</p>
 					<p class="card-text">Leitura 2</p>
 					<p class="card-text">Exercícios 2</p>
@@ -65,11 +61,9 @@
 					<p class="card-text">Vídeo Aula 1</p>
 					<p class="card-text">Leitura 1</p>
 					<p class="card-text">Exercícios 1</p>
-					
 					<p class="card-text">Vídeo Aula 2</p>
 					<p class="card-text">Leitura 2</p>
 					<p class="card-text">Exercícios 2</p>
-
 					<p class="card-text">Vídeo Aula 3</p>
 					<p class="card-text">Leitura 3</p>
 					<p class="card-text">Exercícios 3</p>
@@ -83,45 +77,37 @@
 
 				<div class="card card-postagem mx-auto">
 					<div class="card-body">
-
 						<div class="data float-right">
 							<p >01/09/2020</p>
 						</div>
-						
 						<div class="perfil-postagem mb-3">
 							<div class="perfil-circulo rounded-circle text-center">
 								<b>AC</b>
 							</div>
-							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome}}</b></p>
+							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
 						</div>
-							
 						<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.</p>
 					</div>
 				</div>
 
 				<div class="card card-postagem mx-auto">
 					<div class="card-body">
-
 						<div class="data float-right">
 							<p >01/09/2020</p>
 						</div>
-						
 						<div class="perfil-postagem mb-3">
 							<div class="perfil-circulo rounded-circle text-center">
 								<b>AC</b>
 							</div>
-							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome}}</b></p>
+							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
 						</div>
-
 						<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris.</p>
 					</div>
 				</div>
 
-
 			</div>
 		</div>
 	</div>
-
 </div>
 
 {% endblock %}
