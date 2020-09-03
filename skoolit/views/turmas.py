@@ -71,16 +71,36 @@ def listar_turma(id):
 def atualizar(id):
 	turma = Turma.query.filter_by(id=id).first_or_404()
 	form = AtualizarTurmaForm()
+
+	# Monta as opções para escolher matéria, o append e reverse abaixo são
+	# para garantir que a matéria atual esteja pré-selecionada para o usuário
+	form.materia_id.choices = Materia.query \
+					.with_entities(Materia.id,Materia.nome) \
+					.filter(Materia.id != turma.materia_id) \
+					.all()
+	materiaatual = Materia.query \
+					.with_entities(Materia.id,Materia.nome) \
+					.filter(Materia.id == turma.materia_id) \
+					.first()
+	form.materia_id.choices.append(materiaatual)
+	form.materia_id.choices.reverse()
+
+	# Mesmo processo para professor
 	form.professor_id.choices = Usuario.query \
 					.with_entities(Usuario.id,Usuario.nome) \
 					.filter(Usuario.papel =='prof') \
+					.filter(Usuario.id != turma.professor_id) \
 					.all()
-	form.materia_id.choices = Materia.query \
-					.with_entities(Materia.id,Materia.nome) \
-					.all()
+	profatual =  Usuario.query \
+					.with_entities(Usuario.id,Usuario.nome) \
+					.filter(Usuario.papel =='prof') \
+					.filter(Usuario.id == turma.professor_id) \
+					.first()
+	form.professor_id.choices.append(profatual)
+	form.professor_id.choices.reverse()
 
 	if form.validate_on_submit():
-		# Não precisamos validar essa busca, pois os dados do SelectField eram
+		# Não precisamos validar essa busca, pois os dados do SelectField são
 		# válidos
 		prof, materia = encontraProfMateria(form.professor_id.data, 
 											form.materia_id.data)

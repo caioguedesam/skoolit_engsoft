@@ -49,7 +49,7 @@ def atualizar(id):
 	usuario = Usuario.query.filter_by(id=id).first_or_404()
 
 	form = AtualizarUsuarioForm()
-
+	print('Atualizar user')
 	if form.validate_on_submit():
 		usuario.email = form.email.data
 		usuario.papel = form.papel.data
@@ -58,9 +58,11 @@ def atualizar(id):
 		db.session.commit()
 
 		return redirect(url_for('usuarios.listar'))
+
 	elif request.method == 'GET':
 		form.email.data = usuario.email
 		form.papel.data = usuario.papel
+		form.nome.data = usuario.nome
 
 	return render_template('usuarios/atualizar_usuario.html', form=form)
 

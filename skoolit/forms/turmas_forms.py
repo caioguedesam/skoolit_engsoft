@@ -23,6 +23,4 @@ class AtualizarTurmaForm(FlaskForm):
     titulo = StringField("Título da turma: ", validators=[CampoObrigatorio()])
     professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
     materia_id = SelectField("Matéria: ", validators=[CampoObrigatorio()])
-    # materia = IntegerField("ID da matéria: ", validators=[DataRequired()])
-    # professor = IntegerField("ID do professor: ", validators=[DataRequired()])
     submit = SubmitField("Atualizar")
