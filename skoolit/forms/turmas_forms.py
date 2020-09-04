@@ -4,15 +4,6 @@ from wtforms.validators import DataRequired
 
 #local imports
 from skoolit.validators import CampoObrigatorio
-
-class CriarMateriaForm(FlaskForm):
-    nome = StringField("Nome da matéria: ", validators=[DataRequired()])
-    submit = SubmitField("Criar")
-
-class AtualizarMateriaForm(FlaskForm):
-    nome = StringField("Nome da matéria: ", validators=[DataRequired()])
-    submit = SubmitField("Atualizar")
-
 class CriarTurmaForm(FlaskForm):
     titulo = StringField("Título da turma: ", validators=[CampoObrigatorio()])
     professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])

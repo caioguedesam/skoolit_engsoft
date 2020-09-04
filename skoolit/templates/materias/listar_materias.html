@@ -1,0 +1,47 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='materias/listar_materias.css') }}">
+{% endblock %}
+
+{% block title %}Listar matérias{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+	<div class="d-flex justify-content-between mb-5">
+		<h1 id="titulo">Matérias</h1>
+
+		<div class="mt-2">		
+			<a href="{{url_for('materias.criar')}}"
+				class="btn btn-primary" role="button">
+				Nova matéria
+			</a>
+		</div>
+	</div>
+		
+	<div class="row">
+		{% for materia in materias %}
+			<div class="card materia">
+				<div class="badge">
+					{{materia.nome[:3]|upper}}
+				</div>
+				<div class="card-body">
+					<h5 class="card-title text-center"> 
+						<a id="materia-nome" href="{{url_for('materias.listar', id=materia.id)}}">{{materia.nome}}</a>
+					</h5>
+					<div class="text-center">
+						<a href="{{url_for('materias.atualizar', id=materia.id)}}" class="card-link">Editar</a>
+						<a href="{{url_for('materias.excluir', id=materia.id)}}" class="card-link">Excluir</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	{% if materias|length == 0  %}
+		<p>Não existem matérias criadas.</p>
+	{% endif %}
+</div>
+
+{% endblock %}
