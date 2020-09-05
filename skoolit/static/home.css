@@ -1,0 +1,31 @@
+body {
+  background-color: var(--background);
+}
+
+.container {
+  margin-top: 240px;
+}
+
+#titulo, #sessao-nome {
+  font-weight: bold;
+}
+
+#sessao-nome {
+  font-size: 18px;
+}
+
+.card.sessao{
+  background-color: var(--background-card);
+  border-color: var(--background-card);
+  border-radius: 5px;
+  margin: 0px 10px 30px 10px; 
+  height: 110px;
+  width: 300px;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.16);
+}
+
+.card.sessao a {
+  /* color: inherit; */
+  color: var(--white);
+  text-decoration: none;
+}
