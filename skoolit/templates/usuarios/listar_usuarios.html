@@ -1,26 +1,62 @@
 {% extends "navfoot.html" %}
 
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='usuarios/listar_usuarios.css') }}">
+{% endblock %}
+
 {% block title %}Listar usuários{% endblock %}
 
 {% block content %}
+<div class="container">
+	<div class="d-flex justify-content-between mb-5">
+		<h1 id="titulo">Usuários</h1>
 
-<h1>Listar usuários</h1>
+		<div>
+				<a href="{{url_for('usuarios.criar')}}"
+					class="btn btn-primary" role="button">
+					Novo usuário
+				</a>
+		</div>
+	</div>
+	
+	<div class="card usuarios pl-5 pr-5 pt-5 pb-2">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Nome</th>
+					<th scope="col">Email</th>
+					<th scope="col">Papel</th>
+					<th scope="col">Editar</th>
+					<th scope="col">Excluir</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for usuario in usuarios %}
+					<tr>
+						<th scope="row">{{usuario.id}}</th>
+						<td>{{usuario.nome}}</td>
+						<td>{{usuario.email}}</td>
+						{% if usuario.papel == "al" %}
+							<td>Aluno</td>
+						{% elif usuario.papel == "prof" %}
+							<td>Professor</td>	
+						{% elif usuario.papel == "adm" %}
+							<td>Admin</td>	
+						{% endif %}
+						<td><a href="{{url_for('usuarios.atualizar', id=usuario.id)}}">Editar</a></td>
+						{% if current_user.id != usuario.id %}
+							<td> <a href="{{url_for('usuarios.excluir', id=usuario.id)}}">Excluir</a></td>
+						{% endif %}
+					</tr>
+				{%endfor %}
+			</tbody>
+		</table>
 
-<a href="{{url_for('usuarios.criar')}}">Criar novo usuário</a>
-
-<ul>
-	{% for usuario in usuarios %}
-		<li>{{usuario.nome}} ({{usuario.id}}), email: {{usuario.email}} ({{usuario.papel}}) | 
-			<a href="{{url_for('usuarios.atualizar', id=usuario.id)}}">Editar</a> |
-			{% if current_user.id != usuario.id %}
-			<a href="{{url_for('usuarios.excluir', id=usuario.id)}}">Excluir</a> |</li>
-			{% endif %} 
-			
-	{% endfor %}
-</ul>
-
-{% if usuarios|length == 0  %}
-<p>Não existem tarefas criadas.</p>
-{% endif %}
-
+		{% if usuarios|length == 0  %}
+			<p>Não existem tarefas criadas.</p>
+		{% endif %}
+	</div>
+</div>
 {% endblock %}
+	
