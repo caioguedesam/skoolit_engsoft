@@ -8,9 +8,9 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container conteudo">
 	<div class="d-flex justify-content-between mb-5">
-		<h1 id="titulo">Atualizar matéria</h1>
+		<h1 class="bold">Atualizar matéria</h1>
 	</div>
 
 	<div class="card form-materia">
@@ -19,7 +19,7 @@
 				{{form.hidden_tag()}}
 				{{form.nome.label(class="form-label")}} <br>
 				{{form.nome(class="form-control w-50")}} <br>
-				{{form.submit(class="btn btn-primary")}}
+				{{form.submit(class="btn")}}
 			</form>
 		</div>
 	</div>

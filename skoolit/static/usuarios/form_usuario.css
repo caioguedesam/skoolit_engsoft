@@ -1,28 +1,6 @@
-#titulo {
-  font-weight: bold;
-}
-
-.container {
-  margin-top: 240px;
-}
-
 form .form-label {
   font-size: 18px;
   font-weight: bold;
-
-}
-
-.btn {
-  background-color: var(--accent) !important;
-  border-color: var(--accent) !important;
-  border-radius: 8px;
-  padding: 10px 15px;
-  box-shadow: 3px 5px 10px rgba(0, 0, 0, .2)
-}
-
-.btn:hover {
-  background-color: var(--accent-hover) !important;
-  border-color: var(--accent-hover) !important;
 }
 
 .card.form-usuario {

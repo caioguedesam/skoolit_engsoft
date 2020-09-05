@@ -7,13 +7,13 @@
 {% block title %}Listar usuários{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container conteudo">
 	<div class="d-flex justify-content-between mb-5">
-		<h1 id="titulo">Usuários</h1>
+		<h1 class="bold">Usuários</h1>
 
 		<div>
 				<a href="{{url_for('usuarios.criar')}}"
-					class="btn btn-primary" role="button">
+					class="btn" role="button">
 					Novo usuário
 				</a>
 		</div>

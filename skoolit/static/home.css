@@ -1,20 +1,9 @@
-body {
-  background-color: var(--background);
-}
-
-.container {
-  margin-top: 240px;
-}
-
-#titulo, #sessao-nome {
+.sessao-nome {
+  font-size: 18px;
   font-weight: bold;
 }
 
-#sessao-nome {
-  font-size: 18px;
-}
-
-.card.sessao{
+.card.sessao {
   background-color: var(--background-card);
   border-color: var(--background-card);
   border-radius: 5px;
@@ -25,7 +14,6 @@ body {
 }
 
 .card.sessao a {
-  /* color: inherit; */
   color: var(--white);
   text-decoration: none;
 }

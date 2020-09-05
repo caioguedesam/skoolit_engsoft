@@ -7,14 +7,13 @@
 {% block title %}Listar turmas{% endblock %}
 
 {% block content %}
-<div class="container">
-
+<div class="container conteudo">
 	<div class="d-flex justify-content-between mb-5">
-		<h1 id="titulo">Turmas</h1>
+		<h1 class="bold">Turmas</h1>
 
 		<div class="mt-2">		
 			<a href="{{url_for('turmas.criar')}}"
-				class="btn btn-primary" role="button">
+				class="btn" role="button">
 				Nova turma
 			</a>
 		</div>
@@ -28,7 +27,7 @@
 				</div>
 				<div class="card-body">
 					<h5 class="card-title text-center"> 
-						<a id="turma-nome" href="{{url_for('turmas.listar', id=turma.id)}}">{{turma.materia.nome}}</a>
+						<a class="turma-nome" href="{{url_for('turmas.listar', id=turma.id)}}">{{turma.materia.nome}}</a>
 					</h5>
 					<div class="text-center">
 						<a href="{{url_for('turmas.atualizar', id=turma.id)}}" class="card-link">Editar</a>

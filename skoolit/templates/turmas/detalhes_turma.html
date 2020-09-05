@@ -8,22 +8,22 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container conteudo">
 
 	<div class="d-flex justify-content-between mb-5">
-		<h1 id="titulo-turma">{{turma.materia.nome}} - {{turma.titulo}} </h1>
+		<h1 class="bold">{{turma.materia.nome}} - {{turma.titulo}} </h1>
 
 		<div class="mt-2">
 			<a href="#"
-			class="btn btn-primary mr-2" role="button">
+			class="btn  mr-2" role="button">
 				Membros
 			</a>
 			<a href="{{url_for('turmas.atualizar', id=turma.id)}}"
-			class="btn btn-primary mr-2" role="button">
+			class="btn  mr-2" role="button">
 				Editar
 			</a>
 			<a href="{{url_for('turmas.excluir', id=turma.id)}}"
-			class="btn btn-primary" role="button">
+			class="btn" role="button">
 				Excluir
 			</a>
 		</div>
@@ -33,7 +33,7 @@
 		<div class="column col-5">
 			<div class="card modulos-turma">
 				<div class="card-body">
-					<h5 id="titulo-descricao" class="card-title"> Modulo 1 - Limites</h5>
+					<h5 class="bold" class="card-title"> Modulo 1 - Limites</h5>
 					<p class="card-text">Vídeo Aula 1</p>
 					<p class="card-text">Leitura 1</p>
 					<p class="card-text">Exercícios 1</p>
@@ -45,7 +45,7 @@
 
 			<div class="card modulos-turma">
 				<div class="card-body">
-					<h5 id="titulo-descricao" class="card-title"> Modulo 2 - Derivadas </h5>
+					<h5 class="bold" class="card-title"> Modulo 2 - Derivadas </h5>
 					<p class="card-text">Vídeo Aula 1</p>
 					<p class="card-text">Leitura 1</p>
 					<p class="card-text">Exercícios 1</p>
@@ -57,7 +57,7 @@
 
 			<div class="card modulos-turma">
 				<div class="card-body">
-					<h5 id="titulo-descricao" class="card-title"> Modulo 3 - Integrais </h5>
+					<h5 class="bold" class="card-title"> Modulo 3 - Integrais </h5>
 					<p class="card-text">Vídeo Aula 1</p>
 					<p class="card-text">Leitura 1</p>
 					<p class="card-text">Exercícios 1</p>
@@ -73,7 +73,7 @@
 
 		<div class="column card card-postagens col-6 offset-1">
 			<div class="card-body">
-				<h5 id="titulo-descricao" class="card-title mb-4"> Postagens</h5>
+				<h5 class="bold" class="card-title mb-4"> Postagens</h5>
 
 				<div class="card card-postagem mx-auto">
 					<div class="card-body">
@@ -82,7 +82,7 @@
 						</div>
 						<div class="perfil-postagem mb-3">
 							<div class="perfil-circulo rounded-circle text-center">
-								<b>AC</b>
+								<b>{{ turma.professor.nome[0:2].upper() }}</b>
 							</div>
 							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
 						</div>
@@ -97,7 +97,7 @@
 						</div>
 						<div class="perfil-postagem mb-3">
 							<div class="perfil-circulo rounded-circle text-center">
-								<b>AC</b>
+								<b>{{ turma.professor.nome[0:2].upper() }}</b>
 							</div>
 							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
 						</div>
