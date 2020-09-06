@@ -22,15 +22,12 @@ def exigirLogin():
 @usuarios.route('/criar', methods=['POST', 'GET'])
 def criar():
 	form = CriarUsuarioForm()
-
 	if form.validate_on_submit():
 		novo_usuario = Usuario(email=form.email.data,
 									  papel=form.papel.data,
 									  senha=form.senha.data,
 									  nome=form.nome.data)
-		db.session.add(novo_usuario)
-		db.session.commit()
-
+		novo_usuario.dbAddUser()
 		return redirect(url_for('usuarios.listar'))
 
 	return render_template('usuarios/criar_usuario.html', form=form)
@@ -38,27 +35,18 @@ def criar():
 
 @usuarios.route('/listar', methods=['POST', 'GET'])
 def listar():
-
-	usuarios = Usuario.query.all()
-
+	usuarios = Usuario.dbGetAllUsers()
 	return render_template('usuarios/listar_usuarios.html', usuarios=usuarios)
 
 
 @usuarios.route('/atualizar/<id>', methods=['POST', 'GET'])
 def atualizar(id):
-	usuario = Usuario.query.filter_by(id=id).first_or_404()
-
+	usuario = Usuario.dbGetUser(id)
 	form = AtualizarUsuarioForm()
-	print('Atualizar user')
 	if form.validate_on_submit():
-		usuario.email = form.email.data
-		usuario.papel = form.papel.data
-		usuario.senha = form.senha.data
-		usuario.nome = form.nome.data
-		db.session.commit()
-
+		usuario.dbUpdateUser(newEmail=form.email.data,newSenha=form.senha.data, 
+							 newNome=form.nome.data, newPapel=form.papel.data)
 		return redirect(url_for('usuarios.listar'))
-
 	elif request.method == 'GET':
 		form.email.data = usuario.email
 		form.papel.data = usuario.papel
@@ -69,10 +57,5 @@ def atualizar(id):
 
 @usuarios.route('/excluir/<id>', methods=['GET'])
 def excluir(id):
-
-	usuario = Usuario.query.filter_by(id=id).first_or_404()
-
-	db.session.delete(usuario)
-	db.session.commit()
-
+	Usuario.dbDeleteUser(id)
 	return redirect(url_for('usuarios.listar'))

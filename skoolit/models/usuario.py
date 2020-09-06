@@ -26,3 +26,32 @@ class Usuario(UserMixin,db.Model):
 	
 	def validarSenha(self, senha):
 		return check_password_hash(self.hashSenha, senha)
+
+	def updateSenha(self, newSenha):
+		self.hashSenha = generate_password_hash(newSenha)
+		db.session.commit()
+	
+	def dbAddUser(self):
+		db.session.add(self)
+		db.session.commit()
+	
+	def dbUpdateUser(self, newEmail, newSenha, newNome, newPapel):
+		self.email = newEmail
+		if (newSenha != None):
+			self.updateSenha(newSenha)
+		self.nome = newNome
+		self.papel = newPapel
+		db.session.commit()
+
+	def dbGetAllUsers():
+		return Usuario.query.all()
+	
+	def dbGetUser(id):
+		return Usuario.query.filter_by(id=id).first_or_404()
+	
+	def dbDeleteUser(id):
+		usuario = Usuario.dbGetUser(id)
+		db.session.delete(usuario)
+		db.session.commit()
+	
+
