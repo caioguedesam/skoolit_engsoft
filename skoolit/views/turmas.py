@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, Blueprint, flash
 
 #local imports
-from skoolit import app, db
+from skoolit import app
 from skoolit.models import Usuario, Professor, Materia, Turma
 from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm
 
@@ -13,39 +13,26 @@ def home():
 	return render_template('home.html')
 
 
-def encontraProfMateria(idProf, idMateria):
-	prof = Usuario.query \
-		.filter(Usuario.id == idProf) \
-		.filter(Usuario.papel =='prof') \
-		.first()
-	materia = Materia.query \
-		.filter(Materia.id == idMateria) \
-		.first()
+def getProfMateria(idProf, idMateria):
+	prof = Professor.dbGetUser(idProf)
+	materia = Materia.dbGetMateria(idMateria)
 	return prof, materia
 
 
 @turmas.route('/criar', methods=['POST', 'GET'])
 def criar():
 	form = CriarTurmaForm()
-	form.professor_id.choices = Usuario.query \
-					.with_entities(Usuario.id,Usuario.nome) \
-					.filter(Usuario.papel =='prof') \
-					.all()
-	form.materia_id.choices = Materia.query \
-					.with_entities(Materia.id,Materia.nome) \
-					.all()
+	form.professor_id.choices = Professor.dbGetAllProfIdNome()
+	form.materia_id.choices = Materia.dbGetAllMateria()
 
 	if form.validate_on_submit():
-		# Não precisamos validar essa busca, pois os dados do SelectField eram
-		# válidos
-		prof, materia = encontraProfMateria(form.professor_id.data, 
-											form.materia_id.data)
-		nova_turma = Turma(titulo=form.titulo.data,
-									materia=materia,
-										professor=prof)
-		print(nova_turma)
-		db.session.add(nova_turma)
-		db.session.commit()
+		# Não precisamos validar essa busca, 
+		# pois os dados do SelectField eram válidos
+		prof, materia = getProfMateria(form.professor_id.data, 
+									   form.materia_id.data)
+		nova_turma = Turma(titulo=form.titulo.data, materia=materia,
+						   professor=prof)
+		nova_turma.dbAddTurma()
 		return redirect(url_for('turmas.listar'))
 
 	return render_template('turmas/criar_turma.html', form=form)
@@ -55,55 +42,39 @@ def criar():
 @turmas.route('/listar/<id>', methods=['POST', 'GET'])
 def listar(id=None):
 	if id is None:
-		turmas = Turma.query.all()
-		turmasjoin = Turma.query.join(Usuario).join(Materia).all()
-		return render_template('turmas/listar_turmas.html', turmas=turmasjoin)
+		turmas = Turma.dbGetAllTurma()
+		return render_template('turmas/listar_turmas.html', turmas=turmas)
 	else:
-		turma = Turma.query.filter_by(id=id).first_or_404()
+		turma = Turma.dbGetTurma(id)
 		return render_template('turmas/detalhes_turma.html', turma=turma)
 
 
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
 def atualizar(id):
-	turma = Turma.query.filter_by(id=id).first_or_404()
+	turma = Turma.dbGetTurma(id)
 	form = AtualizarTurmaForm()
 
 	# Monta as opções para escolher matéria, o append e reverse abaixo são
 	# para garantir que a matéria atual esteja pré-selecionada para o usuário
-	form.materia_id.choices = Materia.query \
-					.with_entities(Materia.id,Materia.nome) \
-					.filter(Materia.id != turma.materia_id) \
-					.all()
-	materiaatual = Materia.query \
-					.with_entities(Materia.id,Materia.nome) \
-					.filter(Materia.id == turma.materia_id) \
-					.first()
+	matId = turma.materia_id
+	form.materia_id.choices = Materia.dbGetAllMateriaIdNomeExcept(matId)
+	materiaatual = Materia.dbGetMateriaIdNome(matId)
 	form.materia_id.choices.append(materiaatual)
 	form.materia_id.choices.reverse()
 
 	# Mesmo processo para professor
-	form.professor_id.choices = Usuario.query \
-					.with_entities(Usuario.id,Usuario.nome) \
-					.filter(Usuario.papel =='prof') \
-					.filter(Usuario.id != turma.professor_id) \
-					.all()
-	profatual =  Usuario.query \
-					.with_entities(Usuario.id,Usuario.nome) \
-					.filter(Usuario.papel =='prof') \
-					.filter(Usuario.id == turma.professor_id) \
-					.first()
+	profId = turma.professor_id
+	form.professor_id.choices = Professor.dbGetAllProfIdNomeExcept(profId)
+	profatual = Professor.dbGetProfIdNome(profId)
 	form.professor_id.choices.append(profatual)
 	form.professor_id.choices.reverse()
 
 	if form.validate_on_submit():
 		# Não precisamos validar essa busca, pois os dados do SelectField são
 		# válidos
-		prof, materia = encontraProfMateria(form.professor_id.data, 
-											form.materia_id.data)
-		turma.titulo = form.titulo.data
-		turma.materia = materia
-		turma.professor = prof
-		db.session.commit()
+		prof, materia = getProfMateria(form.professor_id.data, 
+									   form.materia_id.data)
+		turma.dbUpdateTurma(form.titulo.data, materia, prof)
 		return redirect(url_for('turmas.listar'))
 	elif request.method == 'GET':
 		form.titulo.data = turma.titulo
@@ -115,10 +86,5 @@ def atualizar(id):
 
 @turmas.route('/excluir/<id>', methods=['GET'])
 def excluir(id):
-
-	turma = Turma.query.filter_by(id=id).first_or_404()
-
-	db.session.delete(turma)
-	db.session.commit()
-
+	Turma.dbDeleteTurma(id)
 	return redirect(url_for('turmas.listar'))

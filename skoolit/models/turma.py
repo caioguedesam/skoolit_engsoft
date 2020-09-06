@@ -19,3 +19,26 @@ class Turma(db.Model):
 		self.materia = materia
 		self.professor_id = professor.id
 		self.professor = professor
+	
+	def dbAddTurma(self):
+		db.session.add(self)
+		db.session.commit()
+	
+	def dbUpdateTurma(self, newTitulo, newMateria, newProf):
+		self.titulo = newTitulo
+		self.materia_id = newMateria.id
+		self.materia = newMateria
+		self.professor_id = newProf.id
+		self.professor = newProf
+		db.session.commit()
+	
+	def dbDeleteTurma(id):
+		turma = Turma.dbGetTurma(id)
+		db.session.delete(turma)
+		db.session.commit()
+
+	def dbGetAllTurma():
+		return Turma.query.all()
+	
+	def dbGetTurma(id):
+		return Turma.query.filter_by(id=id).first_or_404()

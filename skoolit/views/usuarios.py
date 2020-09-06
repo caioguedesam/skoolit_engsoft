@@ -3,7 +3,7 @@ flash)
 from flask_login import login_required
 
 #local imports
-from skoolit import app, db
+from skoolit import app
 from skoolit.forms import CriarUsuarioForm, AtualizarUsuarioForm
 from skoolit.models import Usuario
 

@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, Blueprint, flash
 
 #local imports
-from skoolit import app, db
+from skoolit import app
 from skoolit.models import Materia
 from skoolit.forms import CriarMateriaForm, AtualizarMateriaForm 
 
@@ -19,9 +19,7 @@ def criar():
 
 	if form.validate_on_submit():
 		nova_materia = Materia(form.nome.data)
-		db.session.add(nova_materia)
-		db.session.commit()
-
+		nova_materia.dbAddMateria()
 		return redirect(url_for('materias.listar'))
 
 	return render_template('materias/criar_materia.html', form=form)
@@ -31,10 +29,10 @@ def criar():
 @materias.route('/listar/<id>', methods=['POST', 'GET'])
 def listar(id=None):
 	if id is None:
-		materias = Materia.query.all()
+		materias = Materia.dbGetAllMateria()
 		return render_template('materias/listar_materias.html', materias=materias)
 	else:
-		materia = Materia.query.filter_by(id=id).first_or_404()
+		materia = Materia.dbGetMateria(id)
 		return render_template('materias/detalhes_materia.html', materia=materia)
 
 
@@ -42,12 +40,10 @@ def listar(id=None):
 def atualizar(id):
 	form = AtualizarMateriaForm()
 
-	materia = Materia.query.filter_by(id=id).first_or_404()
+	materia = Materia.dbGetMateria(id)
 
 	if form.validate_on_submit():
-		materia.nome = form.nome.data
-		db.session.commit()
-
+		materia.dbUpdateMateria(form.nome.data)
 		return redirect(url_for('materias.listar'))
 	elif request.method == 'GET':
 		form.nome.data = materia.nome
@@ -57,10 +53,5 @@ def atualizar(id):
 
 @materias.route('/excluir/<id>', methods=['GET'])
 def excluir(id):
-
-	materia = Materia.query.filter_by(id=id).first_or_404()
-
-	db.session.delete(materia)
-	db.session.commit()
-
+	Materia.dbDeleteMateria(id)
 	return redirect(url_for('materias.listar'))
