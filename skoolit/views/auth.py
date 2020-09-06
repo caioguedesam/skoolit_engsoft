@@ -15,12 +15,7 @@ auth = Blueprint('auth', __name__,
 
 @loginManager.user_loader
 def load_user(id):
-	# Usuario.query.filter_by(id=user_id)()
-    return Usuario.query.get(int(id))
-
-@login_required
-def exigirUsuarioLogado():
-    pass
+    return Usuario.dbGetUser(id)
 
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
@@ -30,7 +25,7 @@ def login():
 	form = LoginForm(request.form)
 
 	if (form.validate_on_submit()):
-		usuario = Usuario.query.filter_by(nome=form.nome.data).first()
+		usuario = Usuario.dbGetUserNomeEmail(form.nome.data)
 		if usuario is None or not usuario.validarSenha(form.senha.data):
 			flash('Nome ou senha inválido(s)')
 			return redirect(url_for('auth.login'))

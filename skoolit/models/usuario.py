@@ -30,7 +30,7 @@ class Usuario(UserMixin,db.Model):
 	def updateSenha(self, newSenha):
 		self.hashSenha = generate_password_hash(newSenha)
 		db.session.commit()
-	
+
 	def dbAddUser(self):
 		db.session.add(self)
 		db.session.commit()
@@ -43,15 +43,26 @@ class Usuario(UserMixin,db.Model):
 		self.papel = newPapel
 		db.session.commit()
 
+	def dbDeleteUser(id):
+		usuario = Usuario.dbGetUser(id)
+		db.session.delete(usuario)
+		db.session.commit()
+
 	def dbGetAllUsers():
 		return Usuario.query.all()
 	
 	def dbGetUser(id):
 		return Usuario.query.filter_by(id=id).first_or_404()
 	
-	def dbDeleteUser(id):
-		usuario = Usuario.dbGetUser(id)
-		db.session.delete(usuario)
-		db.session.commit()
+	def dbGetUserNomeEmail(identificador):
+		# Retorna o usuário via nome ou email
+		userNome = Usuario.query.filter_by(nome=identificador).first()
+		userMail = Usuario.query.filter_by(email=identificador).first()
+		if (userMail is None and userNome is None):
+			return None
+		elif userNome is not None:
+			return userNome
+		else:
+			return userMail
 	
 
