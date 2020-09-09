@@ -33,7 +33,7 @@ class Postagem(db.Model):
 	def dbGetAllPosts():
 		return Postagem.query.all()
 	
-	def dbGetPostByTurma(turma_id):
+	def dbGetPostsByTurma(turma_id):
 		return Postagem.query.filter_by(turma_id=turma_id).all()
 
 	def dbGetPost(id):

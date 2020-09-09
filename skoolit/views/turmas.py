@@ -47,7 +47,8 @@ def listar(id=None):
 		return render_template('turmas/listar_turmas.html', turmas=turmas)
 	else:
 		turma = Turma.dbGetTurma(id)
-		return render_template('turmas/detalhes_turma.html', turma=turma)
+		postagens = Postagem.dbGetPostsByTurma(turma.id)
+		return render_template('turmas/detalhes_turma.html', turma=turma, postagens=postagens)
 
 
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
