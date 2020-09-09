@@ -99,8 +99,8 @@ def postar(id):
 	data = datetime.today()
 
 	if form.validate_on_submit():
-		titulo = form.titulo
-		texto = form.texto
+		titulo = form.titulo.data
+		texto = form.texto.data
 		novaPostagem = Postagem(titulo=titulo, turma=turma, professorId=profId, texto=texto, data=data)
 		novaPostagem.dbAddPost()
 		return redirect(url_for('turmas.listar'))
