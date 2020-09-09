@@ -26,7 +26,7 @@
 				Excluir
 			</a>
 			{% if current_user.id == turma.professor_id %}
-			<a href="{{url_for('turmas.postar', id=turma.id)}}"
+			<a href="{{url_for('turmas.listar', id=turma.id)}}"
 			class="btn" role="button">
 				Postar
 			</a>

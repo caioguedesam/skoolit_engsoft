@@ -15,3 +15,8 @@ class AtualizarTurmaForm(FlaskForm):
     professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
     materia_id = SelectField("Matéria: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Atualizar")
+
+class CriarPostForm(FlaskForm):
+    titulo = StringField("Título da Postagem: ", validators=[CampoObrigatorio()])
+    texto = TextAreaField("Conteúdo da Postagem: ", validators=[CampoObrigatorio()])
+    submit = SubmitField("Postar")

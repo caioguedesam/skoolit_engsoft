@@ -89,6 +89,5 @@ def excluir(id):
 	Turma.dbDeleteTurma(id)
 	return redirect(url_for('turmas.listar'))
 
-@turmas.route('/postar/<id>', methods=['POST', 'GET'])
-def postar(id):
-	
+#@turmas.route('/postar/<id>', methods=['POST', 'GET'])
+#def postar(id):

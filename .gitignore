@@ -11,3 +11,4 @@ __pycache__
 **/.sass-cache
 **/.sass-cache/**
 .pylintrc
+venv/
