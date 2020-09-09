@@ -4,3 +4,4 @@ from .materia import Materia
 from .aluno import Aluno
 from .administrador import Administrador
 from .professor import Professor
+from .postagem import Postagem

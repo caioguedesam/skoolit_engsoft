@@ -2,8 +2,8 @@ from flask import render_template, redirect, url_for, request, Blueprint, flash
 
 #local imports
 from skoolit import app
-from skoolit.models import Usuario, Professor, Materia, Turma
-from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm
+from skoolit.models import Usuario, Professor, Materia, Turma, Postagem
+from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, CriarPostForm
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -89,5 +89,10 @@ def excluir(id):
 	Turma.dbDeleteTurma(id)
 	return redirect(url_for('turmas.listar'))
 
-#@turmas.route('/postar/<id>', methods=['POST', 'GET'])
-#def postar(id):
+@turmas.route('/postar/<id>', methods=['POST', 'GET'])
+def postar(id):
+	turma = db.GetTurma(id)
+	form = CriarPostForm()
+	
+	profId = turma.professor_id
+

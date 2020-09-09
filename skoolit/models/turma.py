@@ -13,6 +13,8 @@ class Turma(db.Model):
 	professor_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
 	professor = db.relationship('Professor', back_populates='turmas')
 
+	postagens = db.relationship('Postagem', backref='turma')
+
 	def __init__(self, titulo, materia, professor):
 		self.titulo = titulo
 		self.materia_id = materia.id
