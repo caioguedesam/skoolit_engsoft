@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import render_template, redirect, url_for, request, Blueprint, flash
 
 #local imports
@@ -91,8 +92,17 @@ def excluir(id):
 
 @turmas.route('/postar/<id>', methods=['POST', 'GET'])
 def postar(id):
-	turma = db.GetTurma(id)
 	form = CriarPostForm()
-	
+
+	turma = Turma.dbGetTurma(id)
 	profId = turma.professor_id
+	data = datetime.today()
+
+	if form.validate_on_submit():
+		titulo = form.titulo
+		texto = form.texto
+		novaPostagem = Postagem(titulo=titulo, turma=turma, professorId=profId, texto=texto, data=data)
+		novaPostagem.dbAddPost()
+		return redirect(url_for('turmas.listar'))
+	return render_template('turmas/criar_postagem.html', form=form)
 
