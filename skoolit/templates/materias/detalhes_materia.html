@@ -8,18 +8,17 @@
 
 {% block content %}
 
-<div class="container">
-
+<div class="container conteudo">
 	<div class="d-flex justify-content-between mb-5">
-		<h1 id="titulo-materia">{{materia.nome}}</h1>
+		<h1 class="bold">{{materia.nome}}</h1>
 
 		<div class="mt-2">
-			<a href="{{url_for('turmas.atualizar_materia', id=materia.id)}}"
-			class="btn btn-primary mr-2" role="button">
+			<a href="{{url_for('materias.atualizar', id=materia.id)}}"
+			class="btn mr-2" role="button">
 				Editar
 			</a>
-			<a href="{{url_for('turmas.excluir_materia', id=materia.id)}}"
-			class="btn btn-primary" role="button">
+			<a href="{{url_for('materias.excluir', id=materia.id)}}"
+			class="btn" role="button">
 				Excluir
 			</a>
 		</div>
@@ -27,7 +26,7 @@
 
 		<div class="card descricao-materia">
 			<div class="card-body">
-				<h5 id="titulo-descricao" class="card-title"> Descrição da materia</h5>
+				<h5 class="card-title bold"> Descrição da materia</h5>
 				<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.
 					Si num tem leite então bota uma pinga aí cumpadi! Mauris nec dolor in eros commodo tempor. Aenean aliquam molestie leo, vitae iaculis nisl. Detraxit consequat et quo num tendi nada. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.</p>
 				<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.</p>

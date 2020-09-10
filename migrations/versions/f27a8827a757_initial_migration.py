@@ -1,8 +1,8 @@
-"""Initial
+"""Initial migration
 
-Revision ID: 2c74de044c0a
+Revision ID: f27a8827a757
 Revises: 
-Create Date: 2020-08-30 13:23:53.593157
+Create Date: 2020-09-04 23:25:42.573826
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2c74de044c0a'
+revision = 'f27a8827a757'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,9 +29,9 @@ def upgrade():
     sa.Column('papel', sa.String(), nullable=True),
     sa.Column('nome', sa.String(), nullable=False),
     sa.Column('hashSenha', sa.String(), nullable=False),
-    sa.Column('professor_info', sa.String(), nullable=True),
     sa.Column('aluno_info', sa.String(), nullable=True),
     sa.Column('adm_info', sa.String(), nullable=True),
+    sa.Column('professor_info', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_usuarios'))
     )
     op.create_table('turmas',

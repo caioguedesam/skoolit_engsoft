@@ -1,9 +1,4 @@
-form .form-label {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.form-turma {
+.card.usuarios {
   background-color: var(--white);
   border-color: var(--white);
   border-radius: 10px;
@@ -13,4 +8,9 @@ form .form-label {
   margin-bottom: 30px; 
   
   width: 100%;
+}
+
+td a {
+  color: inherit;
+  text-decoration: none;
 }

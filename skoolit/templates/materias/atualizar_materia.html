@@ -1,0 +1,28 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='materias/atualizar_materia.css') }}">
+{% endblock %}
+
+{% block title %}Atualizar matéria{% endblock %}
+
+{% block content %}
+
+<div class="container conteudo">
+	<div class="d-flex justify-content-between mb-5">
+		<h1 class="bold">Atualizar matéria</h1>
+	</div>
+
+	<div class="card form-materia">
+		<div class="card-body">
+			<form method="POST">
+				{{form.hidden_tag()}}
+				{{form.nome.label(class="form-label")}} <br>
+				{{form.nome(class="form-control w-50")}} <br>
+				{{form.submit(class="btn")}}
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

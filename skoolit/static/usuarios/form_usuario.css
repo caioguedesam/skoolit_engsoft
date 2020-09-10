@@ -3,7 +3,7 @@ form .form-label {
   font-weight: bold;
 }
 
-.form-turma {
+.card.form-usuario {
   background-color: var(--white);
   border-color: var(--white);
   border-radius: 10px;
