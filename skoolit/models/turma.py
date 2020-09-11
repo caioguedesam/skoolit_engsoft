@@ -52,4 +52,6 @@ class Turma(db.Model):
 	def dbGetTurma(id):
 		return Turma.query.filter_by(id=id).first_or_404()
 
-
+	def dbAddAluno(self, aluno):
+		self.alunos.append(aluno)
+		db.session.commit()

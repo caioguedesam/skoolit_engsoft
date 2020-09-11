@@ -16,13 +16,8 @@
 	<form class="form-turma" method="POST">
 
 		<div class="d-flex flex-wrap justify-content-start align-items-start">
-			<div class="col-5">
-				{{form.turma_id.label(class="form-label")}} 
-				{{form.turma_id(class="form-control")}}	
-				
-			</div>
-
 			<div class="col-5 ml-2">
+				{{form.hidden_tag()}}
 				{{form.aluno_id.label(class="form-label")}} 
 				{{form.aluno_id(class="form-control")}}
 			</div>

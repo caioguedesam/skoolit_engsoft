@@ -18,5 +18,4 @@ class AtualizarTurmaForm(FlaskForm):
 
 class AdicionarAlunoTurmaForm(FlaskForm):
 	aluno_id = SelectField("Aluno: ", validators=[CampoObrigatorio()])
-    turma_id = SelectField("Turma: ", validators=[CampoObrigatorio()])
-    submit = SubmitField("Adicionar")
+	submit = SubmitField("Adicionar")

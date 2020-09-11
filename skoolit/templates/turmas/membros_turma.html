@@ -12,7 +12,7 @@
 		<h1 class="bold">Membros da turma</h1>
 
 		<div>
-				<a href="{{url_for('usuarios.criar')}}"
+				<a href="{{url_for('turmas.adicionar_aluno', id=turma.id)}}"
 					class="btn" role="button">
 					Adicionar aluno
 				</a>
@@ -30,7 +30,14 @@
 				</tr>
 			</thead>
 			<tbody>
-
+				{% for aluno in alunos %}
+					<tr>
+						<th scope="row">{{aluno.id}}</th>
+						<td>{{aluno.nome}}</td>
+						<td>{{aluno.email}}</td>
+						<td> <a href="#">Excluir</a></td>
+					</tr>
+				{%endfor %}
 			</tbody>
 		</table>
 

@@ -9,3 +9,8 @@ class Aluno(Usuario):
     __mapper_args__ = {
         'polymorphic_identity':'al',
     }
+
+    def dbGetAllAlunoIdNome():
+        return Usuario.query.with_entities(Usuario.id,Usuario.nome) \
+							.filter(Usuario.papel =='al') \
+							.all()
