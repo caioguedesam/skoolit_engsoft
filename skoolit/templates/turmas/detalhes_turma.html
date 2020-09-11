@@ -14,7 +14,7 @@
 		<h1 class="bold">{{turma.materia.nome}} - {{turma.titulo}} </h1>
 
 		<div class="mt-2">
-			<a href="#"
+			<a href="{{url_for('turmas.listar_membros', id=turma.id)}}"
 			class="btn  mr-2" role="button">
 				Membros
 			</a>

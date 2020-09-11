@@ -48,6 +48,10 @@ def listar(id=None):
 		turma = Turma.dbGetTurma(id)
 		return render_template('turmas/detalhes_turma.html', turma=turma)
 
+@turmas.route('/listar-membros', methods=['POST', 'GET'])
+def listar_membros(id=None):
+	return render_template('turmas/membros_turma.html')
+
 
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
 def atualizar(id):
