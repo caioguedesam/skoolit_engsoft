@@ -55,3 +55,7 @@ class Turma(db.Model):
 	def dbAddAluno(self, aluno):
 		self.alunos.append(aluno)
 		db.session.commit()
+
+	def dbDeleteAluno(self, aluno):
+		self.alunos.remove(aluno)
+		db.session.commit()

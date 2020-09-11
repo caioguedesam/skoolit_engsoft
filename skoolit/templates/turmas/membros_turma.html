@@ -26,7 +26,7 @@
 					<th scope="col">ID</th>
 					<th scope="col">Aluno</th>
 					<th scope="col">Email</th>
-					<th scope="col">Remover</th>
+					<th scope="col">Ações</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,7 +35,7 @@
 						<th scope="row">{{aluno.id}}</th>
 						<td>{{aluno.nome}}</td>
 						<td>{{aluno.email}}</td>
-						<td> <a href="#">Excluir</a></td>
+						<td> <a href="{{url_for('turmas.remover_aluno', id=turma.id, id_aluno=aluno.id)}}">Remover</a></td>
 					</tr>
 				{%endfor %}
 			</tbody>
