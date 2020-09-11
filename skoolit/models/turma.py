@@ -1,5 +1,11 @@
 #local imports
 from skoolit import db
+from skoolit.models import Aluno
+
+turma_alunos = db.Table('turma_alunos',
+    db.Column('turma_id', db.Integer, db.ForeignKey('turma.id'), primary_key=True),
+    db.Column('aluno_id', db.Integer, db.ForeignKey('aluno.id'), primary_key=True)
+)
 
 class Turma(db.Model):
 
@@ -12,6 +18,9 @@ class Turma(db.Model):
 
 	professor_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
 	professor = db.relationship('Professor', back_populates='turmas')
+
+	alunos = db.relationship('Tag', secondary=alunos, lazy='subquery',
+        backref=db.backref('turmas', lazy=True))
 
 	def __init__(self, titulo, materia, professor):
 		self.titulo = titulo
@@ -42,3 +51,5 @@ class Turma(db.Model):
 	
 	def dbGetTurma(id):
 		return Turma.query.filter_by(id=id).first_or_404()
+
+
