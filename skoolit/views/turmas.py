@@ -2,8 +2,8 @@ from flask import render_template, redirect, url_for, request, Blueprint, flash
 
 #local imports
 from skoolit import app
-from skoolit.models import Usuario, Professor, Materia, Turma
-from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm
+from skoolit.models import Usuario, Professor, Materia, Turma, Aluno
+from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, AdicionarAlunoTurmaForm
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -17,6 +17,10 @@ def getProfMateria(idProf, idMateria):
 	prof = Professor.dbGetUser(idProf)
 	materia = Materia.dbGetMateria(idMateria)
 	return prof, materia
+
+def getAluno(idAluno):
+	aluno = Aluno.dbGetUser(idAluno)
+	return aluno
 
 
 @turmas.route('/criar', methods=['POST', 'GET'])
@@ -47,6 +51,11 @@ def listar(id=None):
 	else:
 		turma = Turma.dbGetTurma(id)
 		return render_template('turmas/detalhes_turma.html', turma=turma)
+
+@turmas.route('/listar-membros/<id>', methods=['POST', 'GET'])
+def listar_membros(id):
+	turma = Turma.dbGetTurma(id)
+	return render_template('turmas/membros_turma.html', turma=turma, alunos=turma.alunos)
 
 
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
@@ -83,6 +92,29 @@ def atualizar(id):
 
 	return render_template('turmas/atualizar_turma.html', form=form)
 
+@turmas.route('/adicionar-aluno/<id>', methods=['POST', 'GET'])
+def adicionar_aluno(id):
+	turma = Turma.dbGetTurma(id)
+	form = AdicionarAlunoTurmaForm()
+
+	form.aluno_id.choices = Aluno.dbGetAllAlunoIdNome()
+
+	if form.validate_on_submit():
+		# Não precisamos validar essa busca, 
+		# pois os dados do SelectField eram válidos
+		aluno = getAluno(form.aluno_id.data)
+		turma.dbAddAluno(aluno)
+		return redirect(url_for('turmas.listar_membros', id=turma.id))
+
+	return render_template('turmas/adicionar_aluno_turma.html', form=form, turma=turma)
+
+@turmas.route('/remover-aluno/<id>/<id_aluno>', methods=['POST', 'GET'])
+def remover_aluno(id, id_aluno):
+	turma = Turma.dbGetTurma(id)
+	aluno = getAluno(id_aluno)
+	turma.dbDeleteAluno(aluno)
+	
+	return redirect(url_for('turmas.listar_membros', id=turma.id))
 
 @turmas.route('/excluir/<id>', methods=['GET'])
 def excluir(id):
