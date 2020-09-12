@@ -4,13 +4,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='turmas/criar_turma.css') }}">
 {% endblock %}
 
-{% block title %}Adicionar aluno à turma{% endblock %}
+{% block title %}{{ turma.titulo }} - Adicionar aluno{% endblock %}
 
 {% block content %}
 
 <div class="container conteudo">
 	<div class="d-flex justify-content-between mb-5">
-		<h1 class="bold">Adicionar aluno</h1>
+		<h1 class="bold">{{ turma.titulo }} - Adicionar aluno</h1>
 	</div>
 
 	<form class="form-turma" method="POST">

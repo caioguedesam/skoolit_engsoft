@@ -106,7 +106,7 @@ def adicionar_aluno(id):
 		turma.dbAddAluno(aluno)
 		return redirect(url_for('turmas.listar_membros', id=turma.id))
 
-	return render_template('turmas/adicionar_aluno_turma.html', form=form)
+	return render_template('turmas/adicionar_aluno_turma.html', form=form, turma=turma)
 
 @turmas.route('/remover-aluno/<id>/<id_aluno>', methods=['POST', 'GET'])
 def remover_aluno(id, id_aluno):
