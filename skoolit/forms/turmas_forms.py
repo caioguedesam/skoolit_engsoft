@@ -20,3 +20,6 @@ class CriarPostForm(FlaskForm):
     titulo = StringField("Título da Postagem: ", validators=[CampoObrigatorio()])
     texto = TextAreaField("Conteúdo da Postagem: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Postar")
+class AdicionarAlunoTurmaForm(FlaskForm):
+	aluno_id = SelectField("Aluno: ", validators=[CampoObrigatorio()])
+	submit = SubmitField("Adicionar")
