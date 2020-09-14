@@ -1,9 +1,10 @@
+from datetime import datetime
 from flask import render_template, redirect, url_for, request, Blueprint, flash
 
 #local imports
 from skoolit import app
-from skoolit.models import Usuario, Professor, Materia, Turma, Aluno
-from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, AdicionarAlunoTurmaForm
+from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno
+from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, AdicionarAlunoTurmaForm
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -50,7 +51,8 @@ def listar(id=None):
 		return render_template('turmas/listar_turmas.html', turmas=turmas)
 	else:
 		turma = Turma.dbGetTurma(id)
-		return render_template('turmas/detalhes_turma.html', turma=turma)
+		postagens = Postagem.dbGetPostsByTurma(turma.id)
+		return render_template('turmas/detalhes_turma.html', turma=turma, postagens=postagens)
 
 @turmas.route('/listar-membros/<id>', methods=['POST', 'GET'])
 def listar_membros(id):
@@ -120,3 +122,20 @@ def remover_aluno(id, id_aluno):
 def excluir(id):
 	Turma.dbDeleteTurma(id)
 	return redirect(url_for('turmas.listar'))
+
+@turmas.route('/postar/<id>', methods=['POST', 'GET'])
+def postar(id):
+	form = CriarPostForm()
+
+	turma = Turma.dbGetTurma(id)
+	profId = turma.professor_id
+	data = datetime.today()
+
+	if form.validate_on_submit():
+		titulo = form.titulo.data
+		texto = form.texto.data
+		novaPostagem = Postagem(titulo=titulo, turma=turma, professorId=profId, texto=texto, data=data)
+		novaPostagem.dbAddPost()
+		return redirect(url_for('turmas.listar'))
+	return render_template('turmas/criar_postagem.html', form=form)
+

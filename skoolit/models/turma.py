@@ -19,6 +19,7 @@ class Turma(db.Model):
 	professor_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
 	professor = db.relationship('Professor', back_populates='turmas')
 
+	postagens = db.relationship('Postagem', backref='turma')
 	alunos = db.relationship('Aluno', secondary='turma_alunos', lazy='subquery',
         backref=db.backref('turmas', lazy=True))
 

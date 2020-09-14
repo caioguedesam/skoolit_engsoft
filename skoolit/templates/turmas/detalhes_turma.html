@@ -9,7 +9,6 @@
 {% block content %}
 
 <div class="container conteudo">
-
 	<div class="d-flex justify-content-between mb-5">
 		<h1 class="bold">{{turma.materia.nome}} - {{turma.titulo}} </h1>
 
@@ -18,14 +17,24 @@
 			class="btn  mr-2" role="button">
 				Membros
 			</a>
+			{% if current_user.papel == "adm" %}
 			<a href="{{url_for('turmas.atualizar', id=turma.id)}}"
-			class="btn  mr-2" role="button">
+			class="btn  ml-2" role="button">
 				Editar
 			</a>
+			{% endif %}
+			{% if current_user.papel == "adm" %}
 			<a href="{{url_for('turmas.excluir', id=turma.id)}}"
-			class="btn" role="button">
+			class="btn ml-2" role="button">
 				Excluir
 			</a>
+			{% endif %}
+			{% if current_user.id == turma.professor_id %}
+			<a href="{{url_for('turmas.postar', id=turma.id)}}"
+			class="btn ml-2" role="button">
+				Postar
+			</a>
+			{% endif %}
 		</div>
 	</div>
 	
@@ -74,37 +83,25 @@
 		<div class="column card card-postagens col-6 offset-1">
 			<div class="card-body">
 				<h5 class="bold" class="card-title mb-4"> Postagens</h5>
-
+				{% for post in postagens %}
 				<div class="card card-postagem mx-auto">
 					<div class="card-body">
 						<div class="data float-right">
-							<p >01/09/2020</p>
+							<p >{{post.data.strftime('%d/%m/%Y, %H:%M')}}</p>
 						</div>
 						<div class="perfil-postagem mb-3">
 							<div class="perfil-circulo rounded-circle text-center">
+								<!-- Nome do post é o professor da turma. Talvez seja interessante
+								armazenar isso no post em si. -->
 								<b>{{ turma.professor.nome[0:2].upper() }}</b>
 							</div>
 							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
 						</div>
-						<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris. Cevadis im ampola pa arma uma pindureta.</p>
+						<p class="card-text ml-2"><b>{{post.titulo}}</b></p>
+						<p class="card-text">{{post.texto}}</p>
 					</div>
 				</div>
-
-				<div class="card card-postagem mx-auto">
-					<div class="card-body">
-						<div class="data float-right">
-							<p >01/09/2020</p>
-						</div>
-						<div class="perfil-postagem mb-3">
-							<div class="perfil-circulo rounded-circle text-center">
-								<b>{{ turma.professor.nome[0:2].upper() }}</b>
-							</div>
-							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
-						</div>
-						<p class="card-text">Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. A ordem dos tratores não altera o pão duris.</p>
-					</div>
-				</div>
-
+				{% endfor %}
 			</div>
 		</div>
 	</div>
