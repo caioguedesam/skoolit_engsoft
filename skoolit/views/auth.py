@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 from skoolit import loginManager
 
 #local imports
-from skoolit.forms import LoginForm
+from skoolit.forms import LoginForm, CriarLoginForm
 from skoolit.models import Usuario
 
 
@@ -40,6 +40,19 @@ def login():
 			return redirect(url_for('home'))
 
 	return render_template('auth/login.html', title='Login', form=form, alert=None)
+
+@auth.route('/criar-login', methods=['POST', 'GET'])
+def criarLogin():
+	if current_user.is_authenticated:
+		return redirect(url_for('home'))
+	
+	form = CriarLoginForm()
+	if form.validate_on_submit():
+		novoUsuario = Usuario(form.email.data, 'al', form.nome.data, form.senha.data)
+		novoUsuario.dbAddUser()
+		return redirect(url_for('auth.login'))
+	
+	return render_template('auth/criar_login.html', form=form)
 
 @auth.route('/logout')
 def logout():
