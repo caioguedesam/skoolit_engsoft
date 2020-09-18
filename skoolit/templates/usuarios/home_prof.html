@@ -30,8 +30,7 @@
 						<a class="turma-nome" href="{{url_for('turmas.listar', id=turma.id)}}">{{turma.materia.nome}}</a>
 					</h5>
 					<div class="text-center">
-						<a href="{{url_for('turmas.atualizar', id=turma.id)}}" class="card-link">Editar</a>
-						<a href="{{url_for('turmas.excluir', id=turma.id)}}" class="card-link">Excluir</a>
+						<a href="{{url_for('turmas.listar', id=turma.id)}}" class="card-link">Info</a>
 					</div>
 				</div>
 			</div>
