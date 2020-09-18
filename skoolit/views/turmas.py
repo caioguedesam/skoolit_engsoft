@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, Blueprint, flash
+from flask_login import login_required
 
 #local imports
 from skoolit import app
@@ -7,6 +8,12 @@ from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno
 from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, AdicionarAlunoTurmaForm
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
+
+
+@turmas.before_request
+@login_required
+def exigirLogin():
+	pass
 
 
 @turmas.route('/')
