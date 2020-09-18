@@ -21,29 +21,18 @@ def home():
 	return render_template('home.html')
 
 
-def getProfMateria(idProf, idMateria):
-	prof = Professor.dbGetUser(idProf)
-	materia = Materia.dbGetMateria(idMateria)
-	return prof, materia
-
 def getAluno(idAluno):
 	aluno = Aluno.dbGetUser(idAluno)
 	return aluno
 
-
 @turmas.route('/criar', methods=['POST', 'GET'])
 def criar():
 	form = CriarTurmaForm()
-	form.professor_id.choices = Professor.dbGetAllProfIdNome()
 	form.materia_id.choices = Materia.dbGetAllMateria()
 
 	if form.validate_on_submit():
-		# Não precisamos validar essa busca, 
-		# pois os dados do SelectField eram válidos
-		prof, materia = getProfMateria(form.professor_id.data, 
-									   form.materia_id.data)
-		nova_turma = Turma(titulo=form.titulo.data, materia=materia,
-						   professor=prof)
+		materia = Materia.dbGetMateria(form.materia_id.data)
+		nova_turma = Turma(titulo=form.titulo.data, materia=materia)
 		nova_turma.dbAddTurma()
 		return redirect(url_for('turmas.listar'))
 
@@ -80,24 +69,13 @@ def atualizar(id):
 	form.materia_id.choices.append(materiaatual)
 	form.materia_id.choices.reverse()
 
-	# Mesmo processo para professor
-	profId = turma.professor_id
-	form.professor_id.choices = Professor.dbGetAllProfIdNomeExcept(profId)
-	profatual = Professor.dbGetProfIdNome(profId)
-	form.professor_id.choices.append(profatual)
-	form.professor_id.choices.reverse()
-
 	if form.validate_on_submit():
-		# Não precisamos validar essa busca, pois os dados do SelectField são
-		# válidos
-		prof, materia = getProfMateria(form.professor_id.data, 
-									   form.materia_id.data)
-		turma.dbUpdateTurma(form.titulo.data, materia, prof)
+		materia = Materia.dbGetMateria(form.materia_id.data)
+		turma.dbUpdateTurma(form.titulo.data, materia)
 		return redirect(url_for('turmas.listar'))
 	elif request.method == 'GET':
 		form.titulo.data = turma.titulo
 		form.materia_id.data = turma.materia_id
-		form.professor_id.data = turma.professor_id
 
 	return render_template('turmas/atualizar_turma.html', form=form)
 
