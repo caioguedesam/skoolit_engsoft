@@ -49,12 +49,14 @@
 				<div class="card-body">
 					<h5 class="bold" class="card-title"> {{modulo.titulo}} </h5>
 					<p class="card-text" style="white-space: pre-line">{{modulo.texto}}</p>
+					{% if current_user.id == turma.professor_id or current_user.papel == "adm" %}
 					<a href=# class="btn  mr-2" role="button">
 						Editar
 					</a>
 					<a href=# class="btn  mr-2" role="button">
 						Excluir
 					</a>
+					{% endif %}
 				</div>
 			</div>
 			{% endfor %}	
