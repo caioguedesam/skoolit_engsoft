@@ -1,11 +1,12 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, Blueprint, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 #local imports
 from skoolit import app
 from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno
-from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, AdicionarAlunoTurmaForm
+from skoolit.forms import (CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, 
+						   AdicionarAlunoTurmaForm, AdicionarProfessorTurmaForm)
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -48,12 +49,19 @@ def listar(id=None):
 	else:
 		turma = Turma.dbGetTurma(id)
 		postagens = Postagem.dbGetPostsByTurma(turma.id)
-		return render_template('turmas/detalhes_turma.html', turma=turma, postagens=postagens)
+		ehProf = turma.ehProfessor(current_user.id)
+		return render_template('turmas/detalhes_turma.html', 
+							    turma=turma, postagens=postagens, ehProf=ehProf)
 
 @turmas.route('/listar-membros/<id>', methods=['POST', 'GET'])
 def listar_membros(id):
 	turma = Turma.dbGetTurma(id)
 	return render_template('turmas/membros_turma.html', turma=turma, alunos=turma.alunos)
+
+@turmas.route('/listar-prof/<id>', methods=['POST', 'GET'])
+def listar_professores(id):
+	turma = Turma.dbGetTurma(id)
+	return render_template('turmas/professores_turma.html', turma=turma, professores=turma.professores)
 
 
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
@@ -103,24 +111,44 @@ def remover_aluno(id, id_aluno):
 	
 	return redirect(url_for('turmas.listar_membros', id=turma.id))
 
+@turmas.route('/adicionar-professor/<id>', methods=['POST', 'GET'])
+def adicionar_professor(id):
+	turma = Turma.dbGetTurma(id)
+	form = AdicionarProfessorTurmaForm()
+	form.professor_id.choices = Professor.dbGetAllProfIdNome()
+
+	if form.validate_on_submit():
+		professor = Professor.dbGetUser(form.professor_id.data)
+		turma.dbAddProfessor(professor)
+		return redirect(url_for('turmas.listar_professores', id=turma.id))
+
+	return render_template('turmas/adicionar_professor_turma.html', form=form, turma=turma)
+
+@turmas.route('/remover-professor/<id>/<id_professor>', methods=['POST', 'GET'])
+def remover_professor(id, id_professor):
+	turma = Turma.dbGetTurma(id)
+	professor = Professor.dbGetUser(id_professor)
+	turma.dbDeleteProfessor(professor)
+	return redirect(url_for('turmas.listar_professores', id=turma.id))
+
 @turmas.route('/excluir/<id>', methods=['GET'])
 def excluir(id):
 	Turma.dbDeleteTurma(id)
 	return redirect(url_for('turmas.listar'))
 
-@turmas.route('/postar/<id>', methods=['POST', 'GET'])
-def postar(id):
+@turmas.route('/postar/<id>/<id_prof>', methods=['POST', 'GET'])
+def postar(id, id_prof):
 	form = CriarPostForm()
 
 	turma = Turma.dbGetTurma(id)
-	profId = turma.professor_id
+	prof = turma.getProfessor(id_prof)
 	data = datetime.today()
 
 	if form.validate_on_submit():
 		titulo = form.titulo.data
 		texto = form.texto.data
-		novaPostagem = Postagem(titulo=titulo, turma=turma, professorId=profId, texto=texto, data=data)
+		novaPostagem = Postagem(titulo=titulo, turma=turma, professorId=prof.id, professor=prof, texto=texto, data=data)
 		novaPostagem.dbAddPost()
-		return redirect(url_for('turmas.listar'))
+		return redirect(url_for('turmas.listar', id=id))
 	return render_template('turmas/criar_postagem.html', form=form)
 

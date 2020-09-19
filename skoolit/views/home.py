@@ -8,14 +8,12 @@ from skoolit.models import Usuario
 @app.route('/home')
 @login_required
 def home():
-	user = Usuario.dbGetUser(current_user.get_id())
-	userTipo = user.papel
-	if userTipo == 'adm':
+	if current_user.papel == 'adm':
 		return render_template('home.html') 	#Home do admin
-	elif userTipo == 'prof':
+	elif current_user.papel == 'prof':
 		return render_template('usuarios/home_prof.html', 
-								turmas = user.turmas)		#Home do prof
-	elif userTipo == 'al':
+								turmas = current_user.turmas)		#Home do prof
+	elif current_user.papel == 'al':
 		return render_template('home.html')		#Home do aluno
 	else:
 		print('Papel de usuário não encontrado!')

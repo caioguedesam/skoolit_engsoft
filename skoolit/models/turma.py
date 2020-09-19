@@ -21,8 +21,7 @@ class Turma(db.Model):
 	materia_id = db.Column(db.Integer, db.ForeignKey('materias.id'), nullable=False)
 	materia = db.relationship('Materia', back_populates='turmas')
 
-	professor_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
-	professor = db.relationship('Professor', secondary='turma_alunos', lazy='subquery',
+	professores = db.relationship('Professor', secondary='turma_professor', lazy='subquery',
         backref=db.backref('turmas', lazy=True))
 
 	postagens = db.relationship('Postagem', backref='turma')
@@ -62,3 +61,25 @@ class Turma(db.Model):
 	def dbDeleteAluno(self, aluno):
 		self.alunos.remove(aluno)
 		db.session.commit()
+	
+	def dbAddProfessor(self, professor):
+		self.professores.append(professor)
+		db.session.commit()
+
+	def dbDeleteProfessor(self, professor):
+		self.professores.remove(professor)
+		db.session.commit()
+	
+	def ehProfessor(self, id):
+		for prof in self.professores:
+			if prof.id == id:
+				return True
+		return False
+	
+	def getProfessor(self, id):
+		print(self.professores)
+		for prof in self.professores:
+			print(f"{prof.id} ?= {id}")
+			if int(prof.id) == int(id):
+				return prof
+		return None

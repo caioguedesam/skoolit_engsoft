@@ -24,5 +24,5 @@ class AdicionarAlunoTurmaForm(FlaskForm):
 	submit = SubmitField("Adicionar")
 
 class AdicionarProfessorTurmaForm(FlaskForm):
-    prof_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
+    professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Adicionar")

@@ -13,6 +13,10 @@
 		<h1 class="bold">{{turma.materia.nome}} - {{turma.titulo}} </h1>
 
 		<div class="mt-2">
+			<a href="{{url_for('turmas.listar_professores', id=turma.id)}}"
+			class="btn  mr-2" role="button">
+				Professores
+			</a>
 			<a href="{{url_for('turmas.listar_membros', id=turma.id)}}"
 			class="btn  mr-2" role="button">
 				Membros
@@ -29,8 +33,8 @@
 				Excluir
 			</a>
 			{% endif %}
-			{% if current_user.id == turma.professor_id %}
-			<a href="{{url_for('turmas.postar', id=turma.id)}}"
+			{% if ehProf %}
+			<a href="{{url_for('turmas.postar', id=turma.id, id_prof=current_user.id)}}"
 			class="btn ml-2" role="button">
 				Postar
 			</a>
@@ -93,9 +97,9 @@
 							<div class="perfil-circulo rounded-circle text-center">
 								<!-- Nome do post é o professor da turma. Talvez seja interessante
 								armazenar isso no post em si. -->
-								<b>{{ turma.professor.nome[0:2].upper() }}</b>
+								<b>{{ post.professor.nome[0:2].upper() }}</b>
 							</div>
-							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
+							<p class="autor-postagem card-text ml-3"><b>{{ post.professor.nome | capitalize}}</b></p>
 						</div>
 						<p class="card-text ml-2"><b>{{post.titulo}}</b></p>
 						<p class="card-text">{{post.texto}}</p>
