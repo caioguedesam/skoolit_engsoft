@@ -7,9 +7,14 @@
 	<div class="mt-3">
 		{% if request.path != '/' and request.path != '/index' %}
 			<div class="d-inline-block">
+				{% if current_user.papel == "adm" %}
 				<a class="navbar-btn mr-3" role="button" href="{{url_for('usuarios.listar')}}"><b>Usuarios</b></a>
 				<a class="navbar-btn mr-3" role="button" href="{{url_for('materias.listar')}}"><b>Materias</b></a>
 				<a class="navbar-btn mr-5" role="button" href="{{url_for('turmas.listar')}}"><b>Turmas</b></a>
+
+				{% else %}
+				<a class="navbar-btn mr-5" role="button" href="{{url_for('home')}}"><b>Turmas</b></a>
+				{% endif %}
 			</div>
 		{% endif %}
 		

@@ -4,18 +4,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='usuarios/listar_usuarios.css') }}">
 {% endblock %}
 
-{% block title %}Listar membros{% endblock %}
+{% block title %}Listar professores{% endblock %}
 
 {% block content %}
 <div class="container conteudo">
 	<div class="d-flex justify-content-between mb-5">
-		<h1 class="bold">{{ turma.titulo }} - Membros da turma</h1>
+		<h1 class="bold">{{ turma.titulo }} - Professores da turma</h1>
 
 		<div>
 			{% if current_user.papel == "adm" %}
-				<a href="{{url_for('turmas.adicionar_aluno', id=turma.id)}}"
+				<a href="{{url_for('turmas.adicionar_professor', id=turma.id)}}"
 					class="btn" role="button">
-					Adicionar aluno
+					Adicionar professor
 				</a>
 			{% endif %}
 		</div>
@@ -26,7 +26,7 @@
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
-					<th scope="col">Aluno</th>
+					<th scope="col">Professor</th>
 					<th scope="col">Email</th>
 					{% if current_user.papel == "adm" %}
 					<th scope="col">Ações</th>
@@ -34,13 +34,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for aluno in alunos %}
+				{% for professor in professores %}
 					<tr>
-						<th scope="row">{{aluno.id}}</th>
-						<td>{{aluno.nome}}</td>
-						<td>{{aluno.email}}</td>
+						<th scope="row">{{professor.id}}</th>
+						<td>{{professor.nome}}</td>
+						<td>{{professor.email}}</td>
 						{% if current_user.papel == "adm" %}
-						<td> <a href="{{url_for('turmas.remover_aluno', id=turma.id, id_aluno=aluno.id)}}">Remover</a></td>
+						<td> <a href="{{url_for('turmas.remover_professor', id=turma.id, id_professor=professor.id)}}">Remover</a></td>
 						{% endif %}
 					</tr>
 				{%endfor %}

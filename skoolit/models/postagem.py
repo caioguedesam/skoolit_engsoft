@@ -9,15 +9,17 @@ class Postagem(db.Model):
 	titulo = db.Column(db.String, nullable=False)
 	turma_id = db.Column(db.Integer, db.ForeignKey('turmas.id'), nullable=False)
 	professor_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
+	professor = db.relationship('Professor', backref=db.backref('postagem', lazy=True))
 
 	texto = db.Column(db.Text, nullable=False)
 	data = db.Column(db.DateTime, nullable=False)
 
-	def __init__(self, titulo, turma, professorId, texto, data):
+	def __init__(self, titulo, turma, professorId, professor, texto, data):
 		self.titulo = titulo
 		self.turma_id = turma.id
 		self.turma = turma
 		self.professor_id = professorId
+		self.professor = professor
 		self.texto = texto
 		self.data = data
 	

@@ -6,13 +6,11 @@ from wtforms.validators import DataRequired
 from skoolit.validators import CampoObrigatorio
 class CriarTurmaForm(FlaskForm):
     titulo = StringField("Título da turma: ", validators=[CampoObrigatorio()])
-    professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
     materia_id = SelectField("Matéria: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Criar")
 
 class AtualizarTurmaForm(FlaskForm):
     titulo = StringField("Título da turma: ", validators=[CampoObrigatorio()])
-    professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
     materia_id = SelectField("Matéria: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Atualizar")
 
@@ -34,3 +32,11 @@ class EditarModuloForm(FlaskForm):
 class AdicionarAlunoTurmaForm(FlaskForm):
 	aluno_id = SelectField("Aluno: ", validators=[CampoObrigatorio()])
 	submit = SubmitField("Adicionar")
+
+class AdicionarProfessorTurmaForm(FlaskForm):
+    professor_id = SelectField("Professor: ", validators=[CampoObrigatorio()])
+    submit = SubmitField("Adicionar")
+
+class AdicionarTurmaProfessorForm(FlaskForm):
+    turma_id = SelectField("Materia: ", validators=[CampoObrigatorio()])
+    submit = SubmitField("Inscrever")

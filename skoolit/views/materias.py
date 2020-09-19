@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for, request, Blueprint, flash
+from flask_login import login_required
 
 #local imports
 from skoolit import app
@@ -7,6 +8,11 @@ from skoolit.forms import CriarMateriaForm, AtualizarMateriaForm
 
 materias = Blueprint('materias',__name__, template_folder='templates/materias')
 
+
+@materias.before_request
+@login_required
+def exigirLogin():
+	pass
 
 @materias.route('/')
 def home():
