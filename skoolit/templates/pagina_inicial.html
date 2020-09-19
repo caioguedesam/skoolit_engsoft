@@ -1,0 +1,30 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='pagina_inicial.css') }}">
+{% endblock %}
+
+{% block content %}
+	<div class="d-flex justify-content-between" style="margin-left: 10vh; margin-right: 10vh">
+		<div class="d-flex flex-column justify-content-end">	
+			<h1><b>Skoolit.</b></h1>
+			<h4><b>A reformulação de ser escola</b></h4>
+			<p>Uma nova forma de aprender, uma nova maneira de educar</p>
+
+			<div class="d-flex">	
+				<a href="" class="btn pl-5 pr-5" style="font-weight: bold" role="button">
+					Matricule-se 
+				</a>
+				<span class="align-self-center ml-2"> 
+					ou 
+					<a href="{{url_for('auth.login')}}" style="text-decoration: none;">
+						<b>entrar</b>
+					</a>
+				</span>
+			</div>
+		</div>
+
+		<img src="{{ url_for('static', filename='undraw_study.svg') }}" width="50%" height="auto">
+	</div>
+
+{% endblock %}

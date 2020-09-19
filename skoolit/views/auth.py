@@ -41,7 +41,8 @@ def login():
 
 	return render_template('auth/login.html', title='Login', form=form, alert=None)
 
+
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('pagina_inicial'))

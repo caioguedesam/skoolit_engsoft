@@ -9,4 +9,7 @@ from skoolit import app
 @login_required
 def home():
 	return render_template('home.html')
-	
+
+@app.route('/pagina_inicial')
+def pagina_inicial():
+	return render_template('pagina_inicial.html')
