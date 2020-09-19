@@ -25,6 +25,8 @@ class Turma(db.Model):
         backref=db.backref('turmas', lazy=True))
 
 	postagens = db.relationship('Postagem', backref='turma')
+	modulos = db.relationship('Modulo', backref='turma')
+
 	alunos = db.relationship('Aluno', secondary='turma_alunos', lazy='subquery',
         backref=db.backref('turmas', lazy=True))
 
@@ -94,3 +96,6 @@ class Turma(db.Model):
 			if int(prof.id) == int(id):
 				return prof
 		return None
+
+	def dbGetPost(self, id):
+		self.postagens.query.filter_by(id=id).first_or_404()

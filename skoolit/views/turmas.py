@@ -4,10 +4,10 @@ from flask_login import login_required, current_user
 
 #local imports
 from skoolit import app
-from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno
+from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno, Modulo
 from skoolit.forms import (CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, 
 						   AdicionarAlunoTurmaForm, AdicionarProfessorTurmaForm,
-						   AdicionarTurmaProfessorForm)
+						   AdicionarTurmaProfessorForm, CriarModuloForm, EditarModuloForm)
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -50,9 +50,10 @@ def listar(id=None):
 	else:
 		turma = Turma.dbGetTurma(id)
 		postagens = Postagem.dbGetPostsByTurma(turma.id)
+		modulos = Modulo.dbGetModulosByTurma(turma.id)
 		ehProf = turma.ehProfessor(current_user.id)
 		return render_template('turmas/detalhes_turma.html', 
-							    turma=turma, postagens=postagens, ehProf=ehProf)
+							    turma=turma, postagens=postagens, ehProf=ehProf, modulos=modulos)
 
 @turmas.route('/listar-membros/<id>', methods=['POST', 'GET'])
 def listar_membros(id):
@@ -152,11 +153,15 @@ def excluir(id):
 
 @turmas.route('/postar/<id>/<id_prof>', methods=['POST', 'GET'])
 def postar(id, id_prof):
-	form = CriarPostForm()
-
 	turma = Turma.dbGetTurma(id)
 	prof = turma.getProfessor(id_prof)
 	data = datetime.today()
+
+	# Só professor/admin pode criar postagens
+	if(current_user.papel == 'al'):
+		return redirect(url_for('turmas.listar', id=turma.id))
+
+	form = CriarPostForm()
 
 	if form.validate_on_submit():
 		titulo = form.titulo.data
@@ -166,3 +171,46 @@ def postar(id, id_prof):
 		return redirect(url_for('turmas.listar', id=id))
 	return render_template('turmas/criar_postagem.html', form=form)
 
+@turmas.route('/criar-modulo/<id>', methods=['POST', 'GET'])
+def criarModulo(id):
+	turma = Turma.dbGetTurma(id)
+
+	# Só professor da turma pode criar módulo
+	if not turma.ehProfessor(current_user.id) :
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	form = CriarModuloForm()
+
+	if form.validate_on_submit():
+		titulo = form.titulo.data
+		texto = form.texto.data
+		novoModulo = Modulo(titulo=titulo, turma=turma, texto=texto)
+		novoModulo.dbAddModulo()
+		return redirect(url_for('turmas.listar', id=id))
+	return render_template('turmas/criar_modulo.html', form=form)
+
+@turmas.route('/editar-modulo/<id>/<modulo_id>', methods=['POST', 'GET'])
+def editarModulo(id, modulo_id):
+	turma = Turma.dbGetTurma(id)
+	if not turma.ehProfessor(current_user.id):
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	modulo = Modulo.dbGetModulo(modulo_id)
+	form = EditarModuloForm()
+
+	if form.validate_on_submit():
+		titulo = form.titulo.data
+		texto = form.texto.data
+		modulo.dbUpdateModulo(titulo=titulo, texto=texto)
+		return redirect(url_for('turmas.listar', id=turma.id))
+	return render_template('turmas/editar_modulo.html', form=form, modulo=modulo)
+
+
+@turmas.route('/excluir-modulo/<id>/<modulo_id>', methods=['POST', 'GET'])
+def excluirModulo(id, modulo_id):
+	turma = Turma.dbGetTurma(id)
+	if not turma.ehProfessor(current_user.id):
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	Modulo.dbDeleteModulo(modulo_id)
+	return redirect(url_for('turmas.listar', id=turma.id))
