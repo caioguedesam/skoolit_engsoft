@@ -12,10 +12,12 @@
 		<h1 class="bold">{{ turma.titulo }} - Membros da turma</h1>
 
 		<div>
+			{% if current_user.papel == "adm" %}
 				<a href="{{url_for('turmas.adicionar_aluno', id=turma.id)}}"
 					class="btn" role="button">
 					Adicionar aluno
 				</a>
+			{% endif %}
 		</div>
 	</div>
 	
@@ -26,7 +28,9 @@
 					<th scope="col">ID</th>
 					<th scope="col">Aluno</th>
 					<th scope="col">Email</th>
+					{% if current_user.papel == "adm" %}
 					<th scope="col">Ações</th>
+					{% endif %}
 				</tr>
 			</thead>
 			<tbody>
@@ -35,7 +39,9 @@
 						<th scope="row">{{aluno.id}}</th>
 						<td>{{aluno.nome}}</td>
 						<td>{{aluno.email}}</td>
+						{% if current_user.papel == "adm" %}
 						<td> <a href="{{url_for('turmas.remover_aluno', id=turma.id, id_aluno=aluno.id)}}">Remover</a></td>
+						{% endif %}
 					</tr>
 				{%endfor %}
 			</tbody>
