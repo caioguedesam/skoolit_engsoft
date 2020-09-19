@@ -20,6 +20,8 @@ class Turma(db.Model):
 	professor = db.relationship('Professor', back_populates='turmas')
 
 	postagens = db.relationship('Postagem', backref='turma')
+	modulos = db.relationship('Modulo', backref='turma')
+
 	alunos = db.relationship('Aluno', secondary='turma_alunos', lazy='subquery',
         backref=db.backref('turmas', lazy=True))
 
@@ -60,3 +62,6 @@ class Turma(db.Model):
 	def dbDeleteAluno(self, aluno):
 		self.alunos.remove(aluno)
 		db.session.commit()
+
+	def dbGetPost(self, id):
+		self.postagens.query.filter_by(id=id).first_or_404()
