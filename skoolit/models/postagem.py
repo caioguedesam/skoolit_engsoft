@@ -33,7 +33,7 @@ class Postagem(db.Model):
 		db.session.commit()
 
 	def dbDeletePost(id):
-		post = Turma.dbGetPost(id)
+		post = Postagem.dbGetPost(id)
 		db.session.delete(post)
 		db.session.commit()
 

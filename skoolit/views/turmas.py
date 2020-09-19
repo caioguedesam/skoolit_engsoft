@@ -189,6 +189,18 @@ def editarPostagem(id, post_id):
 		return redirect(url_for('turmas.listar', id=turma.id))
 	return render_template('turmas/editar_postagem.html', form=form, post=post)
 
+@turmas.route('/excluir-post/<id>/<post_id>')
+def excluirPostagem(id, post_id):
+	turma = Turma.dbGetTurma(id)
+	post = Postagem.dbGetPost(post_id)
+
+	# Só quem fez a postagem pode deletá-la
+	if current_user.id != post.professor_id:
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	Postagem.dbDeletePost(post_id)
+	return redirect(url_for('turmas.listar', id=turma.id))
+
 @turmas.route('/criar-modulo/<id>', methods=['POST', 'GET'])
 def criarModulo(id):
 	turma = Turma.dbGetTurma(id)
