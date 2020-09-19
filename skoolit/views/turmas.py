@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 #local imports
 from skoolit import app
 from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno, Modulo
-from skoolit.forms import (CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, 
+from skoolit.forms import (CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, EditarPostForm,
 						   AdicionarAlunoTurmaForm, AdicionarProfessorTurmaForm,
 						   AdicionarTurmaProfessorForm, CriarModuloForm, EditarModuloForm)
 
@@ -170,6 +170,36 @@ def postar(id, id_prof):
 		novaPostagem.dbAddPost()
 		return redirect(url_for('turmas.listar', id=id))
 	return render_template('turmas/criar_postagem.html', form=form)
+
+@turmas.route('/editar-post/<id>/<post_id>', methods=['POST', 'GET'])
+def editarPostagem(id, post_id):
+	turma = Turma.dbGetTurma(id)
+	post = Postagem.dbGetPost(post_id)
+	
+	# Só quem fez a postagem pode editar
+	if current_user.id != post.professor_id:
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	form = EditarPostForm()
+
+	if form.validate_on_submit():
+		titulo = form.titulo.data
+		texto = form.texto.data
+		post.dbUpdatePost(titulo=titulo, texto=texto)
+		return redirect(url_for('turmas.listar', id=turma.id))
+	return render_template('turmas/editar_postagem.html', form=form, post=post)
+
+@turmas.route('/excluir-post/<id>/<post_id>')
+def excluirPostagem(id, post_id):
+	turma = Turma.dbGetTurma(id)
+	post = Postagem.dbGetPost(post_id)
+
+	# Só quem fez a postagem pode deletá-la
+	if current_user.id != post.professor_id:
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	Postagem.dbDeletePost(post_id)
+	return redirect(url_for('turmas.listar', id=turma.id))
 
 @turmas.route('/criar-modulo/<id>', methods=['POST', 'GET'])
 def criarModulo(id):
