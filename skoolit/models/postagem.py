@@ -26,7 +26,12 @@ class Postagem(db.Model):
 	def dbAddPost(self):
 		db.session.add(self)
 		db.session.commit()
-	
+
+	def dbUpdatePost(self, titulo, texto):
+		self.titulo = titulo
+		self.texto = texto
+		db.session.commit()
+
 	def dbDeletePost(id):
 		post = Turma.dbGetPost(id)
 		db.session.delete(post)

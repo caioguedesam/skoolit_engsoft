@@ -19,6 +19,11 @@ class CriarPostForm(FlaskForm):
     texto = TextAreaField("Conteúdo da Postagem: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Postar")
 
+class EditarPostForm(FlaskForm):
+    titulo = StringField("Título da Postagem: ", validators=[CampoObrigatorio()])
+    texto = TextAreaField("Conteúdo da Postagem: ", validators=[CampoObrigatorio()])
+    submit = SubmitField("Atualizar")
+
 class CriarModuloForm(FlaskForm):
     titulo = StringField("Título do Módulo: ", validators=[CampoObrigatorio()])
     texto = TextAreaField("Conteúdo do Módulo: ", validators=[CampoObrigatorio()])
