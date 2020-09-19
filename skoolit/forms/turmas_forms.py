@@ -26,6 +26,11 @@ class CriarModuloForm(FlaskForm):
     texto = TextAreaField("Conteúdo do Módulo: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Criar")
 
+class EditarModuloForm(FlaskForm):
+    titulo = StringField("Título do Módulo: ", validators=[CampoObrigatorio()])
+    texto = TextAreaField("Conteúdo do Módulo: ", validators=[CampoObrigatorio()])
+    submit = SubmitField("Atualizar")
+
 class AdicionarAlunoTurmaForm(FlaskForm):
 	aluno_id = SelectField("Aluno: ", validators=[CampoObrigatorio()])
 	submit = SubmitField("Adicionar")

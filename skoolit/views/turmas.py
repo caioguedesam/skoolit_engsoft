@@ -5,7 +5,7 @@ from flask_login import current_user
 #local imports
 from skoolit import app
 from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno, Modulo
-from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, AdicionarAlunoTurmaForm, CriarModuloForm
+from skoolit.forms import CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, AdicionarAlunoTurmaForm, CriarModuloForm, EditarModuloForm
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -164,3 +164,28 @@ def criarModulo(id):
 		return redirect(url_for('turmas.listar', id=id))
 	return render_template('turmas/criar_modulo.html', form=form)
 
+@turmas.route('/editar-modulo/<id>/<modulo_id>', methods=['POST', 'GET'])
+def editarModulo(id, modulo_id):
+	turma = Turma.dbGetTurma(id)
+	if current_user.id != turma.professor_id:
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	modulo = Modulo.dbGetModulo(modulo_id)
+	form = EditarModuloForm()
+
+	if form.validate_on_submit():
+		titulo = form.titulo.data
+		texto = form.texto.data
+		modulo.dbUpdateModulo(titulo=titulo, texto=texto)
+		return redirect(url_for('turmas.listar', id=turma.id))
+	return render_template('turmas/editar_modulo.html', form=form, modulo=modulo)
+
+
+@turmas.route('/excluir-modulo/<id>/<modulo_id>', methods=['POST', 'GET'])
+def excluirModulo(id, modulo_id):
+	turma = Turma.dbGetTurma(id)
+	if current_user.id != turma.professor_id:
+		return redirect(url_for('turmas.listar', id=turma.id))
+	
+	Modulo.dbDeleteModulo(modulo_id)
+	return redirect(url_for('turmas.listar', id=turma.id))

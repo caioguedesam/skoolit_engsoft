@@ -20,12 +20,17 @@ class Modulo(db.Model):
 	def dbAddModulo(self):
 		db.session.add(self)
 		db.session.commit()
-	
+
 	def dbDeleteModulo(id):
-		modulo = Turma.dbGetModulo(id)
+		modulo = Modulo.dbGetModulo(id)
 		db.session.delete(modulo)
 		db.session.commit()
 
+	def dbUpdateModulo(self, titulo, texto):
+		self.titulo = titulo
+		self.texto = texto
+		db.session.commit()
+    
 	def dbGetAllModulos():
 		return Modulo.query.all()
 	
