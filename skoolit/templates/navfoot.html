@@ -5,7 +5,7 @@
 	<a href="{{url_for('home')}}"><img src="{{ url_for('static', filename='logo.svg') }}" alt="logo"></a>
 	
 	<div class="mt-3">
-		{% if request.path != '/' and request.path != '/index' and request.path != '/pagina_inicial' %}
+		{% if request.path != '/' and request.path != '/pagina_inicial' %}
 			<div class="d-inline-block">
 				{% if current_user.papel == "adm" %}
 				<a class="navbar-btn mr-3" role="button" href="{{url_for('usuarios.listar')}}"><b>Usuarios</b></a>
