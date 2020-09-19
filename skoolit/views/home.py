@@ -20,6 +20,7 @@ def home():
 		return 404
 
 # Página inicial bonita
-# @app.route('/')
-# def landing():
-# 	return render_template('home.html')
+@app.route('/')
+@app.route('/pagina_inicial')
+def landing():
+ 	return render_template('pagina_inicial.html')
