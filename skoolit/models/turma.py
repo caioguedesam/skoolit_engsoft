@@ -71,15 +71,26 @@ class Turma(db.Model):
 		db.session.commit()
 	
 	def ehProfessor(self, id):
+		# Retorna True se o professor com id 'id' é professor da turma
 		for prof in self.professores:
 			if prof.id == id:
 				return True
 		return False
+
+	def dbGetAllTurmaIdMateriaTitulo():
+		turmas = Turma.query.all()
+		lista = []
+		for turma in turmas:
+			turmaId = turma.id
+			turmaMateria = turma.materia.nome
+			turmaTitulo = turma.titulo
+			label = str(turmaMateria) + " - " + str(turmaTitulo)
+			choice = (turmaId, label)
+			lista.append(choice)
+		return lista
 	
 	def getProfessor(self, id):
-		print(self.professores)
 		for prof in self.professores:
-			print(f"{prof.id} ?= {id}")
 			if int(prof.id) == int(id):
 				return prof
 		return None

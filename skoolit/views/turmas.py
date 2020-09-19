@@ -6,7 +6,8 @@ from flask_login import login_required, current_user
 from skoolit import app
 from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno
 from skoolit.forms import (CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, 
-						   AdicionarAlunoTurmaForm, AdicionarProfessorTurmaForm)
+						   AdicionarAlunoTurmaForm, AdicionarProfessorTurmaForm,
+						   AdicionarTurmaProfessorForm)
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -113,16 +114,29 @@ def remover_aluno(id, id_aluno):
 
 @turmas.route('/adicionar-professor/<id>', methods=['POST', 'GET'])
 def adicionar_professor(id):
-	turma = Turma.dbGetTurma(id)
-	form = AdicionarProfessorTurmaForm()
-	form.professor_id.choices = Professor.dbGetAllProfIdNome()
+	if current_user.papel == 'prof':
+		prof = Usuario.dbGetUser(id)
+		form = AdicionarTurmaProfessorForm()
+		form.turma_id.choices = Turma.dbGetAllTurmaIdMateriaTitulo()
 
-	if form.validate_on_submit():
-		professor = Professor.dbGetUser(form.professor_id.data)
-		turma.dbAddProfessor(professor)
-		return redirect(url_for('turmas.listar_professores', id=turma.id))
+		if form.validate_on_submit():
+			turma = Turma.dbGetTurma(form.turma_id.data)
+			turma.dbAddProfessor(prof)
+			return redirect(url_for('home'))
 
-	return render_template('turmas/adicionar_professor_turma.html', form=form, turma=turma)
+		return render_template('turmas/adicionar_turma_professor.html', form=form, professor=prof)
+
+	else:
+		turma = Turma.dbGetTurma(id)
+		form = AdicionarProfessorTurmaForm()
+		form.professor_id.choices = Professor.dbGetAllProfIdNome()
+
+		if form.validate_on_submit():
+			professor = Professor.dbGetUser(form.professor_id.data)
+			turma.dbAddProfessor(professor)
+			return redirect(url_for('turmas.listar_professores', id=turma.id))
+
+		return render_template('turmas/adicionar_professor_turma.html', form=form, turma=turma)
 
 @turmas.route('/remover-professor/<id>/<id_professor>', methods=['POST', 'GET'])
 def remover_professor(id, id_professor):

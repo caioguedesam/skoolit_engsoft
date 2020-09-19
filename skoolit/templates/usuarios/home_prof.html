@@ -12,7 +12,7 @@
 		<h1 class="bold">Suas turmas</h1>
 
 		<div class="mt-2">		
-			<a href="{{url_for('turmas.criar')}}"
+			<a href="{{url_for('turmas.adicionar_professor', id=current_user.id)}}"
 				class="btn" role="button">
 				Inscrever-se
 			</a>
