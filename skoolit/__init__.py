@@ -27,7 +27,7 @@ Migrate(app, db, render_as_batch=True)
 
 # Definição do Sistema de Login
 loginManager = LoginManager(app)
-loginManager.login_view = 'auth.login'
+loginManager.login_view = 'pagina_inicial'
 loginManager.login_message = 'Login necessário para acessar esse conteúdo'
 
 # Registro de Blueprints/Views
