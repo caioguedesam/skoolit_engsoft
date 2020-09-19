@@ -133,7 +133,7 @@ def postar(id):
 
 	# Só professor/admin pode criar postagens
 	if(current_user.papel == 'al'):
-		return redirect(url_for('turmas.listar'), id=turma.id)
+		return redirect(url_for('turmas.listar', id=turma.id))
 
 	form = CriarPostForm()
 
@@ -152,7 +152,7 @@ def criarModulo(id):
 	
 	# Só professor/admin pode mudar módulos
 	if(current_user.papel == 'al'):
-		return redirect(url_for('turmas.listar'), id=turma.id)
+		return redirect(url_for('turmas.listar', id=turma.id))
 	
 	form = CriarModuloForm()
 
@@ -161,6 +161,6 @@ def criarModulo(id):
 		texto = form.texto.data
 		novoModulo = Modulo(titulo=titulo, turma=turma, texto=texto)
 		novoModulo.dbAddModulo()
-		return redirect(url_for('turmas.listar'))
+		return redirect(url_for('turmas.listar', id=id))
 	return render_template('turmas/criar_modulo.html', form=form)
 

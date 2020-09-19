@@ -47,10 +47,13 @@
 			{% for modulo in modulos %}
 			<div class="card modulos-turma">
 				<div class="card-body">
-					<h5 class="bold" class="card-title"> {{post.titulo}} </h5>
-					<p class="card-text">{{post.texto}}</p>
+					<h5 class="bold" class="card-title"> {{modulo.titulo}} </h5>
+					<p class="card-text" style="white-space: pre-line">{{modulo.texto}}</p>
 					<a href=# class="btn  mr-2" role="button">
 						Editar
+					</a>
+					<a href=# class="btn  mr-2" role="button">
+						Excluir
 					</a>
 				</div>
 			</div>
@@ -75,7 +78,7 @@
 							<p class="autor-postagem card-text ml-3"><b>{{turma.professor.nome | capitalize}}</b></p>
 						</div>
 						<p class="card-text ml-2"><b>{{post.titulo}}</b></p>
-						<p class="card-text">{{post.texto}}</p>
+						<p class="card-text" style="white-space: pre-line">{{post.texto}}</p>
 					</div>
 				</div>
 				{% endfor %}

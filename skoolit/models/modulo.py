@@ -5,12 +5,11 @@ class Modulo(db.Model):
 
 	__tablename__ = 'modulos'
 
-	id = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	titulo = db.Column(db.String, nullable=False)
 	turma_id = db.Column(db.Integer, db.ForeignKey('turmas.id'), nullable=False)
-    
+
 	texto = db.Column(db.Text, nullable=False)
-	data = db.Column(db.DateTime, nullable=False)
 
 	def __init__(self, titulo, turma, texto):
 		self.titulo = titulo
