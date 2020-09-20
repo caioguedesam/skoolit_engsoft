@@ -2,7 +2,11 @@
 
 {% block navbar %}
 <div class="navbar d-flex justify-content-between">
-	<a href="{{url_for('home')}}"><img src="{{ url_for('static', filename='logo.svg') }}" alt="logo"></a>
+	{% if current_user.is_anonymous %}
+		<a href="{{url_for('landing')}}"><img src="{{ url_for('static', filename='logo.svg') }}" alt="logo"></a>
+	{% else %}
+		<a href="{{url_for('home')}}"><img src="{{ url_for('static', filename='logo.svg') }}" alt="logo"></a>
+	{% endif %}
 	
 	<div class="mt-3">
 		{% if request.path != '/' and request.path != '/pagina_inicial' %}
@@ -41,3 +45,4 @@
 	</div>
 </div>
 {% endblock %}
+
