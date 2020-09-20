@@ -75,7 +75,7 @@ class Turma(db.Model):
 	def ehProfessor(self, id):
 		# Retorna True se o professor com id 'id' é professor da turma
 		for prof in self.professores:
-			if str(prof.id) == str(sid):
+			if str(prof.id) == str(id):
 				return True
 		return False
 
