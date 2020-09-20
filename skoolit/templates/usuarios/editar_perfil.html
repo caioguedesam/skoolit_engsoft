@@ -35,9 +35,9 @@
                         </p> 
                         <br>
 
-                        <div class="d-flex">
-                            <div class="col-5">
-                                <a href="{{url_for('usuarios.perfil', id=current_user.id)}}" class="btn">Cancelar</a>
+                        <div class="d-flex justify-content-between">
+                            <div class="mt-2">
+                                <a href="{{url_for('usuarios.perfil', id=current_user.id)}}" class="btn ml-2">Cancelar</a>
                                 {{form.submit(class="btn")}}
                             </div>
                         </div>
