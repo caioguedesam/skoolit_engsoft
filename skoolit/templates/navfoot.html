@@ -23,7 +23,9 @@
 		{% endif %}
 		
 		{% if current_user.is_anonymous %}
-			<a class="navbar-btn mr-3" href="{{url_for('auth.login')}}"><b>Fazer login</b></a>
+			{% if request.path != '/pagina_inicial' and request.path != '/' %}
+				<a class="navbar-btn mr-3" href="{{url_for('auth.login')}}"><b>Fazer login</b></a>
+			{% endif %}		
 
 		{% else %}
 			<div  class="dropdown show d-inline-block">
