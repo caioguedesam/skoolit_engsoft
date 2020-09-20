@@ -148,6 +148,9 @@ def matricula(id):
 		form.turma_id.choices = Turma.dbGetAllTurmaIdMateriaTitulo()
 		if form.validate_on_submit(): #adiciona aluno na turma
 			turma = Turma.dbGetTurma(form.turma_id.data)
+			if turma.ehAluno(id):
+				mensagem_erro = "Você já está matriculado na turma " + turma.materia.nome + " - " + turma.titulo + "."
+				return render_template('turmas/matricula.html', form=form, aluno=aluno, mensagem_erro=mensagem_erro)
 			turma.dbAddAluno(aluno)
 			return redirect(url_for('home'))
 		return render_template('turmas/matricula.html', form=form, aluno=aluno)
