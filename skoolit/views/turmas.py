@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, Blueprint, flash
 from flask_login import login_required, current_user
@@ -12,17 +13,14 @@ from skoolit.forms import (CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, Ed
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
-
 @turmas.before_request
 @login_required
 def exigirLogin():
 	pass
 
-
 @turmas.route('/')
 def home():
 	return render_template('home.html')
-
 
 def getAluno(idAluno):
 	aluno = Aluno.dbGetUser(idAluno)
@@ -41,6 +39,9 @@ def criar():
 
 	return render_template('turmas/criar_turma.html', form=form)
 
+def embed_url(video_url):
+        regex = r"(?:https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)"
+        return re.sub(regex, r"https://www.youtube.com/embed/\1",video_url)
 
 @turmas.route('/listar', methods=['POST', 'GET'])
 @turmas.route('/listar/<id>', methods=['POST', 'GET'])
@@ -54,7 +55,7 @@ def listar(id=None):
 		modulos = Modulo.dbGetModulosByTurma(turma.id)
 		ehProf = turma.ehProfessor(current_user.id)
 		return render_template('turmas/detalhes_turma.html', 
-							    turma=turma, postagens=postagens, ehProf=ehProf, modulos=modulos)
+							    turma=turma, postagens=postagens, ehProf=ehProf, modulos=modulos, embed_url=embed_url)
 
 @turmas.route('/listar-membros/<id>', methods=['POST', 'GET'])
 def listar_membros(id):
@@ -65,7 +66,6 @@ def listar_membros(id):
 def listar_professores(id):
 	turma = Turma.dbGetTurma(id)
 	return render_template('turmas/professores_turma.html', turma=turma, professores=turma.professores)
-
 
 @turmas.route('/atualizar/<id>', methods=['POST', 'GET'])
 def atualizar(id):
