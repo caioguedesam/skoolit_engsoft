@@ -45,3 +45,7 @@ class AdicionarProfessorTurmaForm(FlaskForm):
 class AdicionarTurmaProfessorForm(FlaskForm):
     turma_id = SelectField("Materia: ", validators=[CampoObrigatorio()])
     submit = SubmitField("Inscrever")
+
+class MatriculaAlunoTurma(FlaskForm):
+    turma_id = SelectField("Materia: ", validators=[CampoObrigatorio()])
+    submit = SubmitField("Matricular")
