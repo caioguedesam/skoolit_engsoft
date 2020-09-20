@@ -24,4 +24,8 @@ def home():
 @app.route('/')
 @app.route('/pagina_inicial')
 def landing():
- 	return render_template('pagina_inicial.html')
+	if(current_user.is_anonymous):
+		return render_template('pagina_inicial.html')
+ 	
+	else:
+		return redirect(url_for('home'))
