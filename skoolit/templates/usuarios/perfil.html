@@ -17,16 +17,16 @@
                 <div class="card-body">
                     
                     <p> <b>Nome: </b> {{usuario.nome}}</p>
+                    <p><b>email: </b> {{usuario.email}}</p> 
                     <p><b>ID: </b> {{usuario.id}}</p>
                     <p> <b>Papel: </b>
                         {% if usuario.papel == 'al' %} Aluno {% endif %}
                         {% if usuario.papel == 'prof' %} Professor {% endif %}
                         {% if usuario.papel == 'adm' %} Administrador {% endif %} 
                     </p> 
-                    <p><b>email: </b> {{usuario.email}}</p> 
                     <br>
                     <div class="mt-2">		
-                        <a href="{{url_for('turmas.matricula', id=current_user.id)}}"
+                        <a href="{{url_for('usuarios.editar_perfil', id=current_user.id)}}"
                             class="btn" role="button">
                             Editar Informações
                         </a>
