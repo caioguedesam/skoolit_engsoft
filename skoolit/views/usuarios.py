@@ -59,3 +59,8 @@ def atualizar(id):
 def excluir(id):
 	Usuario.dbDeleteUser(id)
 	return redirect(url_for('usuarios.listar'))
+
+@usuarios.route('/perfil/<id>', methods=['GET'])
+def perfil(id):
+	usuario = Usuario.dbGetUser(id)
+	return render_template('usuarios/perfil.html', usuario=usuario)
