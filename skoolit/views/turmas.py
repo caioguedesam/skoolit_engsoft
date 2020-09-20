@@ -140,17 +140,30 @@ def adicionar_professor(id):
 
 		return render_template('turmas/adicionar_professor_turma.html', form=form, turma=turma)
 
+def get_sugestoes_matricula(turmas): #TODO: melhorar sugestoes
+	resposta = []
+	for t in  turmas[0:3]:
+		resposta.append(t[1])
+	return resposta
+
 @turmas.route('/matricula/<id>', methods=['POST', 'GET'])
 def matricula(id):
 	if current_user.papel == 'al':
 		aluno = Usuario.dbGetUser(id)
+		turmas = Turma.dbGetAllTurmaIdMateriaTitulo()
+		sugestoes = get_sugestoes_matricula(turmas)
+		
 		form = MatriculaAlunoTurma()
-		form.turma_id.choices = Turma.dbGetAllTurmaIdMateriaTitulo()
+		form.turma_id.choices = turmas
+		
 		if form.validate_on_submit(): #adiciona aluno na turma
 			turma = Turma.dbGetTurma(form.turma_id.data)
+			if turma.ehAluno(id):
+				mensagem_erro = "Você já está matriculado na turma " + turma.materia.nome + " - " + turma.titulo + "."
+				return render_template('turmas/matricula.html', form=form, aluno=aluno, sugestoes = sugestoes, mensagem_erro=mensagem_erro)
 			turma.dbAddAluno(aluno)
 			return redirect(url_for('home'))
-		return render_template('turmas/matricula.html', form=form, aluno=aluno)
+		return render_template('turmas/matricula.html', form=form, aluno=aluno, sugestoes=sugestoes)
 		
 
 @turmas.route('/remover-professor/<id>/<id_professor>', methods=['POST', 'GET'])
