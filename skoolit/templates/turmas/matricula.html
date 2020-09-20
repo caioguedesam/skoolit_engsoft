@@ -20,24 +20,37 @@
 	<br>
 	{% endif %}
 
-	<form class="form-turma" method="POST">
+	<div class="row">
+		<div class="column col-6">
+			<form class="form-turma" method="POST">
+				<div class="d-flex flex-wrap justify-content-start align-items-start">
+					<div class="col-6 ml-2">
+						{{form.hidden_tag()}}
+						{{form.turma_id.label(class="form-label")}} 
+						{{form.turma_id(class="form-control")}}
+					</div>
+				</div>
+				<br>
+				<div class="d-flex">
+					<div class="col-6 mr-auto">
+						{{form.submit(class="btn")}}
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="column card card-postagens col-5 form-turma offset-1">
+			<p class="bold">Sugestões:</p>
+			{% for sugestao in sugestoes %}
+				<p>{{sugestao}}</p>
+			{% endfor %}
+			{% if sugestoes|length == 0  %}
+				<p>Nenhuma sugestão disponivel.</p>
+			{% endif %}
+		</div>
 
-		<div class="d-flex flex-wrap justify-content-start align-items-start">
-			<div class="col-5 ml-2">
-				{{form.hidden_tag()}}
-				{{form.turma_id.label(class="form-label")}} 
-				{{form.turma_id(class="form-control")}}
-			</div>
-		</div>
-		<br>
-		<div class="d-flex">
-			<div class="col-5 mr-auto">
-				{{form.submit(class="btn")}}
-			</div>
-		</div>
+	</div>
 	
-	</form>
-
 </div>
 
 
