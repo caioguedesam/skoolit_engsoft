@@ -32,7 +32,7 @@
 				</a>
 
 				<div class="card-menu dropdown-menu mt-2" aria-labelledby="dropdownMenuLink">
-					<a class="opcao-menu dropdown-item" href="#">Perfil</a>
+					<a class="opcao-menu dropdown-item" href="{{url_for('usuarios.perfil', id=current_user.id)}}">Perfil</a>
 					<a class="opcao-menu dropdown-item" href="#">Configuração</a>
 					<a class="opcao-menu dropdown-item" href="{{url_for('auth.logout')}}">Sair</a>
 				</div>
