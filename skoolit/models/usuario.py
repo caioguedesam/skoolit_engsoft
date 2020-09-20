@@ -42,6 +42,14 @@ class Usuario(UserMixin,db.Model):
 		self.nome = newNome
 		self.papel = newPapel
 		db.session.commit()
+	
+	def dbUpdateEmail(self, newEmail):
+		self.email = newEmail
+		db.session.commit()
+		
+	def dbUpdateNome(self, newNome):
+		self.nome = newNome
+		db.session.commit()
 
 	def dbDeleteUser(id):
 		usuario = Usuario.dbGetUser(id)
