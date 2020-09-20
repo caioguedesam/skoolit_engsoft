@@ -79,6 +79,13 @@ class Turma(db.Model):
 				return True
 		return False
 
+	def ehAluno(self, id):
+		# Retorna True se o aluno com id 'id' é aluno da turma
+		for aluno in self.alunos:
+			if str(aluno.id) == str(id):
+				return True
+		return False
+
 	def dbGetAllTurmaIdMateriaTitulo():
 		turmas = Turma.query.all()
 		lista = []
