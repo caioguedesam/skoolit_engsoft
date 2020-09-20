@@ -7,7 +7,8 @@ from skoolit import app
 from skoolit.models import Usuario, Professor, Materia, Turma, Postagem, Aluno, Modulo
 from skoolit.forms import (CriarTurmaForm, AtualizarTurmaForm, CriarPostForm, EditarPostForm,
 						   AdicionarAlunoTurmaForm, AdicionarProfessorTurmaForm,
-						   AdicionarTurmaProfessorForm, CriarModuloForm, EditarModuloForm)
+						   AdicionarTurmaProfessorForm, CriarModuloForm, EditarModuloForm,
+						   MatriculaAlunoTurma)
 
 turmas = Blueprint('turmas',__name__, template_folder='templates/turmas')
 
@@ -138,6 +139,19 @@ def adicionar_professor(id):
 			return redirect(url_for('turmas.listar_professores', id=turma.id))
 
 		return render_template('turmas/adicionar_professor_turma.html', form=form, turma=turma)
+
+@turmas.route('/matricula/<id>', methods=['POST', 'GET'])
+def matricula(id):
+	if current_user.papel == 'al':
+		aluno = Usuario.dbGetUser(id)
+		form = MatriculaAlunoTurma()
+		form.turma_id.choices = Turma.dbGetAllTurmaIdMateriaTitulo()
+		if form.validate_on_submit(): #adiciona aluno na turma
+			turma = Turma.dbGetTurma(form.turma_id.data)
+			turma.dbAddAluno(aluno)
+			return redirect(url_for('home'))
+		return render_template('turmas/matricula.html', form=form, aluno=aluno)
+		
 
 @turmas.route('/remover-professor/<id>/<id_professor>', methods=['POST', 'GET'])
 def remover_professor(id, id_professor):

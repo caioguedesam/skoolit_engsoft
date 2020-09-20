@@ -14,7 +14,8 @@ def home():
 		return render_template('usuarios/home_prof.html', 
 								turmas = current_user.turmas)		#Home do prof
 	elif current_user.papel == 'al':
-		return render_template('home.html')		#Home do aluno
+		return render_template('usuarios/home_aluno.html',
+								turmas = current_user.turmas)
 	else:
 		print('Papel de usuário não encontrado!')
 		return 404
