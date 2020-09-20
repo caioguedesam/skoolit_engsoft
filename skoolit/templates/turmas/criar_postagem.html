@@ -25,6 +25,14 @@
 
 		<div class="d-flex flex-wrap justify-content-start align-items-start">
 			<div class="col-5">
+				{{form.video.label(class="form-label")}} 
+				{{form.video(class="form-control", cols=15, rows=20)|safe}}
+				<br>
+			</div>
+		</div>
+
+		<div class="d-flex flex-wrap justify-content-start align-items-start">
+			<div class="col-5">
 				{{form.texto.label(class="form-label")}} 
 				{{form.texto(class="form-control", cols=15, rows=20)|safe}}
 				<br>

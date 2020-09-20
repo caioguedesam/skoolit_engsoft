@@ -17,11 +17,13 @@ class AtualizarTurmaForm(FlaskForm):
 class CriarPostForm(FlaskForm):
     titulo = StringField("Título da Postagem: ", validators=[CampoObrigatorio()])
     texto = TextAreaField("Conteúdo da Postagem: ", validators=[CampoObrigatorio()])
+    video = StringField("Link de Vídeo (Opcional): ", filters=[lambda x: x or None])
     submit = SubmitField("Postar")
 
 class EditarPostForm(FlaskForm):
     titulo = StringField("Título da Postagem: ", validators=[CampoObrigatorio()])
     texto = TextAreaField("Conteúdo da Postagem: ", validators=[CampoObrigatorio()])
+    video = StringField("Link de Vídeo (Opcional): ", filters=[lambda x: x or None])
     submit = SubmitField("Atualizar")
 
 class CriarModuloForm(FlaskForm):

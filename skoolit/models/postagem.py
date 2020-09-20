@@ -13,8 +13,9 @@ class Postagem(db.Model):
 
 	texto = db.Column(db.Text, nullable=False)
 	data = db.Column(db.DateTime, nullable=False)
+	video = db.Column(db.Text, nullable=True)
 
-	def __init__(self, titulo, turma, professorId, professor, texto, data):
+	def __init__(self, titulo, turma, professorId, professor, texto, data, video=None):
 		self.titulo = titulo
 		self.turma_id = turma.id
 		self.turma = turma
@@ -22,14 +23,16 @@ class Postagem(db.Model):
 		self.professor = professor
 		self.texto = texto
 		self.data = data
+		self.video = video
 	
 	def dbAddPost(self):
 		db.session.add(self)
 		db.session.commit()
 
-	def dbUpdatePost(self, titulo, texto):
+	def dbUpdatePost(self, titulo, texto, video=None):
 		self.titulo = titulo
 		self.texto = texto
+		self.video = video
 		db.session.commit()
 
 	def dbDeletePost(id):

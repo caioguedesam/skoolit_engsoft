@@ -85,6 +85,9 @@
 						</div>
 						<p class="card-text ml-2"><b>{{post.titulo}}</b></p>
 						<p class="card-text" style="white-space: pre-line">{{post.texto}}</p>
+						{% if post.video != None %}
+						<iframe width="450" height="315" src="{{post.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						{% endif %}
 						{% if ehProf and current_user.id == post.professor_id %}
 						<a href="{{url_for('turmas.editarPostagem', id=turma.id, post_id=post.id)}}" class="btn  mr-2" role="button">
 							Editar

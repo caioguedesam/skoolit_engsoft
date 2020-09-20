@@ -180,7 +180,8 @@ def postar(id, id_prof):
 	if form.validate_on_submit():
 		titulo = form.titulo.data
 		texto = form.texto.data
-		novaPostagem = Postagem(titulo=titulo, turma=turma, professorId=prof.id, professor=prof, texto=texto, data=data)
+		link = form.video.data
+		novaPostagem = Postagem(titulo=titulo, turma=turma, professorId=prof.id, professor=prof, texto=texto, data=data, video=link)
 		novaPostagem.dbAddPost()
 		return redirect(url_for('turmas.listar', id=id))
 	return render_template('turmas/criar_postagem.html', form=form)
@@ -199,7 +200,8 @@ def editarPostagem(id, post_id):
 	if form.validate_on_submit():
 		titulo = form.titulo.data
 		texto = form.texto.data
-		post.dbUpdatePost(titulo=titulo, texto=texto)
+		link = form.video.data
+		post.dbUpdatePost(titulo=titulo, texto=texto, video=link)
 		return redirect(url_for('turmas.listar', id=turma.id))
 	return render_template('turmas/editar_postagem.html', form=form, post=post)
 
