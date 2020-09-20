@@ -1,0 +1,40 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container conteudo">
+	<div class="d-flex justify-content-between mb-5">
+        <h1 class="bold">Perfil</h1>	        
+    </div>
+
+    <div class="row">
+        <div class="column col-5">
+            <div class="card modulos-turma">
+                <div class="card-body">
+                    
+                    <p> <b>Nome: </b> {{usuario.nome}}</p>
+                    <p><b>email: </b> {{usuario.email}}</p> 
+                    <p><b>ID: </b> {{usuario.id}}</p>
+                    <p> <b>Papel: </b>
+                        {% if usuario.papel == 'al' %} Aluno {% endif %}
+                        {% if usuario.papel == 'prof' %} Professor {% endif %}
+                        {% if usuario.papel == 'adm' %} Administrador {% endif %} 
+                    </p> 
+                    <br>
+                    <div class="mt-2">		
+                        <a href="{{url_for('usuarios.editar_perfil', id=current_user.id)}}"
+                            class="btn" role="button">
+                            Editar Informações
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

@@ -4,7 +4,7 @@ from flask_login import login_required
 
 #local imports
 from skoolit import app
-from skoolit.forms import CriarUsuarioForm, AtualizarUsuarioForm
+from skoolit.forms import CriarUsuarioForm, AtualizarUsuarioForm, EditarPerfilForm
 from skoolit.models import Usuario
 
 
@@ -59,3 +59,22 @@ def atualizar(id):
 def excluir(id):
 	Usuario.dbDeleteUser(id)
 	return redirect(url_for('usuarios.listar'))
+
+@usuarios.route('/perfil/<id>', methods=['GET'])
+def perfil(id):
+	usuario = Usuario.dbGetUser(id)
+	return render_template('usuarios/perfil.html', usuario=usuario)
+
+@usuarios.route('/editar_perfil/<id>', methods=['GET', 'POST'])
+def editar_perfil(id):
+	usuario = Usuario.dbGetUser(id)
+	form = EditarPerfilForm()
+	
+	if form.validate_on_submit(): 
+		if form.email.data != None and form.email.data != '':
+			usuario.dbUpdateEmail(form.email.data)
+		if form.nome.data != None and form.nome.data != '':
+			usuario.dbUpdateNome(form.nome.data)
+		return redirect(url_for('usuarios.perfil',id=id))
+
+	return render_template('usuarios/editar_perfil.html', usuario=usuario, form = form)

@@ -46,3 +46,8 @@ class AtualizarUsuarioForm(FlaskForm):
     nome = StringField("Nome de usuário: ", validators=[CampoObrigatorio()])
     senha = PasswordField('Senha', validators=[])
     submit = SubmitField("Atualizar")
+
+class EditarPerfilForm(FlaskForm):
+    nome = StringField("Nome: ", validators=[])
+    email = EmailField("E-mail: ", validators=[ValidarEmail()])
+    submit = SubmitField("Salvar")
