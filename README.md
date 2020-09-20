@@ -61,4 +61,3 @@ Link para o quadro scrum [aqui](https://www.notion.so/c8d063d8b5d14acc9a9753b623
 
 ## Arquitetura
 ![Diagrama de pacotes UML](https://drive.google.com/uc?export=view&id=1E-reJF9m6pdjns7_yjXq4wlQuw3BQtFv)
-

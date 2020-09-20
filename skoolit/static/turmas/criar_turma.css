@@ -1,0 +1,16 @@
+form .form-label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-turma {
+  background-color: var(--white);
+  border-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, .16);
+
+  padding: 20px 10px;
+  margin-bottom: 30px; 
+  
+  width: 100%;
+}

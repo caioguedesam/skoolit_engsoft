@@ -1,0 +1,107 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='turmas/detalhes_turma.css') }}">
+{% endblock %}
+
+{% block title %}{{turma.materia.nome}}{% endblock %}
+
+{% block content %}
+
+<div class="container conteudo">
+	<div class="d-flex justify-content-between mb-5">
+		<h1 class="bold">{{turma.materia.nome}} - {{turma.titulo}} </h1>
+
+		<div class="mt-2">
+			<a href="{{url_for('turmas.listar_professores', id=turma.id)}}"
+			class="btn  mr-2" role="button">
+				Professores
+			</a>
+			<a href="{{url_for('turmas.listar_membros', id=turma.id)}}"
+			class="btn  mr-2" role="button">
+				Membros
+			</a>
+			{% if current_user.papel == "adm" %}
+			<a href="{{url_for('turmas.atualizar', id=turma.id)}}"
+			class="btn  ml-2" role="button">
+				Editar
+			</a>
+			{% endif %}
+			{% if current_user.papel == "adm" %}
+			<a href="{{url_for('turmas.excluir', id=turma.id)}}"
+			class="btn ml-2" role="button">
+				Excluir
+			</a>
+			{% endif %}
+			{% if ehProf %}
+			<a href="{{url_for('turmas.postar', id=turma.id, id_prof=current_user.id)}}"
+			class="btn ml-2" role="button">
+				Postar
+			</a>
+			<a href="{{url_for('turmas.criarModulo', id=turma.id)}}"
+			class="btn ml-2" role="button">
+				Criar Módulo
+			</a>
+			{% endif %}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="column col-5">
+			{% for modulo in modulos %}
+			<div class="card modulos-turma">
+				<div class="card-body">
+					<h5 class="bold" class="card-title"> {{modulo.titulo}} </h5>
+					<p class="card-text" style="white-space: pre-line">{{modulo.texto}}</p>
+					{% if ehProf %}
+					<a href="{{url_for('turmas.editarModulo', id=turma.id, modulo_id=modulo.id)}}" class="btn  mr-2" role="button">
+						Editar
+					</a>
+					<a href="{{url_for('turmas.excluirModulo', id=turma.id, modulo_id=modulo.id)}}" class="btn  mr-2" role="button">
+						Excluir
+					</a>
+					{% endif %}
+				</div>
+			</div>
+			{% endfor %}	
+		</div>
+
+		<div class="column card card-postagens col-6 offset-1">
+			<div class="card-body">
+				<h5 class="bold" class="card-title mb-4"> Postagens</h5>
+				{% for post in postagens %}
+				<div class="card card-postagem mx-auto">
+					<div class="card-body">
+						<div class="data float-right">
+							<p >{{post.data.strftime('%d/%m/%Y, %H:%M')}}</p>
+						</div>
+						<div class="perfil-postagem mb-3">
+							<div class="perfil-circulo rounded-circle text-center">
+								<!-- Nome do post é o professor da turma. Talvez seja interessante
+								armazenar isso no post em si. -->
+								<b>{{ post.professor.nome[0:2].upper() }}</b>
+							</div>
+							<p class="autor-postagem card-text ml-3"><b>{{ post.professor.nome | capitalize}}</b></p>
+						</div>
+						<p class="card-text ml-2"><b>{{post.titulo}}</b></p>
+						<p class="card-text" style="white-space: pre-line">{{post.texto}}</p>
+						{% if post.video != None %}
+						<iframe width="450" height="315" src="{{embed_url(post.video)}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						{% endif %}
+						{% if ehProf and current_user.id == post.professor_id %}
+						<a href="{{url_for('turmas.editarPostagem', id=turma.id, post_id=post.id)}}" class="btn  mr-2" role="button">
+							Editar
+						</a>
+						<a href="{{url_for('turmas.excluirPostagem', id=turma.id, post_id=post.id)}}" class="btn  mr-2" role="button">
+							Excluir
+						</a>
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

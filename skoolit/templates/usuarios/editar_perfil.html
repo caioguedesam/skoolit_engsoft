@@ -1,0 +1,55 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+
+{% block title %}{{ usuario.nome }} - Perfil{% endblock %}
+
+{% block content %}
+
+<div class="container conteudo">
+	<div class="d-flex justify-content-between mb-5">
+        <h1 class="bold">Perfil</h1>	        
+    </div>
+
+    <div class="row">
+        <div class="column col-5">
+            <div class="card modulos-turma">
+                <div class="card-body">
+                    
+                    <form class="form-turma" method="POST">
+
+                        {{form.hidden_tag()}}
+                        <p>
+                            {{form.nome.label(class="form-label bold")}}
+                            {{form.nome(class="form-control", size=40)}}
+                        </p>
+                        <p>
+                            {{form.email.label(class="form-label bold")}} 
+                            {{form.email(class="form-control", size=40)}}
+                        </p>
+                        <p><b>ID: </b> {{usuario.id}}</p>
+                        <p> <b>Papel: </b>
+                            {% if usuario.papel == 'al' %} Aluno {% endif %}
+                            {% if usuario.papel == 'prof' %} Professor {% endif %}
+                            {% if usuario.papel == 'adm' %} Administrador {% endif %} 
+                        </p> 
+                        <br>
+
+                        <div class="d-flex justify-content-between">
+                            <div class="mt-2">
+                                <a href="{{url_for('usuarios.perfil', id=current_user.id)}}" class="btn ml-2">Cancelar</a>
+                                {{form.submit(class="btn")}}
+                            </div>
+                        </div>
+                    
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

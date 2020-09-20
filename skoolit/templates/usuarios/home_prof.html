@@ -1,0 +1,43 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='turmas/listar_turmas.css') }}">
+{% endblock %}
+
+{% block title %}Skoolit - Home{% endblock %}
+
+{% block content %}
+<div class="container conteudo">
+	<div class="d-flex justify-content-between mb-5">
+		<h1 class="bold">Suas turmas</h1>
+
+		<div class="mt-2">		
+			<a href="{{url_for('turmas.adicionar_professor', id=current_user.id)}}"
+				class="btn" role="button">
+				Inscrever-se
+			</a>
+		</div>
+	</div>
+
+	<div class="row">
+		{% for turma in turmas %}
+			<div class="card turma">
+				<div class="badge">
+					{{turma.titulo[:3]|upper}}
+				</div>
+				<div class="card-body">
+					<h5 class="card-title text-center"> 
+						<a class="turma-nome" href="{{url_for('turmas.listar', id=turma.id)}}">{{turma.materia.nome}}</a>
+					</h5>
+					<div class="text-center">
+						<a href="{{url_for('turmas.listar', id=turma.id)}}" class="card-link">Info</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	{% if turmas|length == 0  %}
+		<p>Você não leciona em nenhuma turma.</p>
+	{% endif %}
+</div>
+{% endblock %}

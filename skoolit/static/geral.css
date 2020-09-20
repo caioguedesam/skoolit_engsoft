@@ -1,0 +1,45 @@
+html {
+  --background: #EFEEEE;
+  --background-card: #A2A2A2;
+  --white: #F8F8F8 !important;
+
+  --accent: #6B6B6B;
+  --accent-hover: #585858;
+
+  --font: #6B6B6B;
+}
+
+body {
+  background-color: var(--background);
+}
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+  color: var(--font);
+}
+
+.container.conteudo {
+  margin-top: 120px;
+}
+
+.btn {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: var(--white);
+  border-radius: 8px;
+  padding: 10px 15px;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, .2);
+  outline: none !important;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+  color: var(--white);
+  outline: none !important;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, .2);
+}
+
+.bold {
+  font-weight: bold;
+}

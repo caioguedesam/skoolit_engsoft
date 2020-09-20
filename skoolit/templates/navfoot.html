@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="navbar d-flex justify-content-between">
+	{% if current_user.is_anonymous %}
+		<a href="{{url_for('landing')}}"><img src="{{ url_for('static', filename='logo.svg') }}" alt="logo"></a>
+	{% else %}
+		<a href="{{url_for('home')}}"><img src="{{ url_for('static', filename='logo.svg') }}" alt="logo"></a>
+	{% endif %}
+	
+	<div class="mt-3">
+		{% if request.path != '/' and request.path != '/pagina_inicial' %}
+			<div class="d-inline-block">
+				{% if current_user.papel == "adm" %}
+				<a class="navbar-btn mr-3" role="button" href="{{url_for('usuarios.listar')}}"><b>Usuarios</b></a>
+				<a class="navbar-btn mr-3" role="button" href="{{url_for('materias.listar')}}"><b>Materias</b></a>
+				<a class="navbar-btn mr-5" role="button" href="{{url_for('turmas.listar')}}"><b>Turmas</b></a>
+
+				{% else %}
+				<a class="navbar-btn mr-5" role="button" href="{{url_for('home')}}"><b>Turmas</b></a>
+				{% endif %}
+			</div>
+		{% endif %}
+		
+		{% if current_user.is_anonymous %}
+			{% if request.path != '/pagina_inicial' and request.path != '/' %}
+				<a class="navbar-btn mr-3" href="{{url_for('auth.login')}}"><b>Fazer login</b></a>
+			{% endif %}		
+
+		{% else %}
+			<div  class="dropdown show d-inline-block">
+
+				<p class="mr-3 d-inline-block"><b>{{ current_user.nome }}</b></p>
+				<a class="perfil-menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div class="perfil-circulo rounded-circle text-center">
+						<b>{{ current_user.nome[0:2].upper()}}</b>
+					</div>
+				</a>
+
+				<div class="card-menu dropdown-menu mt-2" aria-labelledby="dropdownMenuLink">
+					<a class="opcao-menu dropdown-item" href="{{url_for('usuarios.perfil', id=current_user.id)}}">Perfil</a>
+					<a class="opcao-menu dropdown-item" href="#">Configuração</a>
+					<a class="opcao-menu dropdown-item" href="{{url_for('auth.logout')}}">Sair</a>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+

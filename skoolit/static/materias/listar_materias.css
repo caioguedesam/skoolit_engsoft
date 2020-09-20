@@ -1,0 +1,28 @@
+.materia-nome {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.badge {
+  background-color: var(--white);
+  color: var(--font);
+  position: absolute; 
+  right: 0; 
+  margin: 8px 8px; 
+}
+
+.card.materia{
+  background-color: var(--background-card);
+  border-color: var(--background-card);
+  border-radius: 5px;
+  margin: 0px 10px 30px 10px; 
+  height: 100px;
+  width: 265px;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.16);
+}
+
+.card.materia a {
+  /* color: inherit; */
+  color: var(--white);
+  text-decoration: none;
+}

@@ -1,0 +1,58 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='turmas/criar_turma.css') }}">
+{% endblock %}
+
+{% block title %}Editar Postagem{% endblock %}
+
+{% block content %}
+
+<div class="container conteudo">
+	<div class="d-flex justify-content-between mb-5">
+		<h1 class="bold">Editar Postagem</h1>
+	</div>
+
+	<form class="form-turma" method="POST">
+		<div class="d-flex">
+			<div class="col-5 mr-auto">
+				{{form.hidden_tag()}}
+				{{form.titulo.label(class="form-label")}}
+				{{form.titulo(class="form-control", size=40, value=post.titulo)}}
+				<br>
+			</div>
+		</div>
+
+		<div class="d-flex">
+			<div class="col-5 mr-auto">
+				{{form.hidden_tag()}}
+				{{form.video.label(class="form-label")}}
+				{% if post.video != None %}
+				{{form.video(class="form-control", size=40, value=post.video)}}
+				{% else %}
+				{{form.video(class="form-control", size=40)}}
+				{% endif %}
+				<br>
+			</div>
+		</div>
+
+		<div class="d-flex flex-wrap justify-content-start align-items-start">
+			<div class="col-5">
+				{{form.texto.label(class="form-label")}} 
+				<!-- Falta colocar texto padrão que já estava na postagem na hora de editar -->
+				{{form.texto(class="form-control", cols=15, rows=20)|safe}}
+				<br>
+			</div>
+		</div>
+		<br>
+		<div class="d-flex">
+			<div class="col-5 mr-auto">
+				{{form.submit(class="btn")}}
+			</div>
+		</div>
+	
+	</form>
+
+</div>
+
+{% endblock %}

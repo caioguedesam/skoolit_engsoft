@@ -1,0 +1,53 @@
+{% extends "navfoot.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='usuarios/listar_usuarios.css') }}">
+{% endblock %}
+
+{% block title %}Listar membros{% endblock %}
+
+{% block content %}
+<div class="container conteudo">
+	<div class="d-flex justify-content-between mb-5">
+		<h1 class="bold">{{ turma.titulo }} - Membros da turma</h1>
+
+		<div>
+			{% if current_user.papel == "adm" %}
+				<a href="{{url_for('turmas.adicionar_aluno', id=turma.id)}}"
+					class="btn" role="button">
+					Adicionar aluno
+				</a>
+			{% endif %}
+		</div>
+	</div>
+	
+	<div class="card usuarios pl-5 pr-5 pt-5 pb-2">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Aluno</th>
+					<th scope="col">Email</th>
+					{% if current_user.papel == "adm" %}
+					<th scope="col">Ações</th>
+					{% endif %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for aluno in alunos %}
+					<tr>
+						<th scope="row">{{aluno.id}}</th>
+						<td>{{aluno.nome}}</td>
+						<td>{{aluno.email}}</td>
+						{% if current_user.papel == "adm" %}
+						<td> <a href="{{url_for('turmas.remover_aluno', id=turma.id, id_aluno=aluno.id)}}">Remover</a></td>
+						{% endif %}
+					</tr>
+				{%endfor %}
+			</tbody>
+		</table>
+
+	</div>
+</div>
+{% endblock %}
+	
