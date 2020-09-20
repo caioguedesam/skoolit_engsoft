@@ -6,6 +6,7 @@ Integrantes:
 - Gabriel Victor Carvalho
 - Guilherme Bezerra
 - Lucas Brant
+- Luiz Felipe Mascarenhas Dalle Nery
 ---
 ## Especificações
 ### Descrição:
@@ -24,37 +25,39 @@ Os commits podem ser verificados em cada uma dessas branches.
 ---
 ## Sprint Planning
 ### Histórias
-##### 1. Banco de Dados (1 Tulio)
+#### USUÁRIO
+##### Login no sistema
+> Como usuário, eu gostaria de entrar (fazer login) no sistema com e-mail e senha.
+##### Visualizar informações
+> Como usuário, eu gostaria de visualizar minhas principais informações, tais como turmas e disciplinas matriculadas, numa página inicial.
+##### Visualizar postagens
+> Como usuário, eu gostaria de ver as postagens nas turmas que estou inscrito.
+##### Personalizar perfil
+> Como usuário, eu gostaria de personalizar meu perfil com informações como nome, e-mail, senha e foto de perfil.
 
-- Modelagem UML
-- Criação das tabelas
+#### ADMINISTRADOR
+##### Gerenciar usuários, matérias e turmas
+> Como administrador, eu gostaria de cadastrar e gerenciar professores, alunos, disciplinas e turmas da escola.
 
-##### 2. Login (2 Tulios)
+#### ALUNO
+##### Visualizar turmas disponíveis
+> Como aluno, eu gostaria de ser capaz de ver as turmas disponíveis para inscrição e gostaria de ser capaz de me inscrever em uma turma disponível, caso cumpra os pré-requisitos e hajam vagas.
 
-- Página de login
-- Sistema de login
+#### PROFESSOR
+##### Criar postagem
+> Como professor, eu gostaria de criar postagens nas turmas no qual eu sou professor. Em uma postagem, deve ser possível colocar uma mensagem de texto.
+---
 
-##### 3. Página Inicial (3 Tulios)
-
-- Tarefas pendentes
-- Matérias matriculadas
-- Botões para outras páginas
-- Deslogar
-
-##### 4. Página de Perfil (4 Tulios)
- 
-- Matricular em matérias
-- Visualização de dados do usuário
-- Alteração de dados do usuário
-
-##### 5. Página de Matérias (8 Tulios)
-
-- Informações da matéria
-- Atividades e materiais
-- Aulas
+## Responsáveis
+* Guilherme: Banco de dados e integração básica do sistema
+* Lucas: Página e funcionalidade inicial
+* Luiz: Página e funcionalidade de perfil e de alunos
+* Arthur: Página e funcionalidade de login no sistema
+* Gabriel: Página e funcionalidade de matérias/turmas
+* Caio: Página e funcionalidade de professores
+---
 
 Link para o quadro scrum [aqui](https://www.notion.so/c8d063d8b5d14acc9a9753b623f2b15e?v=227ee1429a3b48ab828c705b3d6c29e4 "Quadro SCRUM")
 
 ## Arquitetura
 ![Diagrama de pacotes UML](https://drive.google.com/uc?export=view&id=1E-reJF9m6pdjns7_yjXq4wlQuw3BQtFv)
-
