@@ -9,3 +9,6 @@ wtforms
 email_validator
 requests
 Werkzeug
+
+pytest
+pytest-mock
