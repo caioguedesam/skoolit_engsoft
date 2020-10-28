@@ -51,7 +51,7 @@ class TestTurmaModuloIntegracao:
 		db.drop_all()
 
 	# Teste de integração entre turma, módulos e banco de dados
-	def test_turma_dbAddTurma(self):
+	def test_turma_dbAddModulo(self):
 		turmas = Turma.dbGetAllTurma()
 
 		# Cria matéria e turma, como no teste anterior
