@@ -37,7 +37,6 @@ class TestLoginMock:
         rv = login(client, "qualquer", "qualquer")
         assert b'Administrar' in rv.data
         
-
 class TestLoginLogout:
     def test_login_nome_logout(self, client):
         rv = login(client, "admin", "admin")

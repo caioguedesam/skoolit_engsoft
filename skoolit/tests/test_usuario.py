@@ -2,7 +2,7 @@ import os
 import tempfile
 
 import pytest
-from skoolit import app, db
+from skoolit import app
 from skoolit.models import Usuario
 
 
@@ -26,14 +26,13 @@ class TestUsuario:
 class TestUsuarioDbCriar:
     def setUp(self):
         # Criação BD temporário, para não interferir no BD do sistema
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test.sqlite')
-        TESTING = True
-        db.create_all()
+        self.db_fd, app.config['DATABASE'] = tempfile.mkstemp()
         
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+        self.db_fd.session.remove()
+        self.db_fd.drop_all()
+        os.close(self.db_fd)
+        os.unlink(app.config['DATABASE'])
 
     def test_usuario_create_simples(self):
         user = Usuario("email@email.com","adm","Joao","123456")
@@ -45,3 +44,5 @@ class TestUsuarioDbCriar:
         assert result.papel == user.papel
         assert result.validarSenha("123456") == True
         assert result.email == user.email
+        
+        Usuario.dbDeleteUser(userId)
