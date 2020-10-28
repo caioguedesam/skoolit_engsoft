@@ -3,19 +3,20 @@ import tempfile
 
 import pytest
 from skoolit import app, db
-from skoolit.models import Usuario, Turma, Materia
+from skoolit.models import Usuario, Turma, Materia, Postagem, Aluno, Professor
 
 
 class TestUsuarioUnit:
     def setUp(self):
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test.sqlite')
-        TESTING = True
-        db.create_all()
+        #cria banco de dados para teste
+        self.db_fd, app.config['DATABASE'] = tempfile.mkstemp()
         
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+        #volta para o estado original
+        self.db_fd.session.remove()
+        self.db_fd.drop_all()
+        os.close(self.db_fd)
+        os.unlink(app.config['DATABASE'])
 
     def test_update_usuario(self):
         user = Usuario("email@email.com","adm","Joao","123456")
@@ -65,14 +66,15 @@ class TurmaMock:
 
 class TestMatriculaMock:
     def setUp(self):
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test.sqlite')
-        TESTING = True
-        db.create_all()
+        #cria banco de dados para teste
+        self.db_fd, app.config['DATABASE'] = tempfile.mkstemp()
         
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+        #volta para o estado original
+        self.db_fd.session.remove()
+        self.db_fd.drop_all()
+        os.close(self.db_fd)
+        os.unlink(app.config['DATABASE'])
 
     def test_matricula_mock(self, mocker):
         mocker.patch('skoolit.models.Turma.dbGetTurma', return_value=TurmaMock())
@@ -88,34 +90,57 @@ class TestMatriculaMock:
 
 class TestIntegracao:
     def setUp(self):
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test.sqlite')
-        TESTING = True
-        db.create_all()
+        #cria banco de dados para teste
+        self.db_fd, app.config['DATABASE'] = tempfile.mkstemp()
         
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-
-    def test_Turma_Materia_integracao(self):
+        #volta para o estado original
+        self.db_fd.session.remove()
+        self.db_fd.drop_all()
+        os.close(self.db_fd)
+        os.unlink(app.config['DATABASE'])
+    
+    def test_Turma_Materia_Aluno_integracao(self):
         materia = Materia('EngS')
         materia.dbAddMateria()
         
-        turma = Turma('ES', materia)
+        turma = Turma('EngS', materia)
         turma.dbAddTurma()
-       
-        assert turma.materia.nome == materia.nome
+
+        aluno1 = Aluno("email@email.com","al","Joao","123456")
+        aluno2 = Aluno("email2@email.com","al","Joao2","123456")
+        aluno1.dbAddUser()
+        aluno2.dbAddUser()
+
+        turma.dbAddAluno(aluno1)
+
+        assert turma.ehAluno(aluno1.id)
+        assert False == turma.ehAluno(aluno2.id)
 
         Turma.dbDeleteTurma(turma.id)
         Materia.dbDeleteMateria(materia.id)
-
-
+        Usuario.dbDeleteUser(aluno1.id)
+        Usuario.dbDeleteUser(aluno2.id)
+       
+    def test_Turma_Materia_Professor_integracao(self):
+        materia = Materia('EngS')
+        materia.dbAddMateria()
         
+        turma = Turma('EngS', materia)
+        turma.dbAddTurma()
 
+        prof1 = Professor("email1@email.com","prof","DrJoao1","123456")
+        prof2 = Professor("email2@email.com","prof","DrJoao2","123456")
+        prof1.dbAddUser()
+        prof2.dbAddUser()
 
+        turma.dbAddProfessor(prof1)
 
+        assert turma.ehProfessor(prof1.id)
+        assert False == turma.ehProfessor(prof2.id)
 
-# Mock: Teste matricula mockando Mock teste mockando
-
-# Teste te integração: Simular matricula
-
+        Turma.dbDeleteTurma(turma.id)
+        Materia.dbDeleteMateria(materia.id)
+        Usuario.dbDeleteUser(prof1.id)
+        Usuario.dbDeleteUser(prof2.id)
+    
